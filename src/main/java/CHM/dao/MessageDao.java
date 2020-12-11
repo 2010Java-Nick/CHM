@@ -2,6 +2,8 @@ package CHM.dao;
 
 import java.util.List;
 
+import CHM.model.Message;
+
 public interface MessageDao {
 	
 public int insertProfile(Message message);

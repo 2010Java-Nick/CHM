@@ -2,6 +2,8 @@ package CHM.dao;
 
 import java.util.List;
 
+import CHM.model.Match;
+
 public interface MatchDao {
 	
 	public int insertProfile(Match match);
