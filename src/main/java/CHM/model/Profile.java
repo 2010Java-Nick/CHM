@@ -50,7 +50,7 @@ public class Profile {
 	private String bio;
 	
 	@Column(name = "interests_id")
-	private Interests interests;
+	private Interest interests;
 	
 	//TODO make this better
 	@Column(name = "photo")

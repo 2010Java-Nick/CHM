@@ -12,14 +12,15 @@ import javax.persistence.Id;
  * @author Work From Home
  *
  */
-public class Interests {
+public class Interest {
 	
 	//Long list of interests
+	//TODO set this up as a single interest and decide on what info needs to be here
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "interests_id")
-	private int interestsId;
+	@Column(name = "interest_id")
+	private int interestId;
 	
 	@Column(name = "theater")
 	private boolean theater;

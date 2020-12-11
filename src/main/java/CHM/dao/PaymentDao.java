@@ -2,6 +2,8 @@ package CHM.dao;
 
 import java.util.List;
 
+import CHM.model.Payment;
+
 public interface PaymentDao {
 	
 public int insertProfile(Payment payment);
