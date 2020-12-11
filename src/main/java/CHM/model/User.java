@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
- * @author Work From Home
+ * @author Group 3
  *
  */
 @Entity
