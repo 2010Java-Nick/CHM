@@ -16,10 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import CHM.config.AppConfig;
 import CHM.config.TestConfig;
 import CHM.dao.ProfileDao;
+import CHM.model.Profile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= AppConfig.class)
-public class ProfileDaoHibernate {
+public class ProfileDaoHibernateTest {
 	
 	@Autowired
 	ProfileDao profileDao;
@@ -42,7 +43,7 @@ public class ProfileDaoHibernate {
 	
 	@Test
 	public void testSelectProfile() {
-		fail("Not yet implemented");
+		Profile toTest = new Profile
 	}
 
 	@Test
