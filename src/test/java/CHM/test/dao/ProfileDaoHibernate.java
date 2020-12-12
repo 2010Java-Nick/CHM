@@ -8,12 +8,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import CHM.config.AppConfig;
+import CHM.config.TestConfig;
+import CHM.dao.ProfileDao;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= {})
+@ContextConfiguration(classes= AppConfig.class)
 public class ProfileDaoHibernate {
+	
+	@Autowired
+	ProfileDao profileDao;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -32,7 +40,7 @@ public class ProfileDaoHibernate {
 	}
 
 	@Test
-	public void create() {
+	public void testInsertProfile() {
 		fail("Not yet implemented");
 	}
 
