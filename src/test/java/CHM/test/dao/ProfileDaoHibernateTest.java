@@ -25,6 +25,7 @@ public class ProfileDaoHibernateTest {
 	@Autowired
 	ProfileDao profileDao;
 
+	private Profile toTest;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -35,6 +36,8 @@ public class ProfileDaoHibernateTest {
 
 	@Before
 	public void setUp() throws Exception {
+		//TODO: get this into mocked DB or test DB
+		toTest = new Profile(101, "test", "test", null, null, 0, null, null);
 	}
 
 	@After
@@ -43,12 +46,16 @@ public class ProfileDaoHibernateTest {
 	
 	@Test
 	public void testSelectProfile() {
-		Profile toTest = new Profile
+		
+		Profile returned = profileDao.selectProfile(toTest.getProfileId());
+		
+		assertEquals(returned.getProfileId(), toTest.getProfileId());
 	}
 
 	@Test
 	@Rollback(true)
 	public void testInsertProfile() {
+		
 		fail("Not yet implemented");
 	}
 
