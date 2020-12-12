@@ -90,4 +90,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '8.0.47'
 	
+	// https://mvnrepository.com/artifact/org.springframework/spring-web
+compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+	
+	
 }

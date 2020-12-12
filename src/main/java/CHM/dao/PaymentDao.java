@@ -4,16 +4,19 @@ import java.util.List;
 
 import CHM.model.Payment;
 
+
 public interface PaymentDao {
 	
-	public int insertProfile(Payment payment);
+	public int insertPayment(Payment payment);
 	
-	public Payment selectProfile(int paymentInt);
+	public Payment selectPayment(int paymentInt);
 	
-	public List<Payment> selectAllProfiles();
+	public Payment selectPaymentByUserId(int userId);
 	
-	public Payment updateUser(int paymentId, Payment payment);
+	public List<Payment> selectAllPayments();
 	
-	public boolean deleteProfile(Payment payment);
+	public Payment updatePayment(int paymentId, Payment payment);
+	
+	//public boolean deleteProfile(Payment payment);
 
 }

@@ -30,6 +30,9 @@ public class AppConfig implements WebApplicationInitializer {
 	
 	@Override
 	public void onStartup(ServletContext container) {
+		
+		System.out.println("creating servlet and web cntainer");
+		
 		//create the 'root' Spring Application Context
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.register(AppConfig.class);
