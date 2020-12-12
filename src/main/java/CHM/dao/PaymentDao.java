@@ -6,7 +6,7 @@ import CHM.model.Payment;
 
 public interface PaymentDao {
 	
-public int insertProfile(Payment payment);
+	public int insertProfile(Payment payment);
 	
 	public Payment selectProfile(int paymentInt);
 	

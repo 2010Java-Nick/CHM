@@ -6,7 +6,7 @@ import CHM.model.Interest;
 
 public interface InterestDao{
 	
-public int insertProfile(Interest interest);
+	public int insertProfile(Interest interest);
 	
 	public Interest selectProfile(int interestInt);
 	
