@@ -56,7 +56,12 @@ public class ProfileDaoHibernateTest {
 	@Rollback(true)
 	public void testInsertProfile() {
 		
-		fail("Not yet implemented");
+		int testProfileId = profileDao.insertProfile(toTest);
+		
+		Profile returned = profileDao.selectProfile(testProfileId);
+		
+		assertEquals(toTest.getFirstName(), returned.getFirstName());
+				
 	}
 
 }
