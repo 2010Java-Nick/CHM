@@ -45,9 +45,6 @@ public class Profile {
 	@Column(name = "bio")
 	private String bio;
 	
-	@Column(name = "interests_id")
-	private Interest interests;
-	
 	//TODO make this better
 	@Column(name = "photo")
 	private byte[] photo;
