@@ -45,9 +45,4 @@ public class Profile {
 	@Column(name = "bio")
 	private String bio;
 	
-	//TODO make this better
-	@Column(name = "photo")
-	private byte[] photo;
-	
-	
 }
