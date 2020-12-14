@@ -16,6 +16,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import CHM.dao.ProfileDao;
+import CHM.dao.ProfileDaoHibernate;
 import CHM.util.SessionFactoryUtil;
 
 //configuration can also be done in a spring-beans.xml file
@@ -51,7 +53,7 @@ public class AppConfig implements WebApplicationInitializer {
 	
 	}
 	
-	@Bean()
+	@Bean
 	@Scope(value = "singleton")
 	public SessionFactory sessionFactory() {
 		return SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
@@ -68,10 +70,12 @@ public class AppConfig implements WebApplicationInitializer {
 	 */
 	
 	//Bean wiring
-	/*
-	 * @Bean(autowireCandidate = false) public GuestDao guestDaoHibernate() {
-	 * GuestDaoHibernate guestDao = new GuestDaoHibernate();
-	 * guestDao.setSessionFactory(sessionFactory); return guestDao; }
-	 */
+
+//	 @Bean(autowireCandidate = false) 
+//	 public ProfileDao profileDaoHibernate() {
+//		 ProfileDaoHibernate profileDao = new ProfileDaoHibernate();
+//		 profileDao.setSessionFactory(sessionFactory); return profileDao; 
+//	}
+	 
 	
 }
