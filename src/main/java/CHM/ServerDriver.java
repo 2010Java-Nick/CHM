@@ -21,9 +21,14 @@ public class ServerDriver {
 		server.setPort(9091);
 		server.getConnector();
 		server.addWebapp("", new File("./").getAbsolutePath());
+		
+		System.out.println("server started..");
 		server.start();
+		
+		System.out.println("server awaiting..");
 		server.getServer().await();
 		
+		System.out.println(".......");
 	}
 
 }

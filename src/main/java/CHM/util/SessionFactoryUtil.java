@@ -45,9 +45,9 @@ public class SessionFactoryUtil {
 			settings.put("hibernate.connection.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 			//settings.put("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			//settings.put("hibernate.connection.dialect", "org.hibernate.dialect.SQLServer2012Dialect");
-			//settings.put("hibernate.show_sql", "true");
-			//settings.put("hibernate.format_sql", "true");
-			//settings.put("hibernate.hbm2ddl.auto", "create");
+			settings.put("hibernate.show_sql", "true");
+			settings.put("hibernate.format_sql", "true");
+			settings.put("hibernate.hbm2ddl.auto", "create");
 			
 			
 			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().applySettings(settings).build();
