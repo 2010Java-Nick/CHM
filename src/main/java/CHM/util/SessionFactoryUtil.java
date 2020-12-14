@@ -22,9 +22,6 @@ public class SessionFactoryUtil {
 	
 	private SessionFactory sessionFactory;
 	
-//	private static final String CHM_URL = "jdbc:postgresql://suleiman.db.elephantsql.com:5432/sppnxxhw";
-//	private static final String CHM_USERNAME = "sppnxxhw";
-//	private static final String CHM_PASSWORD = "AjC8kzY9Ju_hBc3nAhLQgvtTUNaULBsR";
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

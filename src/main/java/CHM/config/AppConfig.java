@@ -23,7 +23,7 @@ import CHM.util.SessionFactoryUtil;
 //configuration can also be done in a spring-beans.xml file
 @Configuration
 @ComponentScan(value = "CHM")
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 @EnableWebMvc
 public class AppConfig implements WebApplicationInitializer {
 
