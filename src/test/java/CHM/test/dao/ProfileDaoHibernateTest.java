@@ -2,6 +2,7 @@ package CHM.test.dao;
 
 import static org.junit.Assert.*;
 
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,20 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import CHM.config.AppConfig;
 import CHM.config.TestConfig;
-import CHM.dao.ProfileDao;
+import CHM.dao.ProfileDaoHibernate;
 import CHM.model.Profile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration(classes= AppConfig.class)
 public class ProfileDaoHibernateTest {
 	
 	@Autowired
-	ProfileDao profileDao;
+	private ProfileDaoHibernate profileDaoHibernate;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	private Profile toTest;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}

@@ -46,10 +46,6 @@ public class Profile {
 	
 	@Column(name = "bio")
 	private String bio;
-	
-	//TODO make this better
-	@Column(name = "photo")
-	private byte[] photo;
 
 	/**
 	 * 
@@ -59,6 +55,7 @@ public class Profile {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
 	 * @param profileId
 	 * @param firstName
@@ -67,10 +64,8 @@ public class Profile {
 	 * @param phone
 	 * @param age
 	 * @param bio
-	 * @param photo
 	 */
-	public Profile(int profileId, String firstName, String lastName, String email, String phone, int age, String bio,
-			byte[] photo) {
+	public Profile(int profileId, String firstName, String lastName, String email, String phone, int age, String bio) {
 		super();
 		this.profileId = profileId;
 		this.firstName = firstName;
@@ -79,8 +74,9 @@ public class Profile {
 		this.phone = phone;
 		this.age = age;
 		this.bio = bio;
-		this.photo = photo;
 	}
+
+
 
 	/**
 	 * @return the profileId
@@ -180,26 +176,13 @@ public class Profile {
 		this.bio = bio;
 	}
 
-	/**
-	 * @return the photo
-	 */
-	public byte[] getPhoto() {
-		return photo;
-	}
-
-	/**
-	 * @param photo the photo to set
-	 */
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
 
 	@Override
 	public String toString() {
 		return "Profile [profileId=" + profileId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", photo=" + Arrays.toString(photo)
-				+ "]";
+				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -211,10 +194,10 @@ public class Profile {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + Arrays.hashCode(photo);
 		result = prime * result + profileId;
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -251,8 +234,6 @@ public class Profile {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
-			return false;
-		if (!Arrays.equals(photo, other.photo))
 			return false;
 		if (profileId != other.profileId)
 			return false;

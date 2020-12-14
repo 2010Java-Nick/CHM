@@ -16,7 +16,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
  * @author Group 3
  *
  */
-@Configuration
+//@Configuration
 public class TestConfig {
 	
 	//not sure if I need these, not sure how to implement
