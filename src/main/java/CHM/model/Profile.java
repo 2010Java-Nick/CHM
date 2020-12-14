@@ -240,9 +240,4 @@ public class Profile {
 		return true;
 	}
 	
-<<<<<<< HEAD
-=======
-
-	
->>>>>>> main
 }
