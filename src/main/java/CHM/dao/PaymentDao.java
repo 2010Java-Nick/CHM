@@ -6,14 +6,14 @@ import CHM.model.Payment;
 
 public interface PaymentDao {
 	
-	public int insertProfile(Payment payment);
+	public int insertPayment(Payment payment);
 	
-	public Payment selectProfile(int paymentInt);
+	public Payment selectPayment(int paymentInt);
 	
-	public List<Payment> selectAllProfiles();
+	public List<Payment> selectAllPayments();
 	
-	public Payment updateUser(int paymentId, Payment payment);
+	public Payment updatePayment(int paymentId, Payment payment);
 	
-	public boolean deleteProfile(Payment payment);
+	public boolean deletePayment(Payment payment);
 
 }
