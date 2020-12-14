@@ -44,7 +44,7 @@ public class ProfileDaoHibernateTest {
 	@Before
 	public void setUp() throws Exception {
 		//TODO: get this into mocked DB or test DB
-		toTest = new Profile(101, "test", "test", null, null, 0, null, null);
+		toTest = new Profile(101, "test", "test", null, null, 0, null);
 	}
 
 	@After
@@ -54,7 +54,7 @@ public class ProfileDaoHibernateTest {
 	@Test
 	public void testSelectProfile() {
 		
-		Profile returned = profileDao.selectProfile(toTest.getProfileId());
+		Profile returned = profileDaoHibernate.selectProfile(toTest.getProfileId());
 		
 		assertEquals(returned.getProfileId(), toTest.getProfileId());
 	}
@@ -63,9 +63,9 @@ public class ProfileDaoHibernateTest {
 	@Rollback(true)
 	public void testInsertProfile() {
 		
-		int testProfileId = profileDao.insertProfile(toTest);
+		int testProfileId = profileDaoHibernate.insertProfile(toTest);
 		
-		Profile returned = profileDao.selectProfile(testProfileId);
+		Profile returned = profileDaoHibernate.selectProfile(testProfileId);
 		
 		assertEquals(toTest.getFirstName(), returned.getFirstName());
 				

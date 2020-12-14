@@ -5,7 +5,15 @@ package CHM.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +26,7 @@ import CHM.model.Profile;
 @Repository(value = "profileDao")
 public class ProfileDaoHibernate implements ProfileDao {
 	
-	
+	@Autowired
 	SessionFactory sessionFactory;
 
 	/**
@@ -30,33 +38,62 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public int insertProfile(Profile profile) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertProfile(Profile profile) throws HibernateException {
+
+		Session sess = sessionFactory.openSession();
+		Transaction tx = sess.beginTransaction();
+		sess.save(profile);
+		tx.commit();
+		sess.close();
+		return profile.getProfileId();
 	}
 
 	@Override
-	public Profile selectProfile(int profileInt) {
-		// TODO Auto-generated method stub
-		return null;
+	public Profile selectProfile(int profileId) throws HibernateException{
+		
+		Profile profile;
+		Session sess = sessionFactory.openSession();
+		profile = sess.get(Profile.class, profileId);
+		sess.close();
+		return profile;
 	}
 
 	@Override
-	public List<Profile> selectAllProfiles() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Profile> selectAllProfiles() throws HibernateException {
+		
+		List<Profile> profileList = null;
+		Session sess = sessionFactory.openSession();
+		CriteriaBuilder cb = sess.getCriteriaBuilder();
+		CriteriaQuery<Profile> cq = cb.createQuery(Profile.class);
+		Root<Profile> rootEntry = cq.from(Profile.class);
+		CriteriaQuery<Profile> all = cq.select(rootEntry);
+		TypedQuery<Profile> allQuery = sess.createQuery(all);
+		profileList = allQuery.getResultList();
+		sess.close();
+		
+		return profileList;
 	}
 
 	@Override
-	public Profile updateUser(int profileId, Profile profile) {
-		// TODO Auto-generated method stub
-		return null;
+	public Profile updateProfile(int profileId, Profile profile) throws HibernateException {
+		
+		Session sess = sessionFactory.openSession();
+		Transaction tx = sess.beginTransaction();
+		sess.update(profile);
+		tx.commit();
+		sess.close();
+		return profile;
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteProfile(Profile profile) throws HibernateException {
+		
+		Session sess = sessionFactory.openSession();
+		Transaction tx = sess.beginTransaction();
+		sess.delete(profile);
+		tx.commit();
+		sess.close();
+		return true;
 	}
 
 }
