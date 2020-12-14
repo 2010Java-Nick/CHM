@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import CHM.model.Photo;
-import HotelReservationSpring.pojos.Guest;
 
 @Repository(value = "photoDao")
 public class PhotoDaoImpl implements PhotoDao {

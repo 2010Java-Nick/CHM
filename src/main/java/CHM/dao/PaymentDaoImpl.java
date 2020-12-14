@@ -113,6 +113,12 @@ public class PaymentDaoImpl implements PaymentDao {
 		return p;
 	}
 
+	@Override
+	public boolean deletePayment(Payment payment) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
 	
 
