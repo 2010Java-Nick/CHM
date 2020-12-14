@@ -31,11 +31,9 @@ public class Match {
 	@Column(name = "match_id")
     private int matchId;
 
-//    @OneToOne
     @Column(name = "user1_id")
     private int user1Id;
 
-//    @OneToOne
     @Column(name = "user2_id")
     private int user2Id;
 
