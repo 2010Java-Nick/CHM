@@ -45,9 +45,6 @@ public class InterestDaoHibernateTest {
 	@Mock
 	Session mockSession;
 	
-	@Mock
-	Transaction mockTransaction;
-	
 	private Session sess;
 	
 	private Session spy;
@@ -80,7 +77,6 @@ public class InterestDaoHibernateTest {
 		
 		// Mock session factory to always return the spied on session 
 		when(mockSessionFactory.openSession()).thenReturn(spy);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		
 		// Set profileDao to use that mocked session factory 
 		interestDaoHibernate.setSessionFactory(mockSessionFactory);
