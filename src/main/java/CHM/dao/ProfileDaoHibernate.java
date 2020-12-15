@@ -75,7 +75,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public Profile updateProfile(int profileId, Profile profile) throws HibernateException {
+	public Profile updateProfile(Profile profile) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
