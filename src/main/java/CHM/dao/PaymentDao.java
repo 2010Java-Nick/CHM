@@ -11,8 +11,6 @@ public interface PaymentDao {
 	
 	public Payment selectPayment(int paymentInt);
 	
-	public Payment selectPaymentByUserId(int userId);
-	
 	public List<Payment> selectAllPayments();
 	
 	public Payment updatePayment(int paymentId, Payment payment);
