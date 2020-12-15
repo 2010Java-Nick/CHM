@@ -90,7 +90,16 @@ public class InterestDaoHibernateTest {
 	@After
 	public void tearDown() throws Exception {
 		
-		sess.close();
+		interestDaoHibernate.setSessionFactory(sessionFactory);
+		try {
+			interestDaoHibernate.deleteInterest(interest);
+		} catch (Exception e) {
+			
+		} finally {
+			if (sess.isOpen()) {
+				sess.close();
+			}
+		}
 	}
 
 	@Test
