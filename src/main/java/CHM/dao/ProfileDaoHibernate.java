@@ -26,7 +26,6 @@ import CHM.model.Profile;
 @Repository(value = "profileDao")
 public class ProfileDaoHibernate implements ProfileDao {
 	
-	@Autowired
 	SessionFactory sessionFactory;
 
 	/**
