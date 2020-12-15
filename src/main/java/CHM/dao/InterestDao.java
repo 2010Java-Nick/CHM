@@ -6,14 +6,14 @@ import CHM.model.Interest;
 
 public interface InterestDao{
 	
-	public int insertProfile(Interest interest);
+	public int insertInterest(Interest interest);
 	
-	public Interest selectProfile(int interestInt);
+	public Interest selectInterest(int interestInt);
 	
-	public List<Interest> selectAllProfiles();
+	public List<Interest> selectAllInterests();
 	
-	public Interest updateUser(int interestId, Interest interest);
+	public Interest updateInterest(int interestId, Interest interest);
 	
-	public boolean deleteProfile(Interest interest);
+	public boolean deleteInterest(Interest interest);
 
 }
