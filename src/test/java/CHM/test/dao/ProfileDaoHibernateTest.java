@@ -44,7 +44,7 @@ public class ProfileDaoHibernateTest {
 	@Before
 	public void setUp() throws Exception {
 		//TODO: get this into mocked DB or test DB
-		toTest = new Profile(101, "test", "test", null, null, 0, null);
+//		toTest = new Profile(101, "test", "test", null, null, 0, null);
 	}
 
 	@After
