@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,9 +53,6 @@ public class ProfileDaoHibernateTest {
 	private SessionFactory mockSessionFactory;
 	
 	@Mock
-	SessionFactory mockSessionFactoryTwo;
-	
-	@Mock
 	Session mockSession;
 	
 	@Mock
@@ -72,10 +70,11 @@ public class ProfileDaoHibernateTest {
 	@Mock
 	Query<Profile> mockTypedQuery;
 	
+	@Mock
+	Transaction mockTransaction;
+	
 	private Session sess;
 	
-	private Session spy;
-
 	private Profile toTest;
 	
 	@BeforeClass
@@ -88,7 +87,7 @@ public class ProfileDaoHibernateTest {
 
 	@Before
 	public void setUp() throws Exception {
-		//TODO: get this into mocked DB or test DB
+		
 		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
 		profileDaoHibernate.insertProfile(toTest);
 		
@@ -96,14 +95,13 @@ public class ProfileDaoHibernateTest {
 		
 		// Make real session 
 		sess = sessionFactory.openSession();
-		// Spy on that real session 
-		spy = Mockito.spy(sess);
-		// Mock session factory to always return the spied on session 
-		when(mockSessionFactory.openSession()).thenReturn(spy);
+		// Mock session factory to always return the mocked session 
+		when(mockSessionFactory.openSession()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		// Set profileDao to use that mocked session factory 
 		profileDaoHibernate.setSessionFactory(mockSessionFactory);
 		
-		when(mockSessionFactoryTwo.openSession()).thenReturn(mockSession);
+		//when(mockSessionFactory.openSession()).thenReturn(mockSession);
 		when(mockSession.getCriteriaBuilder()).thenReturn(mockCriteriaBuilder);
 		when(mockCriteriaBuilder.createQuery(Profile.class)).thenReturn(mockCriteriaQuery);
 		when(mockCriteriaQuery.from(Profile.class)).thenReturn(mockRoot);
@@ -133,8 +131,8 @@ public class ProfileDaoHibernateTest {
 		try {
 			profileDaoHibernate.selectProfile(toTest.getProfileId());
 			verify(mockSessionFactory).openSession();
-			verify(spy).get(Profile.class, toTest.getProfileId());
-			verify(spy).close();
+			verify(mockSession).get(Profile.class, toTest.getProfileId());
+			verify(mockSession).close();
 		} catch (HibernateException e) {
 			fail("HibernateException " + e);
 		}
@@ -147,9 +145,10 @@ public class ProfileDaoHibernateTest {
 		try {
 			profileDaoHibernate.insertProfile(toTest);
 			verify(mockSessionFactory).openSession();
-			verify(spy).beginTransaction();
-			verify(spy).save(toTest);
-			verify(spy).close();
+			verify(mockSession).beginTransaction();
+			verify(mockTransaction).commit();
+			verify(mockSession).save(toTest);
+			verify(mockSession).close();
 		} catch (HibernateException e) {
 			fail("Exception " + e);
 		}		
@@ -160,9 +159,8 @@ public class ProfileDaoHibernateTest {
 		
 		try {
 			
-			profileDaoHibernate.setSessionFactory(mockSessionFactoryTwo);
 			profileDaoHibernate.selectAllProfiles();
-			verify(mockSessionFactoryTwo).openSession();
+			verify(mockSessionFactory).openSession();
 			verify(mockSession).getCriteriaBuilder();
 			verify(mockCriteriaBuilder).createQuery(Profile.class);
 			verify(mockCriteriaQuery).from(Profile.class);
@@ -183,9 +181,10 @@ public class ProfileDaoHibernateTest {
 		try {
 			profileDaoHibernate.updateProfile(toTest);
 			verify(mockSessionFactory).openSession();
-			verify(spy).beginTransaction();
-			verify(spy).update(toTest);
-			verify(spy).close();
+			verify(mockSession).beginTransaction();
+			verify(mockTransaction).commit();
+			verify(mockSession).update(toTest);
+			verify(mockSession).close();
 		} catch (HibernateException e) {
 			fail("HibernateException " + e);
 		}
@@ -198,9 +197,10 @@ public class ProfileDaoHibernateTest {
 		try {
 			profileDaoHibernate.deleteProfile(toTest);
 			verify(mockSessionFactory).openSession();
-			verify(spy).beginTransaction();
-			verify(spy).delete(toTest);
-			verify(spy).close();
+			verify(mockSession).beginTransaction();
+			verify(mockTransaction).commit();
+			verify(mockSession).delete(toTest);
+			verify(mockSession).close();
 		} catch (HibernateException e) {
 			fail("HibernateException " + e);
 		}
