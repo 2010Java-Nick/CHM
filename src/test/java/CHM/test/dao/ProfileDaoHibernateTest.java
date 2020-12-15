@@ -87,6 +87,7 @@ public class ProfileDaoHibernateTest {
 
 	@Before
 	public void setUp() throws Exception {
+
 		
 		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
 		profileDaoHibernate.insertProfile(toTest);
@@ -108,6 +109,7 @@ public class ProfileDaoHibernateTest {
 		when(mockCriteriaQuery.select(mockRoot)).thenReturn(mockCriteriaQueryTwo);
 		when(mockSession.createQuery(mockCriteriaQueryTwo)).thenReturn(mockTypedQuery);
 		when(mockTypedQuery.getResultList()).thenReturn(new ArrayList<Profile>());
+
 	}
 
 	@After
