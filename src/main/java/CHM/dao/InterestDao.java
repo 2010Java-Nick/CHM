@@ -2,18 +2,20 @@ package CHM.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
 import CHM.model.Interest;
 
 public interface InterestDao{
 	
-	public int insertProfile(Interest interest);
+	public int insertInterest(Interest interest) throws HibernateException;
 	
-	public Interest selectProfile(int interestInt);
+	public Interest selectInterest(int interestId) throws HibernateException;
 	
-	public List<Interest> selectAllProfiles();
+	public List<Interest> selectAllInterests() throws HibernateException;
 	
-	public Interest updateUser(int interestId, Interest interest);
+	public void updateInterest(Interest interest) throws HibernateException;
 	
-	public boolean deleteProfile(Interest interest);
+	public void deleteInterest(Interest interest) throws HibernateException;
 
 }

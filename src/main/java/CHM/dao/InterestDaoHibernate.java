@@ -1,6 +1,3 @@
-/**
- * 
- */
 package CHM.dao;
 
 import java.util.List;
@@ -17,14 +14,14 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import CHM.model.Profile;
+import CHM.model.Interest;
 
 /**
  * @author Group 3
  *
  */
-@Repository(value = "profileDao")
-public class ProfileDaoHibernate implements ProfileDao {
+@Repository(value = "interestDao")
+public class InterestDaoHibernate implements InterestDao {
 	
 	SessionFactory sessionFactory;
 
@@ -37,62 +34,61 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public int insertProfile(Profile profile) throws HibernateException {
-
+	public int insertInterest(Interest interest) throws HibernateException {
+		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.save(profile);
+		sess.save(interest);
 		tx.commit();
 		sess.close();
-		return profile.getProfileId();
+		return interest.getInterestId();
 	}
 
 	@Override
-	public Profile selectProfile(int profileId) throws HibernateException{
+	public Interest selectInterest(int interestId) throws HibernateException {
 		
-		Profile profile;
+		Interest interest;
 		Session sess = sessionFactory.openSession();
-		profile = sess.get(Profile.class, profileId);
+		interest = sess.get(Interest.class, interestId);
 		sess.close();
-		return profile;
+		return interest;
 	}
 
 	@Override
-	public List<Profile> selectAllProfiles() throws HibernateException {
+	public List<Interest> selectAllInterests() throws HibernateException {
 		
-		List<Profile> profileList = null;
+		List<Interest> interestList = null;
 		Session sess = sessionFactory.openSession();
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
-		CriteriaQuery<Profile> cq = cb.createQuery(Profile.class);
-		Root<Profile> rootEntry = cq.from(Profile.class);
-		CriteriaQuery<Profile> all = cq.select(rootEntry);
-		TypedQuery<Profile> allQuery = sess.createQuery(all);
-		profileList = allQuery.getResultList();
+		CriteriaQuery<Interest> cq = cb.createQuery(Interest.class);
+		Root<Interest> rootEntry = cq.from(Interest.class);
+		CriteriaQuery<Interest> all = cq.select(rootEntry);
+		TypedQuery<Interest> allQuery = sess.createQuery(all);
+		interestList = allQuery.getResultList();
 		sess.close();
 		
-		return profileList;
+		return interestList;
 	}
 
 	@Override
-	public Profile updateProfile(Profile profile) throws HibernateException {
+	public void updateInterest(Interest interest) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.update(profile);
+		sess.update(interest);
 		tx.commit();
 		sess.close();
-		return profile;
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) throws HibernateException {
+	public void deleteInterest(Interest interest) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.delete(profile);
+		sess.delete(interest);
 		tx.commit();
 		sess.close();
-		return true;
 	}
+
 
 }
