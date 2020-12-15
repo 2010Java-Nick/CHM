@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import CHM.dao.PaymentDao;
 import CHM.model.Payment;
-import CHM.model.User;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
@@ -51,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public Payment readPaymentByUserId(int userId) {
-		return paymentDao.selectPaymentByUserId(userId);
+		return paymentDao.selectPayment(userId);
 	}
 
 	@Override

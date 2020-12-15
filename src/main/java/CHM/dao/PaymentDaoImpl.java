@@ -32,26 +32,38 @@ public class PaymentDaoImpl implements PaymentDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-		
+	
+	
 	@Override
 	public int insertPayment(Payment payment) {
-		
 		Session sess = sessionFactory.openSession();
-		Transaction tx = sess.beginTransaction();
-		int id = (Integer)sess.save(payment);
-		tx.commit();
-		sess.close();
+		Transaction tx = null;
+		int id = 0;
+		try {
+			
+			tx = sess.beginTransaction();
+			id = (Integer)sess.save(payment);
+			tx.commit();
+			sess.close(); 
+			
+		}catch (HibernateException e) {
+	    	  
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	         return 0;
+	    }
 		return id;
 	}
 
 	@Override
-	public Payment selectPayment(int paymentInt) {
+	public Payment selectPayment(int id) {
 		
 		Payment p;
 		Session sess = sessionFactory.openSession();
-		p = sess.get(Payment.class, paymentInt);
+		p = sess.get(Payment.class, id);
 		sess.close();
 		return p;
+		
 	}
 
 	@Override
@@ -72,7 +84,7 @@ public class PaymentDaoImpl implements PaymentDao {
 	}
 
 	@Override
-	public Payment updatePayment(int paymentId, Payment payment) {
+	public Payment updatePayment(int paymentId, Payment payment){
 		  Session session = sessionFactory.openSession();
 	      Transaction tx = null;
 	      try{
@@ -84,7 +96,7 @@ public class PaymentDaoImpl implements PaymentDao {
 	         p.setCvc(payment.getCvc());
 	         p.setExpirationDate(payment.getExpirationDate());
 	         p.setPaymentAmount(payment.getPaymentAmount());
-//	         p.setUser(payment.getUser());
+	         p.setProfile(payment.getProfile());
 	         
 	         session.update(p); 
 	         
@@ -98,25 +110,31 @@ public class PaymentDaoImpl implements PaymentDao {
 	         e.printStackTrace(); 
 	         
 	      }finally {
-	         session.close(); 
+	    	  session.close(); 
 	      }
 	      
 	      return null;
 	   }
 
-	@Override
-	public Payment selectPaymentByUserId(int userId) {
-		Payment p;
-		Session sess = sessionFactory.openSession();
-		p = sess.get(Payment.class, userId);
-		sess.close();
-		return p;
-	}
 
 	@Override
-	public boolean deletePayment(Payment payment) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deletePayment(Payment payment) throws HibernateException{
+		Session sess = sessionFactory.openSession();
+		Transaction tx = null;
+		
+		try {
+			tx = sess.beginTransaction();
+			sess.delete(payment);
+			tx.commit();
+			sess.close();
+		}catch (HibernateException e) {
+	    	  
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	         return false;
+	    }
+		
+		return true;
 	}
 
 }
