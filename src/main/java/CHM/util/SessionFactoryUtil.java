@@ -13,6 +13,7 @@ import CHM.model.Interest;
 import CHM.model.Match;
 import CHM.model.Message;
 import CHM.model.Payment;
+import CHM.model.Photo;
 import CHM.model.Profile;
 import CHM.model.User;
 
@@ -30,8 +31,6 @@ public class SessionFactoryUtil {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
-
 
 	private SessionFactoryUtil() {
 		
@@ -59,6 +58,7 @@ public class SessionFactoryUtil {
 						.addAnnotatedClass(Message.class)
 						.addAnnotatedClass(Match.class)
 						.addAnnotatedClass(Interest.class)
+						.addAnnotatedClass(Photo.class)
 						.getMetadataBuilder()
 						.build();
 			
