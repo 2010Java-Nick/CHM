@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  *
  */
 @Entity
-@Table(name = "profile")
+@Table(name = "Profile")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "profileId")
@@ -46,6 +46,12 @@ public class Profile {
 	
 	@Column(name = "bio")
 	private String bio;
+	
+	@Column(name = "icebreaker")
+	private String icebreaker;
+	
+	@Column(name = "primary_interest")
+	private String primaryInterest;
 
 	/**
 	 * 
@@ -55,7 +61,6 @@ public class Profile {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	/**
 	 * @param profileId
 	 * @param firstName
@@ -64,8 +69,11 @@ public class Profile {
 	 * @param phone
 	 * @param age
 	 * @param bio
+	 * @param icebreaker
+	 * @param primaryInterest
 	 */
-	public Profile(int profileId, String firstName, String lastName, String email, String phone, int age, String bio) {
+	public Profile(int profileId, String firstName, String lastName, String email, String phone, int age, String bio,
+			String icebreaker, String primaryInterest) {
 		super();
 		this.profileId = profileId;
 		this.firstName = firstName;
@@ -74,9 +82,9 @@ public class Profile {
 		this.phone = phone;
 		this.age = age;
 		this.bio = bio;
+		this.icebreaker = icebreaker;
+		this.primaryInterest = primaryInterest;
 	}
-
-
 
 	/**
 	 * @return the profileId
@@ -176,13 +184,40 @@ public class Profile {
 		this.bio = bio;
 	}
 
+	/**
+	 * @return the icebreaker
+	 */
+	public String getIcebreaker() {
+		return icebreaker;
+	}
+
+	/**
+	 * @param icebreaker the icebreaker to set
+	 */
+	public void setIcebreaker(String icebreaker) {
+		this.icebreaker = icebreaker;
+	}
+
+	/**
+	 * @return the primaryInterest
+	 */
+	public String getPrimaryInterest() {
+		return primaryInterest;
+	}
+
+	/**
+	 * @param primaryInterest the primaryInterest to set
+	 */
+	public void setPrimaryInterest(String primaryInterest) {
+		this.primaryInterest = primaryInterest;
+	}
 
 	@Override
 	public String toString() {
 		return "Profile [profileId=" + profileId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + "]";
+				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", icebreaker=" + icebreaker
+				+ ", primaryInterest=" + primaryInterest + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -192,12 +227,13 @@ public class Profile {
 		result = prime * result + ((bio == null) ? 0 : bio.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((icebreaker == null) ? 0 : icebreaker.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((primaryInterest == null) ? 0 : primaryInterest.hashCode());
 		result = prime * result + profileId;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -225,6 +261,11 @@ public class Profile {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
+		if (icebreaker == null) {
+			if (other.icebreaker != null)
+				return false;
+		} else if (!icebreaker.equals(other.icebreaker))
+			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
@@ -235,9 +276,15 @@ public class Profile {
 				return false;
 		} else if (!phone.equals(other.phone))
 			return false;
+		if (primaryInterest == null) {
+			if (other.primaryInterest != null)
+				return false;
+		} else if (!primaryInterest.equals(other.primaryInterest))
+			return false;
 		if (profileId != other.profileId)
 			return false;
 		return true;
 	}
+
 	
 }

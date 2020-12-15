@@ -1,5 +1,7 @@
 package CHM.model;
 
+import java.util.Arrays;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
-@Table(name = "photo")
+@Table(name = "Photo")
+@JsonIdentityInfo(
+	generator = ObjectIdGenerators.PropertyGenerator.class,
+	property = "photoId")
 public class Photo {
 	
 	@Id
@@ -32,11 +40,13 @@ public class Photo {
 	}
 
 	/**
+	 * @param photoId
 	 * @param photo
-	 * @param user
+	 * @param profile
 	 */
-	public Photo(byte[] photo, User user) {
+	public Photo(int photoId, byte[] photo, Profile profile) {
 		super();
+		this.photoId = photoId;
 		this.photo = photo;
 		this.profile = profile;
 	}
@@ -81,6 +91,42 @@ public class Photo {
 	 */
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	@Override
+	public String toString() {
+		return "Photo [photoId=" + photoId + ", photo=" + Arrays.toString(photo) + ", profile=" + profile + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(photo);
+		result = prime * result + photoId;
+		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Photo other = (Photo) obj;
+		if (!Arrays.equals(photo, other.photo))
+			return false;
+		if (photoId != other.photoId)
+			return false;
+		if (profile == null) {
+			if (other.profile != null)
+				return false;
+		} else if (!profile.equals(other.profile))
+			return false;
+		return true;
 	}
 
 	

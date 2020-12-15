@@ -84,7 +84,7 @@ public class PaymentDaoImpl implements PaymentDao {
 	         p.setCvc(payment.getCvc());
 	         p.setExpirationDate(payment.getExpirationDate());
 	         p.setPaymentAmount(payment.getPaymentAmount());
-	         p.setUser(payment.getUser());
+//	         p.setUser(payment.getUser());
 	         
 	         session.update(p); 
 	         

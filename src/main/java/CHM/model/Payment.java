@@ -33,6 +33,10 @@ public class Payment {
 	@Column(name = "payment_id")
 	private int paymentId;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "profile_id")
+	private Profile profile;
+	
 	@Column(name = "card_number")
 	private String creditCardNumber;
 	
@@ -48,38 +52,33 @@ public class Payment {
 	@Column(name = "expiration_date")
 	private String expirationDate;
 	
-	/**
-	 * Connection between User and Payment Tables 
-	 * A user can have multiple cards linked to a user(profile)
-	 */
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	private User user;
 	
 	public Payment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
+	 * @param paymentId
+	 * @param profile
 	 * @param creditCardNumber
 	 * @param cvc
 	 * @param paymentAmount
 	 * @param creditcardNameHolder
 	 * @param expirationDate
-	 * @param user
 	 */
-	public Payment(String creditCardNumber, int cvc, double paymentAmount, String creditcardNameHolder,
-			String expirationDate, User user) {
+	public Payment(int paymentId, Profile profile, String creditCardNumber, int cvc, double paymentAmount,
+			String creditcardNameHolder, String expirationDate) {
 		super();
+		this.paymentId = paymentId;
+		this.profile = profile;
 		this.creditCardNumber = creditCardNumber;
 		this.cvc = cvc;
 		this.paymentAmount = paymentAmount;
 		this.creditcardNameHolder = creditcardNameHolder;
 		this.expirationDate = expirationDate;
-		this.user = user;
 	}
-
 
 
 	/**
@@ -89,12 +88,30 @@ public class Payment {
 		return paymentId;
 	}
 
+
 	/**
 	 * @param paymentId the paymentId to set
 	 */
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
 	}
+
+
+	/**
+	 * @return the profile
+	 */
+	public Profile getProfile() {
+		return profile;
+	}
+
+
+	/**
+	 * @param profile the profile to set
+	 */
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
 
 	/**
 	 * @return the creditCardNumber
@@ -103,12 +120,14 @@ public class Payment {
 		return creditCardNumber;
 	}
 
+
 	/**
 	 * @param creditCardNumber the creditCardNumber to set
 	 */
 	public void setCreditCardNumber(String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
+
 
 	/**
 	 * @return the cvc
@@ -117,12 +136,14 @@ public class Payment {
 		return cvc;
 	}
 
+
 	/**
 	 * @param cvc the cvc to set
 	 */
 	public void setCvc(int cvc) {
 		this.cvc = cvc;
 	}
+
 
 	/**
 	 * @return the paymentAmount
@@ -131,12 +152,14 @@ public class Payment {
 		return paymentAmount;
 	}
 
+
 	/**
 	 * @param paymentAmount the paymentAmount to set
 	 */
 	public void setPaymentAmount(double paymentAmount) {
 		this.paymentAmount = paymentAmount;
 	}
+
 
 	/**
 	 * @return the creditcardNameHolder
@@ -145,12 +168,14 @@ public class Payment {
 		return creditcardNameHolder;
 	}
 
+
 	/**
 	 * @param creditcardNameHolder the creditcardNameHolder to set
 	 */
 	public void setCreditcardNameHolder(String creditcardNameHolder) {
 		this.creditcardNameHolder = creditcardNameHolder;
 	}
+
 
 	/**
 	 * @return the expirationDate
@@ -159,6 +184,7 @@ public class Payment {
 		return expirationDate;
 	}
 
+
 	/**
 	 * @param expirationDate the expirationDate to set
 	 */
@@ -166,26 +192,14 @@ public class Payment {
 		this.expirationDate = expirationDate;
 	}
 
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	@Override
 	public String toString() {
-		return "Payment [paymentId=" + paymentId + ", creditCardNumber=" + creditCardNumber + ", cvc=" + cvc
-				+ ", paymentAmount=" + paymentAmount + ", creditcardNameHolder=" + creditcardNameHolder
-				+ ", expirationDate=" + expirationDate + ", user=" + user + "]";
+		return "Payment [paymentId=" + paymentId + ", profile=" + profile + ", creditCardNumber=" + creditCardNumber
+				+ ", cvc=" + cvc + ", paymentAmount=" + paymentAmount + ", creditcardNameHolder=" + creditcardNameHolder
+				+ ", expirationDate=" + expirationDate + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -199,9 +213,10 @@ public class Payment {
 		temp = Double.doubleToLongBits(paymentAmount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + paymentId;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -233,16 +248,13 @@ public class Payment {
 			return false;
 		if (paymentId != other.paymentId)
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (profile == null) {
+			if (other.profile != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!profile.equals(other.profile))
 			return false;
 		return true;
 	}
-
-	
-	
 	
 	
 }

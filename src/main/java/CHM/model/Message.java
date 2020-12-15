@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  *
  */
 @Entity
-@Table(name = "message")
+@Table(name = "Message")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "messageId")
@@ -38,14 +38,12 @@ public class Message {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "match_id")
-	private int matchId;
+	private Match match;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "sender_id")
+	@Column(name = "sender_id")
 	private int senderId;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "receier_id")
+	@Column(name = "receiver_id")
 	private int receiverId;
 	
 	@Column(name = "message")
@@ -64,21 +62,23 @@ public class Message {
 
 	/**
 	 * @param messageId
-	 * @param matchId
+	 * @param match
 	 * @param senderId
 	 * @param receiverId
 	 * @param message
 	 * @param timestamp
 	 */
-	public Message(int messageId, int matchId, int senderId, int receiverId, String message, LocalTime timestamp) {
+	public Message(int messageId, Match match, int senderId, int receiverId, String message, LocalTime timestamp) {
 		super();
 		this.messageId = messageId;
-		this.matchId = matchId;
+		this.match = match;
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.message = message;
 		this.timestamp = timestamp;
 	}
+
+
 
 	/**
 	 * @return the messageId
@@ -94,18 +94,19 @@ public class Message {
 		this.messageId = messageId;
 	}
 
+
 	/**
-	 * @return the matchId
+	 * @return the match
 	 */
-	public int getMatchId() {
-		return matchId;
+	public Match getMatch() {
+		return match;
 	}
 
 	/**
-	 * @param matchId the matchId to set
+	 * @param match the match to set
 	 */
-	public void setMatchId(int matchId) {
-		this.matchId = matchId;
+	public void setMatch(Match match) {
+		this.match = match;
 	}
 
 	/**
@@ -165,10 +166,16 @@ public class Message {
 	}
 
 	@Override
+	public String toString() {
+		return "Message [messageId=" + messageId + ", match=" + match + ", senderId=" + senderId + ", receiverId="
+				+ receiverId + ", message=" + message + ", timestamp=" + timestamp + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + matchId;
+		result = prime * result + ((match == null) ? 0 : match.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + messageId;
 		result = prime * result + receiverId;
@@ -186,7 +193,10 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
-		if (matchId != other.matchId)
+		if (match == null) {
+			if (other.match != null)
+				return false;
+		} else if (!match.equals(other.match))
 			return false;
 		if (message == null) {
 			if (other.message != null)

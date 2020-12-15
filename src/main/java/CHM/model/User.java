@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  *
  */
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "userId")
@@ -39,32 +39,50 @@ public class User {
 	private String password;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="payment_id")
-	private Payment payment;
+	@JoinColumn(name="profile_id")
+	private Profile profile;
 	
 	@Column(name = "premium")
 	private boolean premium;
-	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="profile_id")
-	private Profile profile;
 
+	/**
+	 * 
+	 */
 	public User() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	/**
+	 * @param userId
+	 * @param username
+	 * @param password
+	 * @param profile
+	 * @param premium
+	 */
+	public User(int userId, String username, String password, Profile profile, boolean premium) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.profile = profile;
+		this.premium = premium;
+	}
+
+
+	/**
+	 * @return the userId
+	 */
+	public int getUserId() {
+		return userId;
 	}
 
 	/**
-	 * @param username
-	 * @param password
-	 * @param premium
-	 * @param profile
+	 * @param userId the userId to set
 	 */
-	public User(String username, String password, boolean premium, Profile profile) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.premium = premium;
-		this.profile = profile;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	/**
@@ -95,6 +113,23 @@ public class User {
 		this.password = password;
 	}
 
+
+	/**
+	 * @return the profile
+	 */
+	public Profile getProfile() {
+		return profile;
+	}
+
+
+	/**
+	 * @param profile the profile to set
+	 */
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
+
 	/**
 	 * @return the premium
 	 */
@@ -109,25 +144,13 @@ public class User {
 		this.premium = premium;
 	}
 
-	/**
-	 * @return the profile
-	 */
-	public Profile getProfile() {
-		return profile;
-	}
-
-	/**
-	 * @param profile the profile to set
-	 */
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", premium=" + premium + ", profile=" + profile
-				+ "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", profile=" + profile
+				+ ", premium=" + premium + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -136,9 +159,11 @@ public class User {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + (premium ? 1231 : 1237);
 		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		result = prime * result + userId;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -160,6 +185,8 @@ public class User {
 			if (other.profile != null)
 				return false;
 		} else if (!profile.equals(other.profile))
+			return false;
+		if (userId != other.userId)
 			return false;
 		if (username == null) {
 			if (other.username != null)
