@@ -18,10 +18,9 @@ import CHM.model.Photo;
 @Repository(value = "photoDao")
 public class PhotoDaoImpl implements PhotoDao {
 	
-	//@Autowired
 	SessionFactory sessionFactory;
 	
-	//@Autowired
+	@Autowired
 	public PhotoDaoImpl(SessionFactory sessionFactory) {
 		super();
 		this.sessionFactory = sessionFactory;

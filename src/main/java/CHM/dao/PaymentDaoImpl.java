@@ -19,7 +19,6 @@ import CHM.model.Payment;
 @Repository(value = "paymentDao")
 public class PaymentDaoImpl implements PaymentDao {
 	
-	@Autowired
 	SessionFactory sessionFactory;
 	
 	@Autowired
