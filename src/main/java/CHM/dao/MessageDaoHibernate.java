@@ -1,6 +1,3 @@
-/**
- * 
- */
 package CHM.dao;
 
 import java.util.List;
@@ -10,24 +7,21 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import CHM.model.Message;
 import CHM.model.Profile;
 
-/**
- * @author Group 3
- *
- */
-@Repository(value = "profileDao")
-public class ProfileDaoHibernate implements ProfileDao {
+@Repository(value = "messageDao")
+public class MessageDaoHibernate implements MessageDao {
+
 	
 	SessionFactory sessionFactory;
-
+	
 	/**
 	 * @param sessionFactory the sessionFactory to set
 	 */
@@ -35,61 +29,57 @@ public class ProfileDaoHibernate implements ProfileDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
 	@Override
-	public int insertProfile(Profile profile) throws HibernateException {
-
+	public int insertMessage(Message message) {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.save(profile);
+		sess.save(message);
 		tx.commit();
 		sess.close();
-		return profile.getProfileId();
+		return message.getMessageId();
+
 	}
 
 	@Override
-	public Profile selectProfile(int profileId) throws HibernateException{
-		
-		Profile profile;
+	public Message selectMessage(int messageId) {
+		Message message;
 		Session sess = sessionFactory.openSession();
-		profile = sess.get(Profile.class, profileId);
+		message = sess.get(Message.class, messageId);
 		sess.close();
-		return profile;
+		return message;
 	}
 
 	@Override
-	public List<Profile> selectAllProfiles() throws HibernateException {
-		
-		List<Profile> profileList = null;
+	public List<Message> selectAllMessages() {
+		List<Message> messageList = null;
 		Session sess = sessionFactory.openSession();
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
-		CriteriaQuery<Profile> cq = cb.createQuery(Profile.class);
-		Root<Profile> rootEntry = cq.from(Profile.class);
-		CriteriaQuery<Profile> all = cq.select(rootEntry);
-		TypedQuery<Profile> allQuery = sess.createQuery(all);
-		profileList = allQuery.getResultList();
+		CriteriaQuery<Message> cq = cb.createQuery(Message.class);
+		Root<Message> rootEntry = cq.from(Message.class);
+		CriteriaQuery<Message> all = cq.select(rootEntry);
+		TypedQuery<Message> allQuery = sess.createQuery(all);
+		messageList = allQuery.getResultList();
 		sess.close();
 		
-		return profileList;
+		return messageList;
 	}
 
 	@Override
-	public Profile updateProfile(Profile profile) throws HibernateException {
-		
+	public Message updateMessage(Message message) {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.update(profile);
+		sess.update(message);
 		tx.commit();
 		sess.close();
-		return profile;
+		return message;
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) throws HibernateException {
-		
+	public boolean deleteMessage(Message message) {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.delete(profile);
+		sess.delete(message);
 		tx.commit();
 		sess.close();
 		return true;
