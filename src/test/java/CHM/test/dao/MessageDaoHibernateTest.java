@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -31,16 +32,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import CHM.config.AppConfig;
-import CHM.dao.ProfileDaoHibernate;
-import CHM.model.Profile;
+import CHM.dao.MessageDaoHibernate;
+import CHM.model.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes= AppConfig.class)
-public class ProfileDaoHibernateTest {
+public class MessageDaoHibernateTest {
 	
 	@Autowired
-	private ProfileDaoHibernate profileDaoHibernate;
+	private MessageDaoHibernate messageDaoHibernate;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -55,23 +56,23 @@ public class ProfileDaoHibernateTest {
 	CriteriaBuilder mockCriteriaBuilder;
 	
 	@Mock
-	CriteriaQuery<Profile> mockCriteriaQuery;
+	CriteriaQuery<Message> mockCriteriaQuery;
 	
 	@Mock
-	CriteriaQuery<Profile> mockCriteriaQueryTwo;
+	CriteriaQuery<Message> mockCriteriaQueryTwo;
 	
 	@Mock
-	Root<Profile> mockRoot;
+	Root<Message> mockRoot;
 	
 	@Mock
-	Query<Profile> mockTypedQuery;
+	Query<Message> mockTypedQuery;
 	
 	@Mock
 	Transaction mockTransaction;
 	
 	private Session sess;
 	
-	private Profile toTest;
+	private Message toTest;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -85,8 +86,8 @@ public class ProfileDaoHibernateTest {
 	public void setUp() throws Exception {
 
 		
-		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
-		profileDaoHibernate.insertProfile(toTest);
+		toTest = new Message(101, null, 101, 102, "test message", LocalTime.now());
+		messageDaoHibernate.insertMessage(toTest);
 		
 		MockitoAnnotations.initMocks(this);
 		
@@ -96,24 +97,24 @@ public class ProfileDaoHibernateTest {
 		when(mockSessionFactory.openSession()).thenReturn(mockSession);
 		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		// Set profileDao to use that mocked session factory 
-		profileDaoHibernate.setSessionFactory(mockSessionFactory);
+		messageDaoHibernate.setSessionFactory(mockSessionFactory);
 		
 		//when(mockSessionFactory.openSession()).thenReturn(mockSession);
 		when(mockSession.getCriteriaBuilder()).thenReturn(mockCriteriaBuilder);
-		when(mockCriteriaBuilder.createQuery(Profile.class)).thenReturn(mockCriteriaQuery);
-		when(mockCriteriaQuery.from(Profile.class)).thenReturn(mockRoot);
+		when(mockCriteriaBuilder.createQuery(Message.class)).thenReturn(mockCriteriaQuery);
+		when(mockCriteriaQuery.from(Message.class)).thenReturn(mockRoot);
 		when(mockCriteriaQuery.select(mockRoot)).thenReturn(mockCriteriaQueryTwo);
 		when(mockSession.createQuery(mockCriteriaQueryTwo)).thenReturn(mockTypedQuery);
-		when(mockTypedQuery.getResultList()).thenReturn(new ArrayList<Profile>());
+		when(mockTypedQuery.getResultList()).thenReturn(new ArrayList<Message>());
 
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		
-		profileDaoHibernate.setSessionFactory(sessionFactory);
+		messageDaoHibernate.setSessionFactory(sessionFactory);
 		try {
-			profileDaoHibernate.deleteProfile(toTest);
+			messageDaoHibernate.deleteMessage(toTest);
 		} catch (Exception e) {
 			
 		} finally {
@@ -127,9 +128,9 @@ public class ProfileDaoHibernateTest {
 	public void testSelectProfile() {
 		
 		try {
-			profileDaoHibernate.selectProfile(toTest.getProfileId());
+			messageDaoHibernate.selectMessage(toTest.getMessageId());
 			verify(mockSessionFactory).openSession();
-			verify(mockSession).get(Profile.class, toTest.getProfileId());
+			verify(mockSession).get(Message.class, toTest.getMessageId());
 			verify(mockSession).close();
 		} catch (HibernateException e) {
 			fail("HibernateException " + e);
@@ -141,7 +142,7 @@ public class ProfileDaoHibernateTest {
 	public void testInsertProfile() {
 		
 		try {
-			profileDaoHibernate.insertProfile(toTest);
+			messageDaoHibernate.insertMessage(toTest);
 			verify(mockSessionFactory).openSession();
 			verify(mockSession).beginTransaction();
 			verify(mockTransaction).commit();
@@ -157,11 +158,11 @@ public class ProfileDaoHibernateTest {
 		
 		try {
 			
-			profileDaoHibernate.selectAllProfiles();
+			messageDaoHibernate.selectAllMessages();
 			verify(mockSessionFactory).openSession();
 			verify(mockSession).getCriteriaBuilder();
-			verify(mockCriteriaBuilder).createQuery(Profile.class);
-			verify(mockCriteriaQuery).from(Profile.class);
+			verify(mockCriteriaBuilder).createQuery(Message.class);
+			verify(mockCriteriaQuery).from(Message.class);
 			verify(mockCriteriaQuery).select(mockRoot);
 			verify(mockSession).createQuery(mockCriteriaQueryTwo);
 			verify(mockTypedQuery).getResultList();
@@ -177,7 +178,7 @@ public class ProfileDaoHibernateTest {
 	public void testUpdateProfile() {
 		
 		try {
-			profileDaoHibernate.updateProfile(toTest);
+			messageDaoHibernate.updateMessage(toTest);
 			verify(mockSessionFactory).openSession();
 			verify(mockSession).beginTransaction();
 			verify(mockTransaction).commit();
@@ -193,7 +194,7 @@ public class ProfileDaoHibernateTest {
 	public void testDeleteProfile() {
 		
 		try {
-			profileDaoHibernate.deleteProfile(toTest);
+			messageDaoHibernate.deleteMessage(toTest);
 			verify(mockSessionFactory).openSession();
 			verify(mockSession).beginTransaction();
 			verify(mockTransaction).commit();
@@ -205,3 +206,4 @@ public class ProfileDaoHibernateTest {
 	}
 
 }
+

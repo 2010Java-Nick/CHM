@@ -6,14 +6,14 @@ import CHM.model.Message;
 
 public interface MessageDao {
 	
-	public int insertProfile(Message message);
+	public int insertMessage(Message message);
 	
-	public Message selectProfile(int messageInt);
+	public Message selectMessage(int messageId);
 	
-	public List<Message> selectAllProfiles();
+	public List<Message> selectAllMessages();
 	
-	public Message updateUser(int messageId, Message message);
+	public Message updateMessage(Message message);
 	
-	public boolean deleteProfile(Message message);
+	public boolean deleteMessage(Message message);
 
 }
