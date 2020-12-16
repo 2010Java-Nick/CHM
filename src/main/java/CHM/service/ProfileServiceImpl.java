@@ -36,7 +36,8 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public Profile readProfileById(int profileId) {
-		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
