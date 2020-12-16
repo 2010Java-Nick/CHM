@@ -1,0 +1,14 @@
+  html,
+  body {
+    background-color: white;
+  }
+
+  #ccolor {
+    color: white;
+  }
+
+  #cardcenter {
+    contain: container pt-5;
+  }
+
+  
