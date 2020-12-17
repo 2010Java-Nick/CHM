@@ -16,6 +16,6 @@ public interface ProfileDao {
 	
 	public Profile updateProfile(Profile profile) throws HibernateException;
 	
-	public boolean deleteProfile(Profile profile) throws HibernateException;
+	public boolean deleteProfile(Profile profile) throws Exception;
 
 }
