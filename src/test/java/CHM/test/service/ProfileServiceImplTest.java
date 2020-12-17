@@ -51,7 +51,7 @@ public class ProfileServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs", "dogs");
 		MockitoAnnotations.initMocks(this);
 		
 		when(mockProfileDao.selectProfile(toTest.getProfileId())).thenReturn(toTest);
@@ -69,6 +69,56 @@ public class ProfileServiceImplTest {
 	@Test
 	public void testCreateProfile() {
 		
+		try {
+			profileService.createProfile(toTest);
+			verify(mockProfileDao).insertProfile(toTest);
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testReadProfileById() {
+		
+		try {
+			profileService.readProfileById(toTest.getProfileId());
+			verify(mockProfileDao).selectProfile(toTest.getProfileId());
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testReadAllProfiles() {
+		
+		try {
+			profileService.readAllProfiles();
+			verify(mockProfileDao).selectAllProfiles();
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testUpdateProfile() {
+		
+		try {
+			profileService.updateProfile(toTest);
+			verify(mockProfileDao).updateProfile(toTest);
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testDeleteProfile() {
+		
+		try {
+			profileService.deleteProfile(toTest);
+			verify(mockProfileDao).deleteProfile(toTest);
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
 	}
 
 }

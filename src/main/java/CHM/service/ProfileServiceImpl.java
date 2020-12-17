@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import CHM.dao.ProfileDao;
 import CHM.model.Profile;
 import static CHM.util.HelperFunctions.validateProfile;
+import CHM.util.InvalidProfileException;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -24,18 +25,18 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public int createProfile(Profile profile) {
+	public int createProfile(Profile profile) throws InvalidProfileException {
 		
 		if (validateProfile(profile)) {
 			try {
 				return profileDao.insertProfile(profile);
 				
 			} catch (HibernateException e) {
-				return -1;
+				return -1; 
 			}
 		}
 		
-		return -1;
+		throw new InvalidProfileException("Attempting to create invalid profile.");
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public Profile updateProfile(Profile profile) {
+	public Profile updateProfile(Profile profile) throws InvalidProfileException {
 		
 		if (validateProfile(profile)) {
 			try {
@@ -71,7 +72,7 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 		}
 		
-		return null;
+		throw new InvalidProfileException("Attempting to update profile with invalid data.");
 	}
 
 	@Override

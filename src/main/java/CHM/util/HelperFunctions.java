@@ -19,8 +19,13 @@ public class HelperFunctions {
 		return age >= MIN_AGE;
 	}
 	
+	public static boolean verifyId(int id) {
+		return id > 0;
+	}
+	
 	// https://www.journaldev.com/641/regular-expression-phone-number-validation-in-java
 	public static boolean validatePhoneNumber(String phoneNo) {
+		if (phoneNo == null) return false;
 		//validate phone numbers of format "1234567890"
 		if (phoneNo.matches("\\d{10}")) return true;
 		//validating phone number with -, . or spaces
@@ -34,7 +39,7 @@ public class HelperFunctions {
 	}
 	
 	public static boolean validateProfile(Profile profile) {
-		return isValidEmail(profile.getEmail()) && verifyAge(profile.getAge()) && validatePhoneNumber(profile.getPhone());
+		return isValidEmail(profile.getEmail()) && verifyAge(profile.getAge()) && validatePhoneNumber(profile.getPhone()) && verifyId(profile.getProfileId());
 	}
 	
 }

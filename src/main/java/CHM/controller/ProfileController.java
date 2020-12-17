@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Profile;
 import CHM.service.ProfileServiceImpl;
+import CHM.util.InvalidProfileException;
 
 @RestController
 public class ProfileController {
@@ -26,16 +27,23 @@ public class ProfileController {
 		this.profileService = profileService;
 	}
 
+	@SuppressWarnings("finally")
 	@RequestMapping(path = "/profile", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile) {
 		
-		Integer newProfileId = new Integer(profileService.createProfile(profile));
-		
-		ResponseEntity<Integer> re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
-
-		return re;
-		
+		Integer newProfileId;
+		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		try {
+			newProfileId = new Integer(profileService.createProfile(profile));
+			if (newProfileId != -1) {
+				re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
+			}
+		} catch (InvalidProfileException e) {
+			e.printStackTrace();
+		} finally {
+			return re;
+		}
 	}
 
 }
