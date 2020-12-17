@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -21,24 +22,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import CHM.config.AppConfig;
-import CHM.dao.ProfileDao;
-import CHM.model.Profile;
-import CHM.service.ProfileService;
+import CHM.dao.MessageDao;
+import CHM.model.Message;
+import CHM.service.MessageService;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes= AppConfig.class)
-public class ProfileServiceImplTest {
+public class MessageServiceImplTest {
 
-	
 	@Autowired
 	@InjectMocks
-	private ProfileService profileService;
+	private MessageService messageService;
 	
 	@Mock
-	private ProfileDao mockProfileDao;
+	private MessageDao mockMessageDao;
 	
-	private Profile toTest;
+	private Message toTest;
 	
 	
 	@BeforeClass
@@ -52,14 +53,14 @@ public class ProfileServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Message(101, null, 100, 102, "test message", LocalTime.now());
 		MockitoAnnotations.initMocks(this);
 		
-		when(mockProfileDao.selectProfile(toTest.getProfileId())).thenReturn(toTest);
-		when(mockProfileDao.insertProfile(toTest)).thenReturn(toTest.getProfileId());
-		when(mockProfileDao.selectAllProfiles()).thenReturn(new ArrayList<Profile>());
-		when(mockProfileDao.updateProfile(toTest)).thenReturn(toTest);
-		when(mockProfileDao.deleteProfile(toTest)).thenReturn(true);
+		when(mockMessageDao.selectMessage(toTest.getMessageId())).thenReturn(toTest);
+		when(mockMessageDao.insertMessage(toTest)).thenReturn(toTest.getMessageId());
+		when(mockMessageDao.selectAllMessages()).thenReturn(new ArrayList<Message>());
+		when(mockMessageDao.updateMessage(toTest)).thenReturn(toTest);
+		when(mockMessageDao.deleteMessage(toTest)).thenReturn(true);
 	}
 
 	@After
@@ -67,58 +68,57 @@ public class ProfileServiceImplTest {
 	}
 
 	@Test
-	public void testCreateProfile() {
+	public void testCreateMessage() {
 		
 		try {
-			profileService.createProfile(toTest);
-			verify(mockProfileDao).insertProfile(toTest);
+			messageService.createMessage(toTest);
+			verify(mockMessageDao).insertMessage(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadProfileById() {
+	public void testReadMessageById() {
 		
 		try {
-			profileService.readProfileById(toTest.getProfileId());
-			verify(mockProfileDao).selectProfile(toTest.getProfileId());
+			messageService.readMessageById(toTest.getMessageId());
+			verify(mockMessageDao).selectMessage(toTest.getMessageId());
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadAllProfiles() {
+	public void testReadAllMessages() {
 		
 		try {
-			profileService.readAllProfiles();
-			verify(mockProfileDao).selectAllProfiles();
+			messageService.readAllMessages();
+			verify(mockMessageDao).selectAllMessages();
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testUpdateProfile() {
+	public void testUpdateMessage() {
 		
 		try {
-			profileService.updateProfile(toTest);
-			verify(mockProfileDao).updateProfile(toTest);
+			messageService.updateMessage(toTest);
+			verify(mockMessageDao).updateMessage(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testDeleteProfile() {
+	public void testDeleteMessage() {
 		
 		try {
-			profileService.deleteProfile(toTest);
-			verify(mockProfileDao).deleteProfile(toTest);
+			messageService.deleteMessage(toTest);
+			verify(mockMessageDao).deleteMessage(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
-
 }

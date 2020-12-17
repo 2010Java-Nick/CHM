@@ -26,7 +26,6 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public int createProfile(Profile profile) throws InvalidProfileException {
-		System.out.println(profile.toString());
 		if (validateProfile(profile)) {
 			try {
 				return profileDao.insertProfile(profile);

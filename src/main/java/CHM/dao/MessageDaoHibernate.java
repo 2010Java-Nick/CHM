@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import CHM.model.Message;
-import CHM.model.Profile;
+
 
 @Repository(value = "messageDao")
 public class MessageDaoHibernate implements MessageDao {
@@ -31,7 +32,7 @@ public class MessageDaoHibernate implements MessageDao {
 	}
 	
 	@Override
-	public int insertMessage(Message message) {
+	public int insertMessage(Message message) throws HibernateException {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(message);
@@ -42,7 +43,7 @@ public class MessageDaoHibernate implements MessageDao {
 	}
 
 	@Override
-	public Message selectMessage(int messageId) {
+	public Message selectMessage(int messageId) throws HibernateException {
 		Message message;
 		Session sess = sessionFactory.openSession();
 		message = sess.get(Message.class, messageId);
@@ -51,7 +52,7 @@ public class MessageDaoHibernate implements MessageDao {
 	}
 
 	@Override
-	public List<Message> selectAllMessages() {
+	public List<Message> selectAllMessages() throws HibernateException {
 		List<Message> messageList = null;
 		Session sess = sessionFactory.openSession();
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
@@ -66,7 +67,7 @@ public class MessageDaoHibernate implements MessageDao {
 	}
 
 	@Override
-	public Message updateMessage(Message message) {
+	public Message updateMessage(Message message) throws HibernateException {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.update(message);
@@ -76,7 +77,7 @@ public class MessageDaoHibernate implements MessageDao {
 	}
 
 	@Override
-	public boolean deleteMessage(Message message) {
+	public boolean deleteMessage(Message message) throws Exception {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.delete(message);
