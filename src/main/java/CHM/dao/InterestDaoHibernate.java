@@ -71,23 +71,25 @@ public class InterestDaoHibernate implements InterestDao {
 	}
 
 	@Override
-	public void updateInterest(Interest interest) throws HibernateException {
+	public Interest updateInterest(Interest interest) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.update(interest);
 		tx.commit();
 		sess.close();
+		return interest;
 	}
 
 	@Override
-	public void deleteInterest(Interest interest) throws HibernateException {
+	public boolean deleteInterest(Interest interest) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.delete(interest);
 		tx.commit();
 		sess.close();
+		return true;
 	}
 
 
