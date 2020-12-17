@@ -8,7 +8,7 @@ public interface UserDao {
 
 	public int insertUser(User user);
 	
-	public User selectUser(int userId);
+//	public User selectUser(int userId);
 	
 	public User selectUser(String username);
 	
