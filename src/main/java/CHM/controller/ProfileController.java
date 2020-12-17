@@ -28,11 +28,11 @@ public class ProfileController {
 
 	@RequestMapping(path = "/profile", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
+	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile) {
 		
-		Profile newProfile = profileService.createProfile(profile);
+		Integer newProfileId = new Integer(profileService.createProfile(profile));
 		
-		ResponseEntity<Profile> re = new ResponseEntity<Profile>(newProfile, HttpStatus.CREATED);
+		ResponseEntity<Integer> re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
 
 		return re;
 		

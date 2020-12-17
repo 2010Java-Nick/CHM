@@ -6,57 +6,82 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import CHM.dao.ProfileDaoHibernate;
+import CHM.dao.ProfileDao;
 import CHM.model.Profile;
+import static CHM.util.HelperFunctions.validateProfile;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
 	
-	ProfileDaoHibernate profileDao;
+	private ProfileDao profileDao;
 
 	/**
 	 * @param profileDao the profileDao to set
 	 */
 	@Autowired
-	public void setProfileDao(ProfileDaoHibernate profileDao) {
+	public void setProfileDao(ProfileDao profileDao) {
 		this.profileDao = profileDao;
 	}
 
 	@Override
-	public Profile createProfile(Profile profile) {
-		try {
-			profileDao.insertProfile(profile);
-			return profile;
-			
-		} catch (HibernateException e) {
-			return null;
+	public int createProfile(Profile profile) {
+		
+		if (validateProfile(profile)) {
+			try {
+				return profileDao.insertProfile(profile);
+				
+			} catch (HibernateException e) {
+				return -1;
+			}
 		}
 		
+		return -1;
 	}
 
 	@Override
 	public Profile readProfileById(int profileId) {
 		
 		
-		return null;
+		try {
+			return profileDao.selectProfile(profileId);
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Profile> readAllProfiles() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			return profileDao.selectAllProfiles();
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 	@Override
-	public Profile updateProfile(int profileId, Profile profile) {
-		// TODO Auto-generated method stub
+	public Profile updateProfile(Profile profile) {
+		
+		if (validateProfile(profile)) {
+			try {
+				return profileDao.updateProfile(profile);
+				
+			} catch (HibernateException e) {
+				return null;
+			}
+		}
+		
 		return null;
 	}
 
 	@Override
 	public boolean deleteProfile(Profile profile) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		try {
+			return profileDao.deleteProfile(profile);
+		} catch (HibernateException e) {
+			return false;
+		}
 	}
 
 }

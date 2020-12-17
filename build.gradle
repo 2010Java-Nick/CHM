@@ -100,7 +100,10 @@ dependencies {
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '8.0.47'
 	
 	// https://mvnrepository.com/artifact/org.springframework/spring-web
-compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+	compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+	
+	// https://mvnrepository.com/artifact/commons-validator/commons-validator
+	compile group: 'commons-validator', name: 'commons-validator', version: '1.7'
 	
 	
 }
