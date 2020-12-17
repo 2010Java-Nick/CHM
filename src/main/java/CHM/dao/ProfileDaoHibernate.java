@@ -85,7 +85,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) throws HibernateException {
+	public boolean deleteProfile(Profile profile) throws Exception {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();

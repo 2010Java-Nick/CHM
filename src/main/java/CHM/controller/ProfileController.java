@@ -92,7 +92,7 @@ public class ProfileController {
 	public ResponseEntity<Boolean> deleteProfile(@RequestBody Profile profile){
 		
 		Boolean deleted = profileService.deleteProfile(profile);
-		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;
 	}
 

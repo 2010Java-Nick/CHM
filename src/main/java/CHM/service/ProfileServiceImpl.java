@@ -26,7 +26,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public int createProfile(Profile profile) throws InvalidProfileException {
-		
+		System.out.println(profile.toString());
 		if (validateProfile(profile)) {
 			try {
 				return profileDao.insertProfile(profile);
@@ -35,8 +35,8 @@ public class ProfileServiceImpl implements ProfileService {
 				return -1; 
 			}
 		}
+		throw new InvalidProfileException("Attempting to create invalid profile.");		
 		
-		throw new InvalidProfileException("Attempting to create invalid profile.");
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class ProfileServiceImpl implements ProfileService {
 		
 		try {
 			return profileDao.deleteProfile(profile);
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
