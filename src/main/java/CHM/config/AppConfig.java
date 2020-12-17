@@ -4,12 +4,16 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.MethodParameter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -59,15 +63,14 @@ public class AppConfig implements WebApplicationInitializer {
 		return SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
 	}
 	
-	/*
-	 * @Bean
-	 * 
-	 * @Scope(value = "prototype") public Logger logger(final InjectionPoint ip) {
-	 * return LoggerFactory.getLogger(of(ip.getMethodParameter())
-	 * .<Class>map(MethodParameter::getContainingClass) .orElseGet( () ->
-	 * ofNullable(ip.getField()) .map(Field::getDeclaringClass) .orElseThrow
-	 * (IllegalArgumentException::new))); }
-	 */
+	
+//	 @Bean
+//	 @Scope(value = "prototype") public Logger logger(final InjectionPoint ip) {
+//	 return LoggerFactory.getLogger(of(ip.getMethodParameter())
+//			 .<Class>map(MethodParameter::getContainingClass).orElseGet( () ->
+//			 ofNullable(ip.getField()).map(Field::getDeclaringClass).orElseThrow
+//			 (IllegalArgumentException::new))); }
+	 
 	
 	//Bean wiring
 
