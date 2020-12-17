@@ -12,7 +12,7 @@ import CHM.model.Profile;
 
 import static CHM.util.HelperFunctions.*;
 
-public class HelperFunctions {
+public class HelperFunctionsTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
