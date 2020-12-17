@@ -10,6 +10,8 @@ public interface UserDao {
 	
 	public User selectUser(int userId);
 	
+	public User selectUser(String username);
+	
 	public List<User> selectAllUsers();
 	
 	public User updateUser(int userId, User user);
