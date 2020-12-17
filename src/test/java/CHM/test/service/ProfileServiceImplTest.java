@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class ProfileServiceImplTest {
 
 	
 	@Autowired
+	@InjectMocks
 	private ProfileService profileService;
 	
 	@Mock
@@ -59,7 +61,6 @@ public class ProfileServiceImplTest {
 		when(mockProfileDao.selectAllProfiles()).thenReturn(new ArrayList<Profile>());
 		when(mockProfileDao.updateProfile(toTest)).thenReturn(toTest);
 		when(mockProfileDao.deleteProfile(toTest)).thenReturn(true);
-		profileService.setProfileDao(mockProfileDao);
 	}
 
 	@After
