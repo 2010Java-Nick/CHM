@@ -199,8 +199,8 @@ public class ProfileDaoHibernateTest {
 			verify(mockTransaction).commit();
 			verify(mockSession).delete(toTest);
 			verify(mockSession).close();
-		} catch (HibernateException e) {
-			fail("HibernateException " + e);
+		} catch (Exception e) {
+			fail("Exception " + e);
 		}
 	}
 
