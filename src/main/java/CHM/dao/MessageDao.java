@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 
+import CHM.model.Match;
 import CHM.model.Message;
 
 public interface MessageDao {
@@ -13,6 +14,12 @@ public interface MessageDao {
 	public Message selectMessage(int messageId) throws HibernateException;
 	
 	public List<Message> selectAllMessages() throws HibernateException;
+	
+	public List<Message> selectMessagesBySenderId(int senderId) throws HibernateException;
+	
+	public List<Message> selectMessagesByRecipientId(int recipientId) throws HibernateException;
+	
+	public List<Message> selectMessagesByMatchId(int matchId) throws HibernateException;
 	
 	public Message updateMessage(Message message) throws HibernateException;
 	

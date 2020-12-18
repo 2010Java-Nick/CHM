@@ -57,6 +57,33 @@ public class MessageController {
 		return re;
 	}
 	
+	@RequestMapping(path = "/message/match/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesByMatchId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesByMatchId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
+	@RequestMapping(path = "/message/recipient/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesByRecipientId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesByRecipientId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
+	@RequestMapping(path = "/message/sender/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesBySenderId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesBySenderId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
 	@RequestMapping(path = "/message", method = RequestMethod.PATCH)
 	@ResponseBody
 	public ResponseEntity<Message> updateMessage(@RequestBody Message message) {

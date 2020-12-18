@@ -3,6 +3,7 @@ package CHM.service;
 import java.util.List;
 
 import CHM.dao.MessageDao;
+import CHM.model.Match;
 import CHM.model.Message;
 
 public interface MessageService {
@@ -12,6 +13,12 @@ public interface MessageService {
 	public Message readMessageById(int messageId);
 	
 	public List<Message> readAllMessages();
+	
+	public List<Message> readMessagesByMatchId(int matchId);
+	
+	public List<Message> readMessagesByRecipientId(int recipientId);
+	
+	public List<Message> readMessagesBySenderId(int senderId);
 	
 	public Message updateMessage(Message message);
 	

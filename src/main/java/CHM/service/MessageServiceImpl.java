@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import CHM.dao.MessageDao;
+import CHM.model.Match;
 import CHM.model.Message;
 
 @Service
@@ -63,6 +64,33 @@ public class MessageServiceImpl implements MessageService {
 			return messageDao.deleteMessage(message);
 		} catch (Exception e) {
 			return false;
+		}
+	}
+
+	@Override
+	public List<Message> readMessagesByMatchId(int matchId) {
+		try {
+			return messageDao.selectMessagesByMatchId(matchId);
+		} catch (HibernateException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Message> readMessagesByRecipientId(int recipientId) {
+		try {
+			return messageDao.selectMessagesByRecipientId(recipientId);
+		} catch (HibernateException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Message> readMessagesBySenderId(int senderId) {
+		try {
+			return messageDao.selectMessagesBySenderId(senderId);
+		} catch (HibernateException e) {
+			return null;
 		}
 	}
 }
