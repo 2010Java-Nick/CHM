@@ -136,7 +136,7 @@ public class UserDaoHibernateTest {
 			verify(spy).getCriteriaBuilder();
 			verify(spy).close();
 		} catch (HibernateException e) {
-			fail("Excepton " + e);
+			fail("Exception " + e);
 		}
 		
 	}
@@ -152,7 +152,7 @@ public class UserDaoHibernateTest {
 			verify(spy).update(user);
 			verify(spy).close();
 		} catch (HibernateException e) {
-			fail("Excepton " + e);
+			fail("Exception " + e);
 		}
 		
 	}
@@ -165,8 +165,8 @@ public class UserDaoHibernateTest {
 			userDaoHibernate.deleteUser(user);
 			verify(spy).delete(user);
 			verify(spy).close();
-		} catch (HibernateException e) {
-			fail("Excepton " + e);
+		} catch (Exception e) {
+			fail("Exception " + e);
 		}
 		
 	}
