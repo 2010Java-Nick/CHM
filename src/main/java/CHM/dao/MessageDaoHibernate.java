@@ -15,7 +15,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import CHM.model.Match;
 import CHM.model.Message;
 
 
@@ -75,6 +74,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("senderId", senderId);
 		List<Message> results = (List<Message>)query.getResultList();
+		sess.close();
 		return results;
 	}
 
@@ -85,6 +85,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("recipientId", recipientId);
 		List<Message> results = (List<Message>)query.getResultList();
+		sess.close();
 		return results;
 	}
 
@@ -95,6 +96,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("matchId", matchId);
 		List<Message> results = (List<Message>)query.getResultList();
+		sess.close();
 		return results;
 		
 	}

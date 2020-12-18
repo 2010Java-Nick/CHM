@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
-
+import java.util.Random;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -64,6 +64,9 @@ public class MessageDaoHibernateTest {
 	
 	@Mock
 	Query<Message> mockTypedQuery;
+	
+	@Mock
+	Query mockQuery;
 	
 	@Mock
 	Transaction mockTransaction;
@@ -199,6 +202,63 @@ public class MessageDaoHibernateTest {
 			verify(mockSession).delete(toTest);
 			verify(mockSession).close();
 		} catch (Exception e) {
+			fail("Exception " + e);
+		}
+	}
+	
+	@Test
+	public void testSelectMessagesByMatchId() {
+		try {
+			Random rand = new Random();
+			int matchId = rand.nextInt();
+			String hql = "from Message WHERE match_id = :matchId";
+			when(mockSession.createQuery(hql)).thenReturn(mockQuery);
+			when(mockQuery.getResultList()).thenReturn(null);
+			messageDaoHibernate.selectMessagesByMatchId(matchId);
+			verify(mockSessionFactory).openSession();
+			verify(mockSession).close();
+			verify(mockSession).createQuery(hql);
+			verify(mockQuery).setParameter("matchId", matchId);
+			verify(mockQuery).getResultList();
+		} catch (HibernateException e) {
+			fail("Exception " + e);
+		}
+	}
+	
+	@Test
+	public void testSelectMessagesBySenderId() {
+		try {
+			Random rand = new Random();
+			int senderId = rand.nextInt();
+			String hql = "from Message WHERE sender_id = :senderId";
+			when(mockSession.createQuery(hql)).thenReturn(mockQuery);
+			when(mockQuery.getResultList()).thenReturn(null);
+			messageDaoHibernate.selectMessagesBySenderId(senderId);
+			verify(mockSessionFactory).openSession();
+			verify(mockSession).close();
+			verify(mockSession).createQuery(hql);
+			verify(mockQuery).setParameter("senderId", senderId);
+			verify(mockQuery).getResultList();
+		} catch (HibernateException e) {
+			fail("Exception " + e);
+		}
+	}
+	
+	@Test
+	public void testSelectMessagesByRecipientId() {
+		try {
+			Random rand = new Random();
+			int recipientId = rand.nextInt();
+			String hql = "from Message WHERE recipient_id = :recipientId";
+			when(mockSession.createQuery(hql)).thenReturn(mockQuery);
+			when(mockQuery.getResultList()).thenReturn(null);
+			messageDaoHibernate.selectMessagesByRecipientId(recipientId);
+			verify(mockSessionFactory).openSession();
+			verify(mockSession).close();
+			verify(mockSession).createQuery(hql);
+			verify(mockQuery).setParameter("recipientId", recipientId);
+			verify(mockQuery).getResultList();
+		} catch (HibernateException e) {
 			fail("Exception " + e);
 		}
 	}

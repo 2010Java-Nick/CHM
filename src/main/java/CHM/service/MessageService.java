@@ -3,7 +3,6 @@ package CHM.service;
 import java.util.List;
 
 import CHM.dao.MessageDao;
-import CHM.model.Match;
 import CHM.model.Message;
 
 public interface MessageService {
