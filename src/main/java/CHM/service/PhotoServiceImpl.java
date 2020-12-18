@@ -34,7 +34,7 @@ public class PhotoServiceImpl implements PhotoService{
 	}
 
 	@Override
-	public Photo readPhotoByProfileId(Profile profile) {
+	public List<Photo> readPhotosByProfile(Profile profile) {
 		// TODO Auto-generated method stub
 		return null;
 	}
