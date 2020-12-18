@@ -153,7 +153,7 @@ public class InterestDaoHibernateTest {
 			interestDaoHibernate.deleteInterest(interest);
 			verify(spy).delete(interest);
 			verify(spy).close();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			fail("Excepton " + e);
 		}
 	}
