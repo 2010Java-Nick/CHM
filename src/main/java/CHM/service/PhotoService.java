@@ -4,7 +4,6 @@ import java.util.List;
 
 import CHM.dao.PhotoDao;
 import CHM.model.Photo;
-import CHM.model.Profile;
 
 public interface PhotoService {
 	

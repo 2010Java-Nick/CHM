@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import CHM.dao.PhotoDao;
 import CHM.model.Photo;
-import CHM.model.Profile;
-
 @Service
 public class PhotoServiceImpl implements PhotoService{
 	
