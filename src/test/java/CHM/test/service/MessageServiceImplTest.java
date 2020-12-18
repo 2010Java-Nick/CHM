@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -94,6 +95,45 @@ public class MessageServiceImplTest {
 		try {
 			messageService.readAllMessages();
 			verify(mockMessageDao).selectAllMessages();
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testReadMessagesByMatchId() {
+		
+		try {
+			Random rand = new Random();
+			int matchId = rand.nextInt();
+			messageService.readMessagesByMatchId(matchId);
+			verify(mockMessageDao).selectMessagesByMatchId(matchId);
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testReadMessagesByRecipientId() {
+		
+		try {
+			Random rand = new Random();
+			int recipientId = rand.nextInt();
+			messageService.readMessagesByRecipientId(recipientId);
+			verify(mockMessageDao).selectMessagesByRecipientId(recipientId);
+		} catch (Exception e) {
+			fail("Failed with exception " + e);
+		}
+	}
+	
+	@Test
+	public void testReadMessagesBySenderId() {
+		
+		try {
+			Random rand = new Random();
+			int senderId = rand.nextInt();
+			messageService.readMessagesBySenderId(senderId);
+			verify(mockMessageDao).selectMessagesBySenderId(senderId);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
