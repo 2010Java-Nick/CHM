@@ -14,73 +14,69 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import CHM.model.Message;
+import CHM.model.Match;
 
+@Repository
+public class MatchDaoHibernate implements MatchDao {
 
-@Repository(value = "messageDao")
-public class MessageDaoHibernate implements MessageDao {
-
-	
 	SessionFactory sessionFactory;
 	
-	/**
-	 * @param sessionFactory the sessionFactory to set
-	 */
 	@Autowired
+	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+
 	}
 	
 	@Override
-	public int insertMessage(Message message) throws HibernateException {
+	public int insertMatch(Match match) throws HibernateException {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.save(message);
+		sess.save(match);
 		tx.commit();
 		sess.close();
-		return message.getMessageId();
-
+		return match.getMatchId();
 	}
 
 	@Override
-	public Message selectMessage(int messageId) throws HibernateException {
-		Message message;
+	public Match selectMatch(int matchId) throws HibernateException {
+		Match match;
 		Session sess = sessionFactory.openSession();
-		message = sess.get(Message.class, messageId);
+		match = sess.get(Match.class, matchId);
 		sess.close();
-		return message;
+		return match;
 	}
 
 	@Override
-	public List<Message> selectAllMessages() throws HibernateException {
-		List<Message> messageList = null;
+	public List<Match> selectAllMatches() throws HibernateException {
+		List<Match> matchList = null;
 		Session sess = sessionFactory.openSession();
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
-		CriteriaQuery<Message> cq = cb.createQuery(Message.class);
-		Root<Message> rootEntry = cq.from(Message.class);
-		CriteriaQuery<Message> all = cq.select(rootEntry);
-		TypedQuery<Message> allQuery = sess.createQuery(all);
-		messageList = allQuery.getResultList();
+		CriteriaQuery<Match> cq = cb.createQuery(Match.class);
+		Root<Match> rootEntry = cq.from(Match.class);
+		CriteriaQuery<Match> all = cq.select(rootEntry);
+		TypedQuery<Match> allQuery = sess.createQuery(all);
+		matchList = allQuery.getResultList();
 		sess.close();
 		
-		return messageList;
+		return matchList;
 	}
 
 	@Override
-	public Message updateMessage(Message message) throws HibernateException {
+	public Match updateMatch(Match match) throws HibernateException {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.update(message);
+		sess.update(match);
 		tx.commit();
 		sess.close();
-		return message;
+		return match;
 	}
 
 	@Override
-	public boolean deleteMessage(Message message) throws Exception {
+	public boolean deleteMatch(Match match) throws Exception {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		sess.delete(message);
+		sess.delete(match);
 		tx.commit();
 		sess.close();
 		return true;

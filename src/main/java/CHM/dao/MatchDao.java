@@ -2,18 +2,23 @@ package CHM.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+
 import CHM.model.Match;
 
 public interface MatchDao {
 	
-	public int insertProfile(Match match);
+	public int insertMatch(Match match) throws HibernateException;
 	
-	public Match selectProfile(int matchInt);
+	public Match selectMatch(int matchId) throws HibernateException;
 	
-	public List<Match> selectAllProfiles();
+	public List<Match> selectAllMatches() throws HibernateException;
 	
-	public Match updateUser(int matchId, Match match);
+	public Match updateMatch(Match match) throws HibernateException;
 	
-	public boolean deleteProfile(Match match);
+	public boolean deleteMatch(Match match) throws Exception;
+	
+	public void setSessionFactory(SessionFactory sessionFactory);
 
 }

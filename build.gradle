@@ -105,5 +105,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/commons-validator/commons-validator
 	compile group: 'commons-validator', name: 'commons-validator', version: '1.7'
 	
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.12.0'
+	
+	
 	
 }
