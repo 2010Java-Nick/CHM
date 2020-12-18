@@ -1,5 +1,5 @@
 {
-  "name": "chm",
+  "name": "angular-chm",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
