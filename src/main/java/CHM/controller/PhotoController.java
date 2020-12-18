@@ -5,17 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Photo;
 import CHM.service.PhotoServiceImpl;
 
-@RestController
+@RestController(value = "/photo")
 public class PhotoController {
 	
 	PhotoServiceImpl photoService;
@@ -28,8 +30,7 @@ public class PhotoController {
 		this.photoService = photoService;
 	}
 	
-	@RequestMapping(path = "/photo", method = RequestMethod.POST)
-	@ResponseBody
+	@PostMapping
 	public ResponseEntity<Integer> createPhoto(@RequestBody Photo photo) {
 		
 		Integer photoId = photoService.createPhoto(photo);
@@ -40,26 +41,23 @@ public class PhotoController {
 		return re;
 	}
 	
-	@RequestMapping(path = "/photo/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<Photo> readPhotoById(@PathVariable(name = "id")int photoId) {
+	@GetMapping(path = "/{photoId}")
+	public ResponseEntity<Photo> readPhotoById(@PathVariable("photoId")int photoId) {
 		
 		Photo photo = photoService.readPhotoById(photoId);
 		ResponseEntity<Photo> re = new ResponseEntity<Photo>(photo, photo == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
 	}
 	
-	@RequestMapping(path = "/photo/profile/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable(name = "id")int profileId) {
+	@GetMapping(path = "/profile/{profileId}")
+	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable("profileId")int profileId) {
 		
 		List<Photo> photoList = photoService.readPhotosByProfileId(profileId);
 		ResponseEntity<List<Photo>> re = new ResponseEntity<List<Photo>>(photoList, photoList.isEmpty() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
 	}
 	
-	@RequestMapping(path = "/photo", method = RequestMethod.PATCH)
-	@ResponseBody
+	@PatchMapping
 	public ResponseEntity<Photo> updatePhoto(@RequestBody Photo photo) {
 		
 		Photo updatedPhoto = photoService.updatePhoto(photo);
@@ -70,8 +68,7 @@ public class PhotoController {
 		return re;
 	}
 	
-	@RequestMapping(path = "/photo", method = RequestMethod.DELETE)
-	@ResponseBody
+	@DeleteMapping
 	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo){
 		
 		Boolean deleted = photoService.deletePhoto(photo);
