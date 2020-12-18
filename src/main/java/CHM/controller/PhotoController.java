@@ -1,5 +1,7 @@
 package CHM.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,38 +44,37 @@ public class PhotoController {
 	@ResponseBody
 	public ResponseEntity<Photo> readPhotoById(@PathVariable(name = "id")int photoId) {
 		
-		Interest interest = interestService.readInterestById(interestId);
-		ResponseEntity<Interest> re = new ResponseEntity<Interest>(interest, interest == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		Photo photo = photoService.readPhotoById(photoId);
+		ResponseEntity<Photo> re = new ResponseEntity<Photo>(photo, photo == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
 	}
 	
 	@RequestMapping(path = "/photo/profile/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<List<Interest>> readPhotosByProfile() {
+	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable(name = "id")int profileId) {
 		
-		List<Interest> interestList = interestService.readAllInterests();
-		ResponseEntity<List<Interest>> re = new ResponseEntity<List<Interest>>(interestList, interestList.isEmpty() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+		List<Photo> photoList = photoService.readPhotosByProfileId(profileId);
+		ResponseEntity<List<Photo>> re = new ResponseEntity<List<Photo>>(photoList, photoList.isEmpty() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
 	}
 	
-	
-	@RequestMapping(path = "/interest", method = RequestMethod.PATCH)
+	@RequestMapping(path = "/photo", method = RequestMethod.PATCH)
 	@ResponseBody
-	public ResponseEntity<Interest> updatePhoto(@RequestBody Interest interest) {
+	public ResponseEntity<Photo> updatePhoto(@RequestBody Photo photo) {
 		
-		Interest updatedInterest = interestService.updateInterest(interest);
-		ResponseEntity<Interest> re = new ResponseEntity<Interest>(updatedInterest, HttpStatus.BAD_REQUEST);
-		if (updatedInterest != null) {
-			re = new ResponseEntity<Interest>(updatedInterest, HttpStatus.OK);
+		Photo updatedPhoto = photoService.updatePhoto(photo);
+		ResponseEntity<Photo> re = new ResponseEntity<Photo>(updatedPhoto, HttpStatus.BAD_REQUEST);
+		if (updatedPhoto != null) {
+			re = new ResponseEntity<Photo>(updatedPhoto, HttpStatus.OK);
 		}
 		return re;
 	}
 	
-	@RequestMapping(path = "/interest", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/photo", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<Boolean> deletePhoto(@RequestBody Interest interest){
+	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo){
 		
-		Boolean deleted = interestService.deleteInterest(interest);
+		Boolean deleted = photoService.deletePhoto(photo);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;
 	}
