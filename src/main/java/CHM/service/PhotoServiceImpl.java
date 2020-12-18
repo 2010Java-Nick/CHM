@@ -1,12 +1,12 @@
 package CHM.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import CHM.dao.PaymentDao;
 import CHM.dao.PhotoDao;
 import CHM.model.Photo;
 import CHM.model.Profile;
@@ -14,7 +14,7 @@ import CHM.model.Profile;
 @Service
 public class PhotoServiceImpl implements PhotoService{
 	
-	private PhotoDao photoDao;
+	PhotoDao photoDao;
 	
 	@Autowired
 	public void setPhotoDao(PhotoDao photoDao) {
@@ -23,32 +23,59 @@ public class PhotoServiceImpl implements PhotoService{
 
 	@Override
 	public int createPhoto(Photo photo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+			return photoDao.insertPhoto(photo);
+		} catch (HibernateException e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public Photo readPhotoById(int photoId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			return photoDao.selectPhoto(photoId);
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Photo> readPhotosByProfile(Profile profile) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			List<Photo> photoList = photoDao.selectAllPhotos();
+			List<Photo> selectedList = new ArrayList<Photo>();
+			for(Photo p : photoList) {
+				if(p.getProfile().getProfileId() == profile.getProfileId()) {
+					selectedList.add(p);
+				}
+			}
+			return selectedList;
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public Photo updatePhoto(Photo photo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			return photoDao.updatePhoto(photo);
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean deletePhoto(Photo photo) {
-		// TODO Auto-generated method stub
-		return false;
+
+		try {
+			return photoDao.deletePhoto(photo);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 }
