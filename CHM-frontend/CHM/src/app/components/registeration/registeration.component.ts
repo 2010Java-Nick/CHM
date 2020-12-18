@@ -44,7 +44,9 @@ export class RegisterationComponent implements OnInit {
 
     console.log(this.newUser.username);
 
-    this.userServ.createUser(this.newUser);
+    this.userServ.createUser(this.newUser).subscribe(
+      user => console.log(user)
+    ) ;
 
     
   }

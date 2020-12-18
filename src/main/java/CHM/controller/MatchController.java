@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class MatchController {
 	}
 
 	@RequestMapping(path = "/match", method = RequestMethod.POST)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Integer> createMatch(@RequestBody Match match) {
 		
 		Integer newMatchId;
@@ -41,7 +42,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Match> readMatchById(@PathVariable(name = "id")int matchId) {
 		
 		Match match = matchService.readMatchById(matchId);
@@ -50,7 +51,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Match>> readAllMatchs() {
 		
 		List<Match> MatchList = matchService.readAllMatches();
@@ -59,7 +60,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.PATCH)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Match> updateMatch(@RequestBody Match match) {
 		
 		Match updatedMatch = null;
@@ -73,7 +74,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.DELETE)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteMatch(@RequestBody Match match){
 		
 		Boolean deleted = matchService.deleteMatch(match);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class ProfileController {
 
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/profile", method = RequestMethod.POST)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile) {
 		
 		Integer newProfileId;
@@ -49,7 +50,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(path = "/profile/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Profile> readProfileById(@PathVariable(name = "id")int profileId) {
 		
 		Profile profile = profileService.readProfileById(profileId);
@@ -58,7 +59,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(path = "/profile", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Profile>> readAllProfiles() {
 		
 		List<Profile> profileList = profileService.readAllProfiles();
@@ -68,7 +69,7 @@ public class ProfileController {
 	
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/profile", method = RequestMethod.PATCH)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile) {
 		
 		Profile updatedProfile = null;
@@ -87,7 +88,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(path = "/profile", method = RequestMethod.DELETE)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteProfile(@RequestBody Profile profile){
 		
 		Boolean deleted = profileService.deleteProfile(profile);

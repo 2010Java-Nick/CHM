@@ -14,7 +14,7 @@ export class UserService {
   constructor(private httpClient : HttpClient) { }
 
   public createUser(user : User)  {
-
+    console.log("Passing user to backend");
     return this.httpClient.post(this.USER_URL, user);
     
   }
