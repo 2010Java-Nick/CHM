@@ -21,24 +21,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import CHM.config.AppConfig;
-import CHM.dao.MessageDao;
-import CHM.model.Message;
-import CHM.service.MessageService;
-
+import CHM.dao.MatchDao;
+import CHM.model.Match;
+import CHM.service.MatchService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes= AppConfig.class)
-public class MessageServiceImplTest {
+public class MatchServiceImplTest {
 
 	@Autowired
 	@InjectMocks
-	private MessageService messageService;
+	private MatchService MatchService;
 	
 	@Mock
-	private MessageDao mockMessageDao;
+	private MatchDao mockMatchDao;
 	
-	private Message toTest;
+	private Match toTest;
 	
 	
 	@BeforeClass
@@ -52,14 +51,14 @@ public class MessageServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Message(101, null, 100, 102, "test message", "snow");
+		toTest = new Match(105, null, null, false, 0, true);
 		MockitoAnnotations.initMocks(this);
 		
-		when(mockMessageDao.selectMessage(toTest.getMessageId())).thenReturn(toTest);
-		when(mockMessageDao.insertMessage(toTest)).thenReturn(toTest.getMessageId());
-		when(mockMessageDao.selectAllMessages()).thenReturn(new ArrayList<Message>());
-		when(mockMessageDao.updateMessage(toTest)).thenReturn(toTest);
-		when(mockMessageDao.deleteMessage(toTest)).thenReturn(true);
+		when(mockMatchDao.selectMatch(toTest.getMatchId())).thenReturn(toTest);
+		when(mockMatchDao.insertMatch(toTest)).thenReturn(toTest.getMatchId());
+		when(mockMatchDao.selectAllMatches()).thenReturn(new ArrayList<Match>());
+		when(mockMatchDao.updateMatch(toTest)).thenReturn(toTest);
+		when(mockMatchDao.deleteMatch(toTest)).thenReturn(true);
 	}
 
 	@After
@@ -67,57 +66,58 @@ public class MessageServiceImplTest {
 	}
 
 	@Test
-	public void testCreateMessage() {
+	public void testCreateMatch() {
 		
 		try {
-			messageService.createMessage(toTest);
-			verify(mockMessageDao).insertMessage(toTest);
+			MatchService.createMatch(toTest);
+			verify(mockMatchDao).insertMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadMessageById() {
+	public void testReadMatchById() {
 		
 		try {
-			messageService.readMessageById(toTest.getMessageId());
-			verify(mockMessageDao).selectMessage(toTest.getMessageId());
+			MatchService.readMatchById(toTest.getMatchId());
+			verify(mockMatchDao).selectMatch(toTest.getMatchId());
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadAllMessages() {
+	public void testReadAllMatches() {
 		
 		try {
-			messageService.readAllMessages();
-			verify(mockMessageDao).selectAllMessages();
+			MatchService.readAllMatches();
+			verify(mockMatchDao).selectAllMatches();
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testUpdateMessage() {
+	public void testUpdateMatch() {
 		
 		try {
-			messageService.updateMessage(toTest);
-			verify(mockMessageDao).updateMessage(toTest);
+			MatchService.updateMatch(toTest);
+			verify(mockMatchDao).updateMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testDeleteMessage() {
+	public void testDeleteMatch() {
 		
 		try {
-			messageService.deleteMessage(toTest);
-			verify(mockMessageDao).deleteMessage(toTest);
+			MatchService.deleteMatch(toTest);
+			verify(mockMatchDao).deleteMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
+
 }
