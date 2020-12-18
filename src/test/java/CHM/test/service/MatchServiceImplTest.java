@@ -21,24 +21,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import CHM.config.AppConfig;
-import CHM.dao.ProfileDao;
-import CHM.model.Profile;
-import CHM.service.ProfileService;
+import CHM.dao.MatchDao;
+import CHM.model.Match;
+import CHM.service.MatchService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes= AppConfig.class)
-public class ProfileServiceImplTest {
+public class MatchServiceImplTest {
 
-	
 	@Autowired
 	@InjectMocks
-	private ProfileService profileService;
+	private MatchService MatchService;
 	
 	@Mock
-	private ProfileDao mockProfileDao;
+	private MatchDao mockMatchDao;
 	
-	private Profile toTest;
+	private Match toTest;
 	
 	
 	@BeforeClass
@@ -52,14 +51,14 @@ public class ProfileServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Match(105, null, null, false, 0, true);
 		MockitoAnnotations.initMocks(this);
 		
-		when(mockProfileDao.selectProfile(toTest.getProfileId())).thenReturn(toTest);
-		when(mockProfileDao.insertProfile(toTest)).thenReturn(toTest.getProfileId());
-		when(mockProfileDao.selectAllProfiles()).thenReturn(new ArrayList<Profile>());
-		when(mockProfileDao.updateProfile(toTest)).thenReturn(toTest);
-		when(mockProfileDao.deleteProfile(toTest)).thenReturn(true);
+		when(mockMatchDao.selectMatch(toTest.getMatchId())).thenReturn(toTest);
+		when(mockMatchDao.insertMatch(toTest)).thenReturn(toTest.getMatchId());
+		when(mockMatchDao.selectAllMatches()).thenReturn(new ArrayList<Match>());
+		when(mockMatchDao.updateMatch(toTest)).thenReturn(toTest);
+		when(mockMatchDao.deleteMatch(toTest)).thenReturn(true);
 	}
 
 	@After
@@ -67,55 +66,55 @@ public class ProfileServiceImplTest {
 	}
 
 	@Test
-	public void testCreateProfile() {
+	public void testCreateMatch() {
 		
 		try {
-			profileService.createProfile(toTest);
-			verify(mockProfileDao).insertProfile(toTest);
+			MatchService.createMatch(toTest);
+			verify(mockMatchDao).insertMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadProfileById() {
+	public void testReadMatchById() {
 		
 		try {
-			profileService.readProfileById(toTest.getProfileId());
-			verify(mockProfileDao).selectProfile(toTest.getProfileId());
+			MatchService.readMatchById(toTest.getMatchId());
+			verify(mockMatchDao).selectMatch(toTest.getMatchId());
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testReadAllProfiles() {
+	public void testReadAllMatches() {
 		
 		try {
-			profileService.readAllProfiles();
-			verify(mockProfileDao).selectAllProfiles();
+			MatchService.readAllMatches();
+			verify(mockMatchDao).selectAllMatches();
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testUpdateProfile() {
+	public void testUpdateMatch() {
 		
 		try {
-			profileService.updateProfile(toTest);
-			verify(mockProfileDao).updateProfile(toTest);
+			MatchService.updateMatch(toTest);
+			verify(mockMatchDao).updateMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
 	}
 	
 	@Test
-	public void testDeleteProfile() {
+	public void testDeleteMatch() {
 		
 		try {
-			profileService.deleteProfile(toTest);
-			verify(mockProfileDao).deleteProfile(toTest);
+			MatchService.deleteMatch(toTest);
+			verify(mockMatchDao).deleteMatch(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
