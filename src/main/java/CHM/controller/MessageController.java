@@ -30,8 +30,6 @@ public class MessageController {
 	@ResponseBody
 	public ResponseEntity<Integer> createMessage(@RequestBody Message message) {
 		
-		System.out.println("In createMessage Controller");
-		System.out.println(message.toString());
 		Integer newMessageId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 			newMessageId = new Integer(messageService.createMessage(message));
