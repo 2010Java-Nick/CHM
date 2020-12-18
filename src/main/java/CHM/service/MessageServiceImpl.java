@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import CHM.dao.MessageDao;
 import CHM.model.Message;
+import CHM.util.InvalidMessageException;
+import static CHM.util.HelperFunctions.isValidMessage;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -22,12 +24,16 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	@Override
-	public int createMessage(Message message) {
-		try {
-			return messageDao.insertMessage(message);
-		} catch (HibernateException e) {
-			return -1;
+	public int createMessage(Message message) throws InvalidMessageException {
+		
+		if (isValidMessage(message)) {
+			try {
+				return messageDao.insertMessage(message);
+			} catch (HibernateException e) {
+				return -1;
+			} 
 		}
+		throw new InvalidMessageException("Attempgint to create invalid message.");
 	}
 
 	@Override
@@ -49,12 +55,15 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message updateMessage(Message message) {
-		try {
-			return messageDao.updateMessage(message);
-		} catch (HibernateException e) {
-			return null;
+	public Message updateMessage(Message message) throws InvalidMessageException {
+		if (isValidMessage(message)) {
+			try {
+				return messageDao.updateMessage(message);
+			} catch (HibernateException e) {
+				return null;
+			} 
 		}
+		throw new InvalidMessageException("Attempgint to create invalid message.");
 	}
 
 	@Override

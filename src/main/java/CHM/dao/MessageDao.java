@@ -3,6 +3,7 @@ package CHM.dao;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 
 import CHM.model.Match;
 import CHM.model.Message;
@@ -25,4 +26,5 @@ public interface MessageDao {
 	
 	public boolean deleteMessage(Message message) throws Exception;
 
+	public void setSessionFactory(SessionFactory sessionFactory);
 }

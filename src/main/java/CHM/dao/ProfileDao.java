@@ -3,6 +3,7 @@ package CHM.dao;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 
 import CHM.model.Profile;
 
@@ -18,4 +19,5 @@ public interface ProfileDao {
 	
 	public boolean deleteProfile(Profile profile) throws Exception;
 
+	public void setSessionFactory(SessionFactory sessionFactory);
 }

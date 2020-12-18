@@ -54,6 +54,9 @@ public class UserDaoHibernate implements UserDao {
 		Session sess = sessionFactory.openSession();
 		user = sess.get(User.class, userId);
 		sess.close();
+		if (user == null) {
+			throw new HibernateException("User with id " + userId + "does not exist");
+		}
 		return user;
 		
 	}

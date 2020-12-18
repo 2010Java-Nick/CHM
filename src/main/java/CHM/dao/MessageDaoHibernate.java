@@ -1,5 +1,6 @@
 package CHM.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -74,6 +75,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("senderId", senderId);
 		List<Message> results = (List<Message>)query.getResultList();
+		Collections.sort(results);
 		sess.close();
 		return results;
 	}
@@ -85,6 +87,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("recipientId", recipientId);
 		List<Message> results = (List<Message>)query.getResultList();
+		Collections.sort(results);
 		sess.close();
 		return results;
 	}
@@ -96,6 +99,7 @@ public class MessageDaoHibernate implements MessageDao {
 		Query query = sess.createQuery(hql);
 		query.setParameter("matchId", matchId);
 		List<Message> results = (List<Message>)query.getResultList();
+		Collections.sort(results);
 		sess.close();
 		return results;
 		
