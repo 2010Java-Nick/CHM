@@ -42,13 +42,13 @@ public class PhotoServiceImpl implements PhotoService{
 	}
 
 	@Override
-	public List<Photo> readPhotosByProfile(Profile profile) {
+	public List<Photo> readPhotosByProfileId(int profileId) {
 		
 		try {
 			List<Photo> photoList = photoDao.selectAllPhotos();
 			List<Photo> selectedList = new ArrayList<Photo>();
 			for(Photo p : photoList) {
-				if(p.getProfile().getProfileId() == profile.getProfileId()) {
+				if(p.getProfile().getProfileId() == profileId) {
 					selectedList.add(p);
 				}
 			}

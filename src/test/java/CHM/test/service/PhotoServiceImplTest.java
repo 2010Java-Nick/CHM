@@ -90,10 +90,10 @@ public class PhotoServiceImplTest {
 	}
 	
 	@Test
-	public void testReadPhotosByProfile() {
+	public void testReadPhotosByProfileId() {
 		
 		try {
-			photoService.readPhotosByProfile(profile);
+			photoService.readPhotosByProfileId(profile.getProfileId());
 			verify(mockPhotoDao).selectAllPhotos();
 		} catch (Exception e) {
 			fail("Failed with exception " + e);

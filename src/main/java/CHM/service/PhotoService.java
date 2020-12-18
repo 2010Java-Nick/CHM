@@ -14,7 +14,7 @@ public interface PhotoService {
 	
 	public Photo readPhotoById(int photoId);
 	
-	public List<Photo> readPhotosByProfile(Profile profile);
+	public List<Photo> readPhotosByProfileId(int profileId);
 	
 	public Photo updatePhoto(Photo photo);
 	
