@@ -146,9 +146,9 @@ public class UserDaoHibernateTest {
 	public void testUpdateUser() {
 		
 		try {
-			int id = (int) sess.save(user);
+			sess.save(user);
 			user.setUsername("frankq");
-			userDaoHibernate.updateUser(id, user);
+			userDaoHibernate.updateUser(user);
 			verify(spy).update(user);
 			verify(spy).close();
 		} catch (HibernateException e) {

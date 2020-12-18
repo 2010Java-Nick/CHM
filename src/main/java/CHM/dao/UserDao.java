@@ -14,7 +14,7 @@ public interface UserDao {
 	
 	public List<User> selectAllUsers() throws HibernateException;
 	
-	public User updateUser(int userId, User user) throws HibernateException;
+	public User updateUser(User user) throws HibernateException;
 	
 	public boolean deleteUser(User user) throws Exception;
 	

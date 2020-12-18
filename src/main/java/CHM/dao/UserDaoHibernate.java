@@ -76,7 +76,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public User updateUser(int userId, User user) throws HibernateException {
+	public User updateUser(User user) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
