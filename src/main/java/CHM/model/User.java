@@ -27,13 +27,12 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		property = "userId")
 public class User {
 	
-	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
 	
-	@Id
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
 	
 	@Column(name = "password")

@@ -47,25 +47,25 @@ public class UserDaoHibernate implements UserDao {
 		
 	}
 
-//	@Override
-//	public User selectUser(int userId) {
-//		
-//		User user;
-//		Session sess = sessionFactory.openSession();
-//		user = sess.get(User.class, userId);
-//		sess.close();
-//		return user;
-//		
-//	}
+	@Override
+	public User selectUser(int userId) {
+		
+		User user;
+		Session sess = sessionFactory.openSession();
+		user = sess.get(User.class, userId);
+		sess.close();
+		return user;
+		
+	}
 	 
 	@Override
 	public User selectUser(String username) {
 		
-		User user;
-		Session sess = sessionFactory.openSession();
-		user = sess.get(User.class, username);
-		sess.close();
-		return user;
+//		User user;
+//		Session sess = sessionFactory.openSession();
+//		user = sess.get(User.class, username);
+//		sess.close();
+		return null;
 		
 	}
 
