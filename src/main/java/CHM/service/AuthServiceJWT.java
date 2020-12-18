@@ -1,21 +1,17 @@
 package CHM.service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.security.Key;
 import java.util.Date;
 
-import javax.security.auth.login.FailedLoginException;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
-import org.hibernate.type.LocalDateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
@@ -23,6 +19,9 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import CHM.dao.UserDao;
 import CHM.dao.UserDaoHibernate;
 import CHM.model.User;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class AuthServiceJWT implements AuthService {
@@ -36,44 +35,56 @@ public class AuthServiceJWT implements AuthService {
 	}
 
 	@Override
-	public String authenticateUser(String username, String password) {
+	public String authenticateUser(String username, String password, Boolean remembered) {
 		// if good, get user from db
 		User user = userDao.selectUser(username);
+		System.out.println(user.getPassword());
+		System.out.println(password);
 		
 		//if not null, check password
 		if(user != null) {
-			if(user.getPassword() == password) {
-				return createToken(user);
+			System.out.println("the user is not null");
+			if(user.getPassword().equals(password)) {
+				String token = createToken(user, remembered);
+				System.out.println(token);
+				return token;
 			}
 		}
 		
 		return null;
 	}
 
-	@Override
-	public String createToken(User user) {
-		
-		Integer id = user.getUserId();
-		long nowMillis = System.currentTimeMillis();
-		Date now = new Date(nowMillis);
-		
-		try {
-			
-		    Algorithm algorithm = Algorithm.HMAC256("secret");
-		    String token = JWT.create()
-		    	.withIssuedAt(now)
-		    	.withIssuer(id.toString())
-		    	.withClaim("username", user.getUsername())
-		    	.sign(algorithm);
-		    return token;
-		    
-		} catch (JWTCreationException exception){
-			
-		    //Invalid Signing configuration / Couldn't convert Claims.
-			return null;
-			
-		}
-		
+	@Override	
+	public String createToken(User user, Boolean remembered) {
+
+		//The JWT signature algorithm we will be using to sign the token
+	    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+	    long nowMillis = System.currentTimeMillis();
+	    Date now = new Date(nowMillis);
+	    Integer id = user.getUserId();;
+	    
+	    //We will sign our JWT with our ApiKey secret
+	    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("secret");
+	    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+	    //Let's set the JWT Claims
+	    JwtBuilder builder = Jwts.builder()
+	    		.setId(id.toString())
+	    		.setSubject(user.getUsername())
+	            .setIssuedAt(now)
+	            .claim("premium", user.isPremium())
+	            .signWith(signatureAlgorithm, signingKey);
+	  
+	    //if it has been specified, let's add the expiration
+	    if (!remembered) {
+	        long expMillis = nowMillis + 24 * 60 * 60 * 1000;
+	        Date exp = new Date(expMillis);
+	        builder.setExpiration(exp);
+	    }  
+	  
+	    //Builds the JWT and serializes it to a compact, URL-safe string
+	    return builder.compact();
 	}
 
 	@Override

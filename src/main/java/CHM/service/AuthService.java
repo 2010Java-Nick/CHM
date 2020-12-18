@@ -7,9 +7,9 @@ import CHM.model.User;
 @Service
 public interface AuthService {
 	
-	public String authenticateUser(String username, String password);
+	public String authenticateUser(String username, String password, Boolean remembered);
 	
-	public String createToken(User user);
+	public String createToken(User user, Boolean remembered);
 	
 	public Boolean validateToken(String token);
 

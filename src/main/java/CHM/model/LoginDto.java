@@ -6,7 +6,7 @@ public class LoginDto {
 	
 	private String password;
 	
-	private boolean rememberMe;
+	private Boolean rememberMe;
 
 	/**
 	 * 
@@ -19,12 +19,13 @@ public class LoginDto {
 	/**
 	 * @param username
 	 * @param password
+	 * @param premium
 	 * @param rememberMe
 	 */
-	public LoginDto(String username, String password, boolean rememberMe) {
+	public LoginDto(String username, String password, boolean premium, boolean rememberMe) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.password = password;;
 		this.rememberMe = rememberMe;
 	}
 
@@ -70,6 +71,14 @@ public class LoginDto {
 		this.rememberMe = rememberMe;
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return "LoginDto [username=" + username + ", password=" + password + ", premium=" + ", rememberMe="
+				+ rememberMe + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,9 +113,6 @@ public class LoginDto {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "LoginDto [username=" + username + ", password=" + password + ", rememberMe=" + rememberMe + "]";
-	}
+	
 
 }
