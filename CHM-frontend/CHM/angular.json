@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CHM": {
+    "Angular-CHM": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
-          "strict": true
+          "strict": false
         }
       },
       "root": "",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/CHM",
+            "outputPath": "dist/Angular-CHM",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CHM:build"
+            "browserTarget": "Angular-CHM:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CHM:build:production"
+              "browserTarget": "Angular-CHM:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CHM:build"
+            "browserTarget": "Angular-CHM:build"
           }
         },
         "test": {
@@ -113,19 +113,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "CHM:serve"
+            "devServerTarget": "Angular-CHM:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "CHM:serve:production"
+              "devServerTarget": "Angular-CHM:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "CHM",
+  "defaultProject": "Angular-CHM",
   "cli": {
-    "analytics": false
+    "analytics": "ae472621-b026-4197-8e48-fda5634510b9"
   }
 }

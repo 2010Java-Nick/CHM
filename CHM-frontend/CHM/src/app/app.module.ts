@@ -3,18 +3,34 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LogInComponent }from '././component/log-in/log-in.component';
+import { RegisterationComponent } from './components/registeration/registeration.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+// import { LogInComponent } from './components/log-in/log-in.component';
+import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
+// import { CreateProfileComponent } from './components/create-profile/create-profile.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogInComponent
+    RegisterationComponent,
+    // LogInComponent, 
+    // CreateProfileComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [],
+
+  providers: [HttpClient],
+  
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+
+
