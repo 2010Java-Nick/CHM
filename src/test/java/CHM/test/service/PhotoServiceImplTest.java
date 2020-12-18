@@ -104,8 +104,8 @@ public class PhotoServiceImplTest {
 	public void testUpdatePhoto() {
 		
 		try {
-			profileService.updateProfile(toTest);
-			verify(mockProfileDao).updateProfile(toTest);
+			photoService.updatePhoto(toTest);
+			verify(mockPhotoDao).updatePhoto(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
@@ -115,8 +115,8 @@ public class PhotoServiceImplTest {
 	public void testDeletePhoto() {
 		
 		try {
-			profileService.deleteProfile(toTest);
-			verify(mockProfileDao).deleteProfile(toTest);
+			photoService.deletePhoto(toTest);
+			verify(mockPhotoDao).deletePhoto(toTest);
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}
