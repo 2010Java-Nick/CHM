@@ -2,18 +2,20 @@ package CHM.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
 import CHM.model.User;
 
 public interface UserDao {
 
-	public int insertUser(User user);
+	public int insertUser(User user) throws HibernateException;
 	
-	public User selectUser(int userId);
+	public User selectUser(int userId) throws HibernateException;
 	
-	public List<User> selectAllUsers();
+	public List<User> selectAllUsers() throws HibernateException;
 	
-	public User updateUser(int userId, User user);
+	public User updateUser(User user) throws HibernateException;
 	
-	public boolean deleteUser(User user);
+	public boolean deleteUser(User user) throws Exception;
 	
 }
