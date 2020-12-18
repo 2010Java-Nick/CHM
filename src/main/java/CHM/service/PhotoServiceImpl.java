@@ -9,44 +9,46 @@ import org.springframework.stereotype.Service;
 import CHM.dao.PaymentDao;
 import CHM.dao.PhotoDao;
 import CHM.model.Photo;
+import CHM.model.Profile;
 
 @Service
 public class PhotoServiceImpl implements PhotoService{
 	
-	@Autowired
-	PhotoDao photoDao;
-	
-	PhotoService photoService;
+	private PhotoDao photoDao;
 	
 	@Autowired
-	@Qualifier(value = "photoDao")
 	public void setPhotoDao(PhotoDao photoDao) {
 		this.photoDao = photoDao;
 	}
 
 	@Override
-	public boolean uploadPhoto(Photo p) {
-		
-		return photoDao.insertPhoto(p);
+	public int createPhoto(Photo photo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public List<Photo> displayPhotoByUserId(int userId) {
-		
-		return photoDao.readPhotoByUserId(userId);
+	public Photo readPhotoById(int photoId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public boolean deletePhotoById(int photoId) {
-		return photoDao.deletePhotoById(photoId);
+	public Photo readPhotoByProfileId(Profile profile) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public boolean updatePhoto(Photo p) {
-		return photoDao.updatePhoto(p);
+	public Photo updatePhoto(Photo photo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	
-	
+
+	@Override
+	public boolean deletePhoto(Photo photo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
