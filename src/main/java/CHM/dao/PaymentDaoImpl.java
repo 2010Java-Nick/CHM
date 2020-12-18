@@ -84,25 +84,17 @@ public class PaymentDaoImpl implements PaymentDao {
 	}
 
 	@Override
-	public Payment updatePayment(int paymentId, Payment payment){
+	public Payment updatePayment(Payment payment){
 		  Session session = sessionFactory.openSession();
 	      Transaction tx = null;
 	      try{
 	         tx = session.beginTransaction();
-	         Payment p = 
-	                    (Payment)session.get(Payment.class, paymentId); 
-	         p.setCreditcardNameHolder(payment.getCreditcardNameHolder());
-	         p.setCreditCardNumber(payment.getCreditCardNumber());
-	         p.setCvc(payment.getCvc());
-	         p.setExpirationDate(payment.getExpirationDate());
-	         p.setPaymentAmount(payment.getPaymentAmount());
-	         p.setProfile(payment.getProfile());
 	         
-	         session.update(p); 
+	         session.update(payment); 
 	         
 	         tx.commit();
 	         
-	         return p;
+	         return payment;
 	         
 	      }catch (HibernateException e) {
 	    	  

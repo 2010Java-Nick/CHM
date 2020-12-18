@@ -32,9 +32,8 @@ public class PaymentServiceImpl implements PaymentService{
 	 */
 	
 	@Override
-	public Payment createPayment(Payment p) {
-		// TODO Auto-generated method stub
-		return null;
+	public int createPayment(Payment p) {
+		return paymentDao.insertPayment(p);
 	}
 
 	@Override
@@ -54,8 +53,13 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public Payment updatePayment(int paymentId, Payment p) {
-		return paymentDao.updatePayment(paymentId, p);
+	public Payment updatePayment(Payment p) {
+		return paymentDao.updatePayment(p);
+	}
+
+	@Override
+	public boolean deletePayment(Payment p) {
+		return paymentDao.deletePayment(p);
 	}
 
 	

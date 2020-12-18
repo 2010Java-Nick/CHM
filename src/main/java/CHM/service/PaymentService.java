@@ -6,8 +6,7 @@ import CHM.model.Payment;
 
 public interface PaymentService{
 	
-	public Payment createPayment(Payment p);
-	
+	public int createPayment(Payment p);
 	
 	public List<Payment> readAllPayments();
 	
@@ -15,6 +14,8 @@ public interface PaymentService{
 	
 	public Payment readPaymentByUserId(int userId);
 	
-	public Payment updatePayment(int paymentId, Payment p);
+	public Payment updatePayment(Payment p);
+	
+	public boolean deletePayment(Payment p);
 
 }
