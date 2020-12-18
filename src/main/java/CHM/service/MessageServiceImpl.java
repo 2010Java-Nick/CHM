@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
 				return -1;
 			} 
 		}
-		throw new InvalidMessageException("Attempgint to create invalid message.");
+		throw new InvalidMessageException("Attemping to create invalid message.");
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class MessageServiceImpl implements MessageService {
 				return null;
 			} 
 		}
-		throw new InvalidMessageException("Attempgint to create invalid message.");
+		throw new InvalidMessageException("Attempting to create invalid message.");
 	}
 
 	@Override
