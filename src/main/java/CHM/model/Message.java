@@ -3,6 +3,9 @@
  */
 package CHM.model;
 
+import java.time.LocalDateTime;
+import static CHM.util.HelperFunctions.localDateTimeOfString;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "messageId")
-public class Message {
+public class Message implements Comparable<Message> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -212,5 +215,10 @@ public class Message {
 		} else if (!timestamp.equals(other.timestamp))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Message m) {
+		return localDateTimeOfString(this.getTimestamp()).compareTo(localDateTimeOfString(m.getTimestamp()));
 	}
 }

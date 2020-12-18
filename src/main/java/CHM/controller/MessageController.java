@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Message;
 import CHM.service.MessageService;
+import CHM.util.InvalidMessageException;
 
 
 @RestController
@@ -26,17 +27,23 @@ public class MessageController {
 		this.messageService = messageService;
 	}
 	
+	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Integer> createMessage(@RequestBody Message message) {
 		
 		Integer newMessageId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
-			newMessageId = new Integer(messageService.createMessage(message));
-			if (newMessageId != -1) {
-				re = new ResponseEntity<Integer>(newMessageId, HttpStatus.CREATED);
+			try {
+				newMessageId = new Integer(messageService.createMessage(message));
+				if (newMessageId != -1) {
+					re = new ResponseEntity<Integer>(newMessageId, HttpStatus.CREATED);
+				}
+			} catch (InvalidMessageException e) {
+				e.printStackTrace();
+			} finally {
+				return re;
 			}
-		return re;
 	}
 	
 	@RequestMapping(path = "/message/{id}", method = RequestMethod.GET)
@@ -57,17 +64,50 @@ public class MessageController {
 		return re;
 	}
 	
+	@RequestMapping(path = "/message/match/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesByMatchId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesByMatchId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
+	@RequestMapping(path = "/message/recipient/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesByRecipientId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesByRecipientId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
+	@RequestMapping(path = "/message/sender/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Message>> readMessagesBySenderId(@PathVariable(name = "id")int messageId) {
+		
+		List<Message> messageList = messageService.readMessagesBySenderId(messageId);
+		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
+	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.PATCH)
 	@ResponseBody
 	public ResponseEntity<Message> updateMessage(@RequestBody Message message) {
 		
 		Message updatedMessage = null;
 		ResponseEntity<Message> re = new ResponseEntity<Message>(updatedMessage, HttpStatus.BAD_REQUEST);
-		updatedMessage = messageService.updateMessage(message);
-		if (updatedMessage != null) {
-			re = new ResponseEntity<Message>(updatedMessage, HttpStatus.OK);
+		try {
+			updatedMessage = messageService.updateMessage(message);
+			if (updatedMessage != null) {
+				re = new ResponseEntity<Message>(updatedMessage, HttpStatus.OK);
+			}
+		} catch (InvalidMessageException e) {
+			e.printStackTrace();
+		} finally {
+			return re;
 		}
-		return re;
 	}
 	
 	@RequestMapping(path = "/message", method = RequestMethod.DELETE)

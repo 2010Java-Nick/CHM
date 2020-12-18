@@ -44,6 +44,9 @@ public class MatchDaoHibernate implements MatchDao {
 		Session sess = sessionFactory.openSession();
 		match = sess.get(Match.class, matchId);
 		sess.close();
+		if (match == null) {
+			throw new HibernateException("Match with id " + matchId + " does not exist");
+		}
 		return match;
 	}
 
