@@ -12,8 +12,8 @@ export class ProfileService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })};
+    'Content-Type': 'application/json'
+  })};
 
   constructor(private httpClient: HttpClient) { }
 
@@ -31,7 +31,7 @@ export class ProfileService {
   */
   public readProfile(profileId: number): Observable<Profile> {
 
-    const readUrl = `${this.PROFILE_URL}/?id=${profileId}`;
+    const readUrl = `${this.PROFILE_URL}/${profileId}`;
 
     return this.httpClient.get<Profile>(readUrl, this.httpOptions);
   }
@@ -55,9 +55,9 @@ export class ProfileService {
   /*
   *  Delete method for deleting a profile:
   */
-  public deleteProfile(profileId: Profile): Observable<boolean> {
+  public deleteProfile(profileId: number): Observable<boolean> {
 
-    const deleteUrl = `${this.PROFILE_URL}/?id=${profileId}`;
+    const deleteUrl = `${this.PROFILE_URL}/${profileId}`;
 
     return this.httpClient.delete<boolean>(deleteUrl, this.httpOptions);
   }

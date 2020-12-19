@@ -1,47 +1,47 @@
-<!-- <p>create-profile works!</p>
-<form [formGroup]="createProfileForm" (ngSubmit)="submit()">
+<h2>Account creation</h2>
+<form #createProfileForm="ngForm" (ngSubmit)="createProfile()">
 
-  <div>
-    <label>First Name</label>
-    <input type="text" formControlName="firstName">
+  <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" class="form-control" placeholder="First Name" [(ngModel)]="profile.firstName">
   </div>
 
-  <div>
-    <label>Last Name</label>
-    <input type="text" formControlName="lastName">
+  <div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" class="form-control" placeholder="Last Name" [(ngModel)]="profile.lastName">
   </div>
 
-  <div>
-    <label>Email</label>
-    <input type="email" formControlName="email">
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="profile.email">
   </div>
 
-  <div>
-    <label>Phone Number</label>
-    <input type="text" formControlName="phoneNumber">
+  <div class="form-group">
+    <label for="phone">Phone Number:</label>
+    <input type="text" name="phone" class="form-control" placeholder="Phone Number" [(ngModel)]="profile.phone">
   </div>
 
-  <div>
-    <label>Birth Day</label>
-    <input type="date" formControlName="birthDay">
+  <div class="form-group">
+    <label for="birthday">Birthday</label>
+    <input type="date" name="birthday" class="form-control" placeholder="Birthday" [(ngModel)]="birthday">
   </div>
 
-  <div>
-    <label>About Me</label>
-    <textarea type="textarea" formControlName="aboutMe"></textarea>
+  <div class="form-group">
+    <label for="bio">Short Bio:</label>
+    <textarea type="textarea" name="bio" class="form-control" placeholder="Write a short bio!" [(ngModel)]="profile.bio"></textarea>
   </div>
 
-  <div>
-    <label>Ice Breaker</label>
-    <textarea type="textarea" formControlName="iceBreaker"></textarea>
+  <div class="form-group">
+    <label for="icebreaker">Icebreaker:</label>
+    <textarea type="textarea" name="icebreaker" class="form-control" placeholder="Add an icebreaker to start the conversation!" [(ngModel)]="profile.icebreaker"></textarea>
   </div>
 
-  <!-- <div>
+  <!-- <div class="form-group">
     <app-file-upload formControlName="image" [progress]="progress"></app-file-upload>
   </div> -->
 
   <div>
-    <button>Submit</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
   </div>
 
-</form> -->
+</form>
