@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -57,6 +58,14 @@ public class AppConfig implements WebApplicationInitializer {
 	@Scope(value = "singleton")
 	public SessionFactory sessionFactory() {
 		return SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
+	}
+	
+	
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(100000);
+	    return multipartResolver;
 	}
 	
 	/*
