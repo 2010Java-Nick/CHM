@@ -12,12 +12,11 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   public USER_URL = "http://localhost:9091/user";
+  
   constructor(private httpClient : HttpClient) { }
 
   public createUser(user : User) : Observable<User>  {
-    console.log("Passing user to backend");
-    return this.httpClient.post<User>(this.USER_URL, user);
-    
+    return this.httpClient.post<User>(this.USER_URL, user); 
   }
 
 }

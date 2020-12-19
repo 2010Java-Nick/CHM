@@ -1,13 +1,8 @@
 export class User {
 
-    public id! : number;
-    public username! : string;
-    public password! : string;
+    public id : number;
+    public username : string;
+    public password : string;
 
-
-    constructor(
-       
-    ){
-        
-    }
+    constructor(){}
 }

@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { User } from 'src/app/classes/user';
-
-import { Injectable } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 
@@ -16,14 +14,9 @@ export class RegisterationComponent implements OnInit {
   registrationForm: FormGroup;
 
   @Input()
-  newUser!: User;
+  newUser: User;
 
-  constructor(private userServ: UserService) {
-    this.registrationForm = new FormGroup({
-      username: new FormControl(),
-      password: new FormControl()
-    });
-  }
+  constructor(private userServ: UserService) {}
 
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
@@ -35,14 +28,9 @@ export class RegisterationComponent implements OnInit {
   onSubmit() {
     const { username, password } = this.registrationForm.value;
 
-    // this.newUser.username = username;
-    // this.newUser.password = password;
-
     this.newUser = new User();
     this.newUser.username = username;
     this.newUser.password = password;
-
-    console.log(this.newUser.username);
 
     this.userServ.createUser(this.newUser).subscribe(
       user => console.log(user)
