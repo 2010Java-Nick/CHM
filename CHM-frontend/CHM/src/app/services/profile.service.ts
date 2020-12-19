@@ -21,7 +21,6 @@ export class ProfileService {
   /*
   *  Post method for creating profile:
   */
-  
   public createProfile(profile: Profile): Observable<number> {
 
     return this.httpClient.post<number>(this.PROFILE_URL, JSON.stringify(profile), this.httpOptions);
@@ -30,12 +29,12 @@ export class ProfileService {
   /*
   *  Get method for reading profile by Id:
   */
- public readProfile(profileId: number): Observable<Profile> {
+  public readProfile(profileId: number): Observable<Profile> {
 
     const readUrl = `${this.PROFILE_URL}/?id=${profileId}`;
 
     return this.httpClient.get<Profile>(readUrl, this.httpOptions);
- }
+  }
 
   /*
   *  Get method for reading all profiles:
@@ -45,4 +44,21 @@ export class ProfileService {
     return this.httpClient.get<Profile[]>(this.PROFILE_URL);
   }
 
+  /*
+  *  Patch method for updating a profile:
+  */
+  public updateProfile(profile: Profile): Observable<Profile> {
+
+    return this.httpClient.patch<Profile>(this.PROFILE_URL, JSON.stringify(profile), this.httpOptions);
+  }
+
+  /*
+  *  Delete method for deleting a profile:
+  */
+  public deleteProfile(profileId: Profile): Observable<boolean> {
+
+    const deleteUrl = `${this.PROFILE_URL}/?id=${profileId}`;
+
+    return this.httpClient.delete<boolean>(deleteUrl, this.httpOptions);
+  }
 }

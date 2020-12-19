@@ -88,11 +88,11 @@ public class ProfileController {
 		
 	}
 	
-	@DeleteMapping(path = "/profile")
+	@DeleteMapping(path = "/profile/{id}")
 	@CrossOrigin
-	public ResponseEntity<Boolean> deleteProfile(@RequestBody Profile profile){
+	public ResponseEntity<Boolean> deleteProfile(@PathVariable("id")int profileId){
 		
-		Boolean deleted = profileService.deleteProfile(profile);
+		Boolean deleted = profileService.deleteProfile(profileId);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;
 	}
