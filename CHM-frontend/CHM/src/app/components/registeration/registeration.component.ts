@@ -15,8 +15,6 @@ export class RegisterationComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  //  @Input()
-  //  newUser! :  User;
   @Input()
   newUser!: User;
 
@@ -40,7 +38,9 @@ export class RegisterationComponent implements OnInit {
     // this.newUser.username = username;
     // this.newUser.password = password;
 
-    this.newUser = new User(username, password);
+    this.newUser = new User();
+    this.newUser.username = username;
+    this.newUser.password = password;
 
     console.log(this.newUser.username);
 
