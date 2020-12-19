@@ -38,8 +38,6 @@ public class AuthServiceJWT implements AuthService {
 	public String authenticateUser(String username, String password, Boolean remembered) {
 		// if good, get user from db
 		User user = userDao.selectUser(username);
-		System.out.println(user.getPassword());
-		System.out.println(password);
 		
 		//if not null, check password
 		if(user != null) {
