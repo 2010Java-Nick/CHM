@@ -12,10 +12,13 @@ public interface UserDao {
 	
 	public User selectUser(int userId) throws HibernateException;
 	
+	public User selectUser(String username) throws HibernateException;
+
 	public List<User> selectAllUsers() throws HibernateException;
-	
+
 	public User updateUser(User user) throws HibernateException;
 	
 	public boolean deleteUser(User user) throws Exception;
+
 	
 }
