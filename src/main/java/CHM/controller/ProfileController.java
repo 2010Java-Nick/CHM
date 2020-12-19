@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Profile;
@@ -30,8 +32,8 @@ public class ProfileController {
 	}
 
 	@SuppressWarnings("finally")
-	@RequestMapping(path = "/profile", method = RequestMethod.POST)
-	@ResponseBody
+	@PostMapping(path = "/profile")
+	@CrossOrigin
 	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile) {
 		
 		Integer newProfileId;
@@ -48,8 +50,8 @@ public class ProfileController {
 		}
 	}
 	
-	@RequestMapping(path = "/profile/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@GetMapping(path = "/profile/{id}")
+	@CrossOrigin
 	public ResponseEntity<Profile> readProfileById(@PathVariable(name = "id")int profileId) {
 		
 		Profile profile = profileService.readProfileById(profileId);
@@ -57,8 +59,8 @@ public class ProfileController {
 		return re;
 	}
 	
-	@RequestMapping(path = "/profile", method = RequestMethod.GET)
-	@ResponseBody
+	@GetMapping(path = "/profile")
+	@CrossOrigin
 	public ResponseEntity<List<Profile>> readAllProfiles() {
 		
 		List<Profile> profileList = profileService.readAllProfiles();
@@ -67,8 +69,8 @@ public class ProfileController {
 	}
 	
 	@SuppressWarnings("finally")
-	@RequestMapping(path = "/profile", method = RequestMethod.PATCH)
-	@ResponseBody
+	@PatchMapping(path = "/profile")
+	@CrossOrigin
 	public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile) {
 		
 		Profile updatedProfile = null;
@@ -86,8 +88,8 @@ public class ProfileController {
 		
 	}
 	
-	@RequestMapping(path = "/profile", method = RequestMethod.DELETE)
-	@ResponseBody
+	@DeleteMapping(path = "/profile")
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteProfile(@RequestBody Profile profile){
 		
 		Boolean deleted = profileService.deleteProfile(profile);

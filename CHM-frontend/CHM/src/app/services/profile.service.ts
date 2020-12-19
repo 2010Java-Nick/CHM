@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Profile } from '../classes/profile.model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +13,36 @@ export class ProfileService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
-    })}
+    })};
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
 
   /*
   *  Post method for creating profile:
   */
   
-  public createProfile(profile: Profile): Observable<HttpResponse<number>> {
+  public createProfile(profile: Profile): Observable<number> {
 
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      
-    
-
-    return this.http.post<HttpResponse<number>>(this.PROFILE_URL, JSON.stringify(profile), this.httpOptions );
+    return this.httpClient.post<number>(this.PROFILE_URL, JSON.stringify(profile), this.httpOptions);
   }
 
+  /*
+  *  Get method for reading profile by Id:
+  */
+ public readProfile(profileId: number): Observable<Profile> {
+
+    const readUrl = `${this.PROFILE_URL}/?id=${profileId}`;
+
+    return this.httpClient.get<Profile>(readUrl, this.httpOptions);
+ }
+
+  /*
+  *  Get method for reading all profiles:
+  */
   public readAllProfiles(): Observable<Profile[]> {
 
-    return this.http.get<Profile[]>(this.PROFILE_URL);
+    return this.httpClient.get<Profile[]>(this.PROFILE_URL);
   }
+
 }
