@@ -2,6 +2,7 @@ package CHM.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +57,20 @@ public class UserDaoHibernate implements UserDao {
 		user = sess.get(User.class, userId);
 		sess.close();
 		return user;
+		
+	}
+	 
+	@Override
+	public User selectUser(String username) {
+		
+		Session sess = sessionFactory.openSession();
+		
+		User result = (User) sess.createCriteria(User.class)  
+                .add(Restrictions.eq("username", username))  
+                .uniqueResult();
+        
+		System.out.println(result);
+		return result;
 		
 	}
 
