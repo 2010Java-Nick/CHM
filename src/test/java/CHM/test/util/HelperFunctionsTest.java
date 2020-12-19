@@ -1,19 +1,40 @@
 package CHM.test.util;
 
-import static org.junit.Assert.*;
+import static CHM.util.HelperFunctions.isValidEmail;
+import static CHM.util.HelperFunctions.isValidLocalDateTimeString;
+import static CHM.util.HelperFunctions.validatePhoneNumber;
+import static CHM.util.HelperFunctions.validateProfile;
+import static CHM.util.HelperFunctions.isValidMessage;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 
+import CHM.dao.MatchDao;
+import CHM.dao.MatchDaoHibernate;
+import CHM.dao.MessageDao;
+import CHM.dao.MessageDaoHibernate;
+import CHM.dao.ProfileDao;
+import CHM.dao.ProfileDaoHibernate;
+import CHM.model.Match;
 import CHM.model.Profile;
-
-import static CHM.util.HelperFunctions.*;
+import CHM.util.SessionFactoryUtil;
+import CHM.model.Message;
 
 public class HelperFunctionsTest {
-
+	
+	SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -55,6 +76,53 @@ public class HelperFunctionsTest {
 		assertFalse(validateProfile(test2));
 		assertFalse(validateProfile(test3));
 		assertFalse(validateProfile(test4));
+	}
+	
+	@Test
+	public void testIsValidLocalDateTimeString() {
+		String str1 = "2017-08-11 13:05:10";
+		String str2 = "2017-90-11 00:00:00";
+		String str3 = "2017-08-45 00:00:00";
+		String str4 = "2015-02-32 00:00:00";
+		String str5 = "2017-08-11 20:00:00";
+		String str6 = "2017-08-11 30:00:00";
+		String str7 = "2017-08-11 00:70:00";
+		String str8 = "2017-08-11 00:00:68";
+		String str9 = "2017-08-11 -10:00:00";
+		String str10 = "dummy";
+		
+		assertTrue(isValidLocalDateTimeString(str1));
+		assertFalse(isValidLocalDateTimeString(str2));
+		assertFalse(isValidLocalDateTimeString(str3));
+		assertFalse(isValidLocalDateTimeString(str4));
+		assertTrue(isValidLocalDateTimeString(str5));
+		assertFalse(isValidLocalDateTimeString(str6));
+		assertFalse(isValidLocalDateTimeString(str7));
+		assertFalse(isValidLocalDateTimeString(str8));
+		assertFalse(isValidLocalDateTimeString(str9));
+		assertFalse(isValidLocalDateTimeString(str10));
+	}
+	
+	@Test
+    @Rollback(true)
+	public void testIsValidMessage() throws Exception {
+		MatchDao matchDao = new MatchDaoHibernate();
+		ProfileDao profileDao = new ProfileDaoHibernate();
+		MessageDao messageDao = new MessageDaoHibernate();
+		matchDao.setSessionFactory(sessionFactory);
+		profileDao.setSessionFactory(sessionFactory);
+		messageDao.setSessionFactory(sessionFactory);
+		Profile p1 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo", "building");
+		Profile p2 = new Profile(2, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo", "building");
+		Match m = new Match(1, p1, p2, false, 0, true);
+		Message msg = new Message(1, m, p1.getProfileId(), p2.getProfileId(), "testMessage", "2017-08-11 13:05:10");
+		profileDao.insertProfile(p1);
+		profileDao.insertProfile(p2);
+		matchDao.insertMatch(m);
+		assertTrue(isValidMessage(msg));
+		matchDao.deleteMatch(m);
+		msg = new Message(2, m, 100, 1, "", "2017-08-11 13:05:10");
+		assertFalse(isValidMessage(msg));
 	}
 
 }

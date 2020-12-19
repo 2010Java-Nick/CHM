@@ -3,7 +3,8 @@
  */
 package CHM.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import static CHM.util.HelperFunctions.localDateTimeOfString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "messageId")
-public class Message {
+public class Message implements Comparable<Message> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,7 @@ public class Message {
 	private String message;
 	
 	@Column(name = "timestamp")
-	private LocalTime timestamp;
+	private String timestamp;
 
 	/**
 	 * 
@@ -68,7 +68,7 @@ public class Message {
 	 * @param message
 	 * @param timestamp
 	 */
-	public Message(int messageId, Match match, int senderId, int receiverId, String message, LocalTime timestamp) {
+	public Message(int messageId, Match match, int senderId, int receiverId, String message, String timestamp) {
 		super();
 		this.messageId = messageId;
 		this.match = match;
@@ -154,14 +154,14 @@ public class Message {
 	/**
 	 * @return the timestamp
 	 */
-	public LocalTime getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
 
 	/**
 	 * @param timestamp the timestamp to set
 	 */
-	public void setTimestamp(LocalTime timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -216,6 +216,9 @@ public class Message {
 			return false;
 		return true;
 	}
-	
 
+	@Override
+	public int compareTo(Message m) {
+		return localDateTimeOfString(this.getTimestamp()).compareTo(localDateTimeOfString(m.getTimestamp()));
+	}
 }

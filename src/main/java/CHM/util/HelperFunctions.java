@@ -1,7 +1,18 @@
 package CHM.util;
 
-import org.apache.commons.validator.routines.EmailValidator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import org.apache.commons.validator.routines.EmailValidator;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import CHM.dao.MatchDao;
+import CHM.dao.MatchDaoHibernate;
+import CHM.dao.ProfileDao;
+import CHM.dao.ProfileDaoHibernate;
+import CHM.model.Message;
 import CHM.model.Profile;
 
 public class HelperFunctions {
@@ -42,4 +53,39 @@ public class HelperFunctions {
 		return isValidEmail(profile.getEmail()) && verifyAge(profile.getAge()) && validatePhoneNumber(profile.getPhone()) && verifyId(profile.getProfileId());
 	}
 	
+	public static LocalDateTime localDateTimeOfString(String timestamp) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime dateTime = LocalDateTime.parse(timestamp, formatter);
+		return dateTime;
+	}
+	
+	public static boolean isValidLocalDateTimeString(String timestamp) {
+		
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime.parse(timestamp, formatter);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public static boolean isValidMessage(Message message) {
+		
+		try {
+			SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
+			MatchDao matchDao = new MatchDaoHibernate();
+			ProfileDao profileDao = new ProfileDaoHibernate();
+			matchDao.setSessionFactory(sessionFactory);
+			profileDao.setSessionFactory(sessionFactory);
+			matchDao.selectMatch(message.getMatch().getMatchId());
+			System.out.println("This is the profile: " + profileDao.selectProfile(message.getReceiverId()));
+			profileDao.selectProfile(message.getSenderId());
+			return isValidLocalDateTimeString(message.getTimestamp()) && message.getMatch().isMatched() && !message.getMatch().isBlocked();
+			//return isValidLocalDateTimeString(message.getTimestamp());
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }

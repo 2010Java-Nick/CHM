@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import org.hibernate.HibernateException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
