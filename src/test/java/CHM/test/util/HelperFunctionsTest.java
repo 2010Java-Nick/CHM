@@ -5,13 +5,10 @@ import static CHM.util.HelperFunctions.isValidLocalDateTimeString;
 import static CHM.util.HelperFunctions.validatePhoneNumber;
 import static CHM.util.HelperFunctions.validateProfile;
 import static CHM.util.HelperFunctions.isValidMessage;
+import static CHM.util.HelperFunctions.isValidCreditCardNum;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -123,6 +120,20 @@ public class HelperFunctionsTest {
 		matchDao.deleteMatch(m);
 		msg = new Message(2, m, 100, 1, "", "2017-08-11 13:05:10");
 		assertFalse(isValidMessage(msg));
+	}
+	
+	@Test
+	public void testIsValidCreditCardNum() {
+		String s1 = "4111111111111111";
+		String s2 = "5500000000000004";
+		String s3 = "3400";
+		String s4 = null;
+		String s5 = "";
+		assertTrue(isValidCreditCardNum(s1));
+		assertTrue(isValidCreditCardNum(s2));
+		assertFalse(isValidCreditCardNum(s3));
+		assertFalse(isValidCreditCardNum(s4));
+		assertFalse(isValidCreditCardNum(s5));
 	}
 
 }

@@ -2,12 +2,18 @@ package CHM.service;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import CHM.dao.PaymentDao;
 import CHM.model.Payment;
+import CHM.util.InvalidMessageException;
+import CHM.util.InvalidPaymentException;
+
+import static CHM.util.HelperFunctions.isValidMessage;
+import static CHM.util.HelperFunctions.isValidPayment;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
@@ -25,6 +31,7 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	/**
 	 * We need an user dao service implmentation
+	 * @throws InvalidPaymentException 
 	 * @Autowired
 	 * public void setUserService(UserService userService) {
 	 * 		this.userService = userService;
@@ -32,8 +39,16 @@ public class PaymentServiceImpl implements PaymentService{
 	 */
 	
 	@Override
-	public int createPayment(Payment p) {
-		return paymentDao.insertPayment(p);
+	public int createPayment(Payment p) throws InvalidPaymentException {
+		
+		if (isValidPayment(p)) {
+			try {
+				return paymentDao.insertPayment(p);
+			} catch (HibernateException e) {
+				return -1;
+			} 
+		}
+		throw new InvalidPaymentException("Attempting to create invalid payment.");
 	}
 
 	@Override
@@ -48,13 +63,20 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public Payment readPaymentByUserId(int userId) {
-		return paymentDao.selectPayment(userId);
+	public Payment readPaymentByProfileId(int profileId) {
+		return paymentDao.selectPaymentByProfileId(profileId);
 	}
 
 	@Override
-	public Payment updatePayment(Payment p) {
-		return paymentDao.updatePayment(p);
+	public Payment updatePayment(Payment p) throws InvalidPaymentException {
+		if (isValidPayment(p)) {
+			try {
+				return paymentDao.updatePayment(p);
+			} catch (HibernateException e) {
+				return null;
+			} 
+		}
+		throw new InvalidPaymentException("Attempting to create invalid payment.");
 	}
 
 	@Override

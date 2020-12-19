@@ -13,6 +13,8 @@ public interface PaymentDao {
 	
 	public List<Payment> selectAllPayments();
 	
+	public Payment selectPaymentByProfileId(int profileId);
+	
 	public Payment updatePayment(Payment payment);
 	
 	public boolean deletePayment(Payment payment);

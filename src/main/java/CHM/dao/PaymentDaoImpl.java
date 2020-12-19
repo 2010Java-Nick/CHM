@@ -1,7 +1,9 @@
 package CHM.dao;
 
+import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,15 +16,14 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import CHM.model.Message;
 import CHM.model.Payment;
 
 @Repository(value = "paymentDao")
 public class PaymentDaoImpl implements PaymentDao {
 	
-	//@Autowired
 	SessionFactory sessionFactory;
 	
-	//@Autowired
 	public PaymentDaoImpl(SessionFactory sessionFactory) {
 		super();
 		this.sessionFactory = sessionFactory;
@@ -127,6 +128,21 @@ public class PaymentDaoImpl implements PaymentDao {
 	    }
 		
 		return true;
+	}
+
+	@Override
+	public Payment selectPaymentByProfileId(int profileId) {
+		try {
+			Session sess = sessionFactory.openSession();
+			String hql = "from Payment WHERE profile_id = :profileId";
+			Query query = sess.createQuery(hql);
+			query.setParameter("profileId", profileId);
+			List<Payment> results = (List<Payment>)query.getResultList();
+			sess.close();
+			return results.get(0);
+		} catch (HibernateException e) {
+			return null;
+		}
 	}
 
 }
