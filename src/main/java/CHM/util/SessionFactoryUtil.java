@@ -36,6 +36,7 @@ public class SessionFactoryUtil {
 		
 		if (sessionFactory == null) {
 			
+			
 			Map<String, String> settings = new HashMap<>();
 			settings.put("hibernate.connection.url", System.getenv("CHM_URL"));
 			settings.put("hibernate.connection.username", System.getenv("CHM_USERNAME"));

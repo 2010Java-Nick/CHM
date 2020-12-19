@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ import CHM.model.Profile;
 public class ProfileDaoHibernateTest {
 	
 	@Autowired
+	@InjectMocks
 	private ProfileDaoHibernate profileDaoHibernate;
 	
 	@Autowired
@@ -95,8 +97,6 @@ public class ProfileDaoHibernateTest {
 		// Mock session factory to always return the mocked session 
 		when(mockSessionFactory.openSession()).thenReturn(mockSession);
 		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		// Set profileDao to use that mocked session factory 
-		profileDaoHibernate.setSessionFactory(mockSessionFactory);
 		
 		//when(mockSessionFactory.openSession()).thenReturn(mockSession);
 		when(mockSession.getCriteriaBuilder()).thenReturn(mockCriteriaBuilder);
@@ -199,8 +199,8 @@ public class ProfileDaoHibernateTest {
 			verify(mockTransaction).commit();
 			verify(mockSession).delete(toTest);
 			verify(mockSession).close();
-		} catch (HibernateException e) {
-			fail("HibernateException " + e);
+		} catch (Exception e) {
+			fail("Exception " + e);
 		}
 	}
 

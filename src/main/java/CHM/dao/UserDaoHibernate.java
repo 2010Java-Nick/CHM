@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,7 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import CHM.model.Profile;
 import CHM.model.User;
 
 /**
@@ -38,7 +38,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public int insertUser(User user) {
+	public int insertUser(User user) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
@@ -50,18 +50,21 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public User selectUser(int userId) {
+	public User selectUser(int userId) throws HibernateException {
 		
 		User user;
 		Session sess = sessionFactory.openSession();
 		user = sess.get(User.class, userId);
 		sess.close();
+		if (user == null) {
+			throw new HibernateException("User with id " + userId + "does not exist");
+		}
 		return user;
 		
 	}
 	 
 	@Override
-	public User selectUser(String username) {
+	public User selectUser(String username) throws HibernateException{
 		
 		Session sess = sessionFactory.openSession();
 		
@@ -75,7 +78,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public List<User> selectAllUsers() {
+	public List<User> selectAllUsers() throws HibernateException {
 		
 		List<User> userList = null;
 		Session sess = sessionFactory.openSession();
@@ -92,7 +95,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public User updateUser(int userId, User user) {
+	public User updateUser(User user) throws HibernateException {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
@@ -104,7 +107,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
-	public boolean deleteUser(User user) {
+	public boolean deleteUser(User user) throws Exception {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.delete(user);

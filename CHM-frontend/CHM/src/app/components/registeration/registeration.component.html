@@ -1,0 +1,13 @@
+<p>registeration works!</p>
+<div>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <label>Username</label>
+    <input formControlName="username" class="form-control" type="text" id="username">
+
+    <label>Password</label>
+    <input formControlName="password" type="password" class="form-control" id="password">
+    <br>
+    <button type = "submit"> Submit </button>
+  </form>
+
+</div>

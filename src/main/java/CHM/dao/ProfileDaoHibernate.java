@@ -35,6 +35,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
 
 	@Override
 	public int insertProfile(Profile profile) throws HibernateException {
@@ -54,6 +55,9 @@ public class ProfileDaoHibernate implements ProfileDao {
 		Session sess = sessionFactory.openSession();
 		profile = sess.get(Profile.class, profileId);
 		sess.close();
+		if (profile == null) {
+			throw new HibernateException("Profile with id " + profileId + "does not exist");
+		}
 		return profile;
 	}
 
@@ -85,7 +89,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) throws HibernateException {
+	public boolean deleteProfile(Profile profile) throws Exception {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
