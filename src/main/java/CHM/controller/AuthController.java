@@ -1,7 +1,7 @@
 package CHM.controller;
 
 import javax.security.auth.login.FailedLoginException;
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,16 +27,15 @@ public class AuthController {
 
 	@RequestMapping(path = "/login", produces = "text/plain", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Cookie> login(@RequestBody LoginDto loginDto) {
+	public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 		
 		System.out.println("Hit login endpoint");
 		
-		ResponseEntity<Cookie> re = new ResponseEntity<Cookie>(null, HttpStatus.UNAUTHORIZED);
+		ResponseEntity<String> re = new ResponseEntity<String>(new String("Login failed"), HttpStatus.UNAUTHORIZED);
 		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), loginDto.isRememberMe());
-		Cookie cookie = new Cookie("token", token);
 		if(token != null) {
-			
-			re = new ResponseEntity<Cookie>(cookie, HttpStatus.OK);
+			response.setHeader("Token", token);
+			re = new ResponseEntity<String>("Login success", HttpStatus.OK);
 		}
 
 		return re;
