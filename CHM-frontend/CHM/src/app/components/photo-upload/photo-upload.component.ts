@@ -1,16 +1,36 @@
-import { Component, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, Input, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Photo } from '../../classes/photo.model';
 import { PhotoService } from '../../services/photo.service';
 import { DomSanitizer } from "@angular/platform-browser";
-import { ReadVarExpr } from '@angular/compiler';
+import { Profile } from '../../classes/profile.model';
 
 @Component({
   selector: 'app-photo-upload',
   templateUrl: './photo-upload.component.html',
   styleUrls: ['./photo-upload.component.css']
 })
+
 export class PhotoUploadComponent implements OnInit {
+
+  private _currentProfileId:number
+
+  profile = {} as Profile;
+
+  @Input() set currentProfileId(value:number) { 
+    if (value > 1){
+      this._currentProfileId=value;
+      this.profile.profileId = value;
+      this.pic.profile = this.profile;
+      console.log(this._currentProfileId);
+      console.log(this.pic);
+      
+      this.onUpload();
+    }
+    
+  }
+
+  // get profileId(): number { return this._profileId; }
 
   imgURL: any;
   imgURLUploaded: any;
@@ -44,29 +64,31 @@ export class PhotoUploadComponent implements OnInit {
         for (var i = 0; i < array.length; i++) {
           fileByteArray.push(array[i]);
         }
+        
       }
     }
     this.pic.photo = fileByteArray;
-
+    console.log("this is the pic:");
+    console.log(this.pic);
   }
 
   onUpload() {
+    console.log("Called onUpload");
     this.photoService.createPhoto(this.pic).subscribe( (res) => {
       this.pic.photoId = res;
-      console.log(res);
-      this.afterUpload();
+      console.log("in subscription");
     });
   };
 
-  afterUpload() {
-    this.imgURL = null;
-    this.photoService.readPhoto(this.pic.photoId).subscribe ( (res) =>
-    {
-      console.log("Changing image ");
-      console.log(this.imgURL);
-      this.imgURLUploaded = res.photo;
-    });
-  }
+  // afterUpload() {
+  //   this.imgURL = null;
+  //   this.photoService.readPhoto(this.pic.photoId).subscribe ( (res) =>
+  //   {
+  //     console.log("Changing image ");
+  //     console.log(this.imgURL);
+  //     this.imgURLUploaded = res.photo;
+  //   });
+  // }
 
   formatImage(img: any): any {
     return 'data:image/jpeg;base64,' + img;

@@ -36,7 +36,7 @@ public class PhotoController {
 	@CrossOrigin
 	@PostMapping(path = "/photo")
 	public ResponseEntity<Integer> createPhoto(@RequestBody Photo photo) {
-		
+		System.out.println(photo.toString());
 		Integer photoId = photoService.createPhoto(photo);
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(photoId, HttpStatus.BAD_REQUEST);
 		if (photoId != -1) {
