@@ -30,7 +30,6 @@ public class InterestController {
 	}
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.POST)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Integer> createInterest(@RequestBody Interest interest) {
 		
@@ -43,7 +42,6 @@ public class InterestController {
 	}
 	
 	@RequestMapping(path = "/interest/{id}", method = RequestMethod.GET)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Interest> readInterestById(@PathVariable(name = "id")int interestId) {
 		
@@ -53,7 +51,6 @@ public class InterestController {
 	}
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.GET)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<List<Interest>> readAllInterests() {
 		
@@ -74,7 +71,6 @@ public class InterestController {
 	
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.PATCH)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Interest> updateInterest(@RequestBody Interest interest) {
 		
@@ -87,7 +83,6 @@ public class InterestController {
 	}
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.DELETE)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Boolean> deleteInterest(@RequestBody Interest interest){
 		

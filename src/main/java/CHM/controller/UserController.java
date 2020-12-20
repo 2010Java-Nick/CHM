@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,20 +27,23 @@ UserService userService;
 	}
 	
 	@RequestMapping(path = "/user", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Integer> createUser(@RequestBody User user) {
+	@CrossOrigin
+	public ResponseEntity<User> createUser(@RequestBody User user) {
 		
 		Integer newuserId;
-		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		ResponseEntity<User> re = new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
 			newuserId = new Integer(userService.createUser(user));
+			
 			if (newuserId != -1) {
-				re = new ResponseEntity<Integer>(newuserId, HttpStatus.CREATED);
+				user.setUserId(newuserId);
+				re = new ResponseEntity<User>(user, HttpStatus.CREATED);
 			}
+			
 		return re;
 	}
 	
 	@RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<User> readUserById(@PathVariable(name = "id")int userId) {
 		
 		User user = userService.readUserById(userId);
@@ -48,7 +52,7 @@ UserService userService;
 	}
 	
 	@RequestMapping(path = "/user", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<User>> readAllUsers() {
 		
 		List<User> userList = userService.readAllUsers();
@@ -57,7 +61,7 @@ UserService userService;
 	}
 	
 	@RequestMapping(path = "/user", method = RequestMethod.PATCH)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<User> updateuser(@RequestBody User user) {
 		
 		User updatedUser = null;
@@ -70,7 +74,7 @@ UserService userService;
 	}
 	
 	@RequestMapping(path = "/user", method = RequestMethod.DELETE)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteuser(@RequestBody User user){
 		
 		Boolean deleted = userService.deleteUser(user);

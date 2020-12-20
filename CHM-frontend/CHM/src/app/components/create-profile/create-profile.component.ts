@@ -1,4 +1,4 @@
-// import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // import { FormGroup, FormControl } from '@angular/forms';
 // import { Injectable } from '@angular/core';
 
@@ -9,12 +9,12 @@
 //   styleUrls: ['./create-profile.component.css']
 // })
 
-// export class CreateProfileComponent implements OnInit {
+export class CreateProfileComponent implements OnInit {
 
 
-//   constructor() { }
+  constructor() { }
 
-//   ngOnInit(): void {
-//   }
+  ngOnInit(): void {
+  }
 
-// }
+}

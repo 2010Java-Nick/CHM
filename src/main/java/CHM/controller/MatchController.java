@@ -29,7 +29,6 @@ public class MatchController {
 	}
 
 	@RequestMapping(path = "/match", method = RequestMethod.POST)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Integer> createMatch(@RequestBody Match match) {
 		
@@ -43,7 +42,6 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match/{id}", method = RequestMethod.GET)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Match> readMatchById(@PathVariable(name = "id")int matchId) {
 		
@@ -53,10 +51,8 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.GET)
-	@ResponseBody
-	@CrossOrigin
+  @CrossOrigin
 	public ResponseEntity<List<Match>> readAllMatches() {
-		
 		List<Match> MatchList = matchService.readAllMatches();
 		ResponseEntity<List<Match>> re = new ResponseEntity<List<Match>>(MatchList, MatchList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
@@ -73,7 +69,6 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.PATCH)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Match> updateMatch(@RequestBody Match match) {
 		
@@ -88,7 +83,6 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.DELETE)
-	@ResponseBody
 	@CrossOrigin
 	public ResponseEntity<Boolean> deleteMatch(@RequestBody Match match){
 		
