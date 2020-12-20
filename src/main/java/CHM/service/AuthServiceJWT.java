@@ -60,7 +60,7 @@ public class AuthServiceJWT implements AuthService {
 
 	    long nowMillis = System.currentTimeMillis();
 	    Date now = new Date(nowMillis);
-	    Integer id = user.getUserId();;
+	    Integer id = user.getUserId();
 	    
 	    //We will sign our JWT with our ApiKey secret
 	    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("secret");
@@ -71,6 +71,7 @@ public class AuthServiceJWT implements AuthService {
 	    		.setId(id.toString())
 	    		.setSubject(user.getUsername())
 	            .setIssuedAt(now)
+	            .claim("profileId", user.getProfile().getProfileId())
 	            .claim("premium", user.isPremium())
 	            .signWith(signatureAlgorithm, signingKey);
 	  

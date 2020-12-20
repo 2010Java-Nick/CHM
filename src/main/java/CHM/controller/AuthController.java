@@ -27,7 +27,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
-//	@CrossOrigin()
+	@CrossOrigin
 	public ResponseEntity<LoginDto> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 		
 		System.out.println("Hit login endpoint");
@@ -36,6 +36,7 @@ public class AuthController {
 		ResponseEntity<LoginDto> re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.FORBIDDEN);
 		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), false);
 		if(token != null) {
+			response.setHeader("access-control-expose-headers", "Token");
 			response.setHeader("Token", token);
 			re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.OK);
 		}

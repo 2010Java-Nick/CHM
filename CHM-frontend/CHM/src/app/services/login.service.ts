@@ -26,7 +26,7 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   private retrieveLocalStore(): string {
-    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`)! : '';
+    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
   }
 
   private checkLocalStore(): boolean {
@@ -35,13 +35,13 @@ export class LoginService {
     } else { return false; }
   }
 
-  public login(username: string, password: string, rememberMe: boolean): Observable<HttpResponse<string>> {
+  public login(username: string, password: string, rememberMe: boolean): Observable<HttpResponse<any>> {
 
     rememberMe = ((rememberMe != null) ? true : false);
 
     const login = new Login(username, password, rememberMe);
 
-    return this.httpClient.post<string>(this.loginUrl, login, { observe: 'response' });
+    return this.httpClient.post<any>(this.loginUrl, login, { observe: 'response' });
 
   }
 
@@ -50,15 +50,11 @@ export class LoginService {
     console.log(`changed jWT in login service to ` + jWT);
     this.jWTChange.next(jWT);
     localStorage.setItem('auth', jWT);
+    console.log('localStorage.getItem(\'auth\'): ' + localStorage.getItem('auth'));
     if (jWT !== '') {
       console.log(`inside setJWT and logged in correctly`);
       this.isLoggedIn.next(true);
     } else { this.isLoggedIn.next(false); }
-  }
-
-  public setExpires(expires: number): void {
-    this.expires = expires;
-    localStorage.setItem('expires', expires.toString());
   }
 
   public getJWT(time: number): string {

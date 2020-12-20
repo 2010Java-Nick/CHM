@@ -29,25 +29,24 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username, this.password, this.rememberMe).subscribe(
       (resp) => {
 
-        console.log("resp: " + resp);
-
-        console.log("In response of submit method");
+        console.log('In response of submit method');
         this.errorMessage = `successful login`;
+        console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
+
         this.loginService.setJWT(resp.headers.get(this.authHeader));
 
         console.log(this.authHeader + ` : ` + resp.headers.get(this.authHeader));
-        console.log(`Expires: ` + resp.headers.get(`Expires`));
-        this.loginService.setExpires(Number(resp.headers.get(`Expires`)));
-        console.log(resp.headers);
+
+        console.log('resp.headers' + resp.headers);
         console.log('JWT set to ' + this.loginService.getJWT(new Date().getTime()));
+
         this.loginAttempt.emit(`success`);
+      },
+      (error) => {
+        console.log('In error of submit method');
+        this.handleError(error);
+        this.loginAttempt.emit(`failed`);
       }
-      // },
-      // (error) => {
-      //   console.log("In error of submit method");
-      //   this.handleError(error);
-      //   this.loginAttempt.emit(`failed`);
-      // }
     );
   }
 
