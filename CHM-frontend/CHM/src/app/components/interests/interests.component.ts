@@ -26,40 +26,17 @@ export class InterestsComponent implements OnInit {
 
   }
 
-
-  // checkChanged(interest: any) {
-  //   if (interest.target.checked){ 
-  //     this.checked++;
-  //   }
-  //   else{
-  //     this.checked--;
-  //   }
-
-  //   console.log('Interest is '+ interest);
-  //   console.log('Checked is '+ this.checked);
-  // }
-
-
   public onSelect(event: any, value: boolean) {
     if( event.target.checked ) {
-      value = true;
+      event.target.value = true;
       this.checked++;
       // make a call to a method to check if we should disable all unchecked checkboxs?
     } else {
-      value = false;
+      event.target.value = false;
       this.checked--;
     }
-    console.log('checked: ' + value);
+    console.log('checked: ' +  event.target.value);
     console.log('Checked is ' + this.checked);
   }
 
-  public isSelected(value: boolean): boolean {
-    if( value ){
-      console.log("isSelected was called and was true!")
-      return true;
-    } else {
-      console.log("isSelected was called and was false!")
-      return false;
-    }
-  }
 }

@@ -5,8 +5,9 @@
 
     <div *ngFor='let interest of interests; let i = index'>
         <input type="checkbox" name ="{{i}}" [checked]='interest.value' 
+            [(ngModel)]="interest.value"
             (change)='onSelect($event, interest.value)' 
-            [disabled]="isSelected(interest.value)"/>
+            [disabled]="checked==limit && !interest.value"/>
             <label>{{interest.lable}}</label>
         <br>
     </div>
