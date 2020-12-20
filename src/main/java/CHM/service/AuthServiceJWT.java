@@ -38,8 +38,6 @@ public class AuthServiceJWT implements AuthService {
 	public String authenticateUser(String username, String password, Boolean remembered) {
 		// if good, get user from db
 		User user = userDao.selectUser(username);
-		System.out.println(user.getPassword());
-		System.out.println(password);
 		
 		//if not null, check password
 		if(user != null) {
@@ -62,7 +60,7 @@ public class AuthServiceJWT implements AuthService {
 
 	    long nowMillis = System.currentTimeMillis();
 	    Date now = new Date(nowMillis);
-	    Integer id = user.getUserId();;
+	    Integer id = user.getUserId();
 	    
 	    //We will sign our JWT with our ApiKey secret
 	    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("secret");
@@ -73,6 +71,7 @@ public class AuthServiceJWT implements AuthService {
 	    		.setId(id.toString())
 	    		.setSubject(user.getUsername())
 	            .setIssuedAt(now)
+	            .claim("profileId", user.getProfile().getProfileId())
 	            .claim("premium", user.isPremium())
 	            .signWith(signatureAlgorithm, signingKey);
 	  

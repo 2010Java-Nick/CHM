@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,17 +26,24 @@ public class AuthController {
 		this.authService = authService;
 	}
 
-	@RequestMapping(path = "/login", produces = "text/plain", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+	@RequestMapping(path = "/login", method = RequestMethod.POST)
+	@CrossOrigin
+	public ResponseEntity<LoginDto> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 		
 		System.out.println("Hit login endpoint");
+		System.out.println("LoginDto: " + loginDto.toString());
 		
-		ResponseEntity<String> re = new ResponseEntity<String>(new String("Login failed"), HttpStatus.UNAUTHORIZED);
-		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), loginDto.isRememberMe());
+		ResponseEntity<LoginDto> re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.FORBIDDEN);
+		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), false);
+		if(authService.validateToken(token)) {
+			System.out.println("the validator works!");
+		} else {
+			System.out.println("the validator does not work!");
+		}
 		if(token != null) {
+			response.setHeader("access-control-expose-headers", "Token");
 			response.setHeader("Token", token);
-			re = new ResponseEntity<String>("Login success", HttpStatus.OK);
+			re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.OK);
 		}
 
 		return re;
