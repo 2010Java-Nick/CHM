@@ -52,7 +52,7 @@ public class ProfileServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs");
 		MockitoAnnotations.initMocks(this);
 		
 		when(mockProfileDao.selectProfile(toTest.getProfileId())).thenReturn(toTest);

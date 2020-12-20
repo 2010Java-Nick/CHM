@@ -87,7 +87,7 @@ public class ProfileDaoHibernateTest {
 	public void setUp() throws Exception {
 
 		
-		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs");
 		profileDaoHibernate.insertProfile(toTest);
 		
 		MockitoAnnotations.initMocks(this);
