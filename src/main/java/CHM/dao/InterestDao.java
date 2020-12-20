@@ -14,6 +14,8 @@ public interface InterestDao{
 	
 	public List<Interest> selectAllInterests() throws HibernateException;
 	
+	public List<Interest> selectInterestsByProfileId(int profileId) throws HibernateException;
+	
 	public Interest updateInterest(Interest interest) throws HibernateException;
 	
 	public boolean deleteInterest(Interest interest) throws Exception;

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import CHM.dao.MatchDao;
+import CHM.dao.ProfileDao;
 import CHM.model.Match;
+import CHM.model.Profile;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -15,11 +17,19 @@ public class MatchServiceImpl implements MatchService {
 	
 	private MatchDao matchDao;
 	
+	private ProfileDao profileDao;
+	
 	@Autowired
 	@Override
 	public void setMatchDao(MatchDao matchDao) {
 		this.matchDao = matchDao;
 
+	}
+
+	@Autowired
+	@Override
+	public void setProfileDao(ProfileDao profileDao) {
+		this.profileDao = profileDao;
 	}
 	
 	@Override
@@ -65,6 +75,14 @@ public class MatchServiceImpl implements MatchService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public List<Match> readMatchesByProfileId(int profileId) {
+		List<Profile> profileList = profileDao.selectAllProfiles();
+		profileList.remove(profileDao.selectProfile(profileId));
+		Profile profile = profileDao.selectProfile(profileId);
+		return matchDao.selectMatchesByProfile(profile, profileList);
 	}
 
 }

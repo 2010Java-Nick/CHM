@@ -58,6 +58,15 @@ public class InterestController {
 		return re;
 	}
 	
+	@RequestMapping(path = "/interest/profile/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Interest>> readInterestsByProfileId(@PathVariable(name = "id")int profileId) {
+		
+		List<Interest> interestList = interestService.readInterestsByProfileId(profileId);
+		ResponseEntity<List<Interest>> re = new ResponseEntity<List<Interest>>(interestList, interestList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.PATCH)
 	@ResponseBody
