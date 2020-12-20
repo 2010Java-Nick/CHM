@@ -8,6 +8,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { delay} from 'rxjs/operators';
 
+/*
+*******INCOMPLETE TEST***********
+*/
+
 describe('RegisterationComponent', () => {
   let component: RegisterationComponent;
   let fixture: ComponentFixture<RegisterationComponent>;
@@ -75,4 +79,14 @@ describe('RegisterationComponent', () => {
 
 
   }));
+
+
+  it('[username-check] should check username is invalid', () => {
+    let username = component.registrationForm.controls['username'];
+    expect(username.valid).toBeFalsy();
+    expect(username.pristine).toBeTruthy();
+    username.setValue('a');
+    //expect(username.errors['required']).toBeTruthy();
+
+  })
 });
