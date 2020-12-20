@@ -143,6 +143,8 @@ public class Interest {
 		return true;
 	}
 	
-	
+	public boolean sameInterest(Interest i) {
+		return this.getInterestName().equals(i.getInterestName());
+	}
 	
 }

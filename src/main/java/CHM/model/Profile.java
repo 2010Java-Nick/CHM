@@ -68,7 +68,7 @@ public class Profile {
 	 * @param primaryInterest
 	 */
 	public Profile(int profileId, String firstName, String lastName, String email, String phone, int age, String bio,
-			String icebreaker, String primaryInterest) {
+			String icebreaker) {
 		super();
 		this.profileId = profileId;
 		this.firstName = firstName;

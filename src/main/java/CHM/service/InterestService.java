@@ -15,6 +15,8 @@ public interface InterestService {
 	
 	public List<Interest> readAllInterests();
 	
+	public List<Interest> readInterestsByProfileId(int profileId);
+	
 	public Interest updateInterest(Interest interest);
 	
 	public boolean deleteInterest(Interest interest);

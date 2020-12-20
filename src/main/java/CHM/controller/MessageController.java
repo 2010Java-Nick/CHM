@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class MessageController {
 	
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.POST)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Integer> createMessage(@RequestBody Message message) {
 		
 		Integer newMessageId;
@@ -47,7 +48,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Message> readMessageById(@PathVariable(name = "id")int messageId) {
 		
 		Message message = messageService.readMessageById(messageId);
@@ -56,7 +57,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Message>> readAllMessages() {
 		
 		List<Message> messageList = messageService.readAllMessages();
@@ -65,7 +66,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message/match/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Message>> readMessagesByMatchId(@PathVariable(name = "id")int messageId) {
 		
 		List<Message> messageList = messageService.readMessagesByMatchId(messageId);
@@ -74,7 +75,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message/recipient/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Message>> readMessagesByRecipientId(@PathVariable(name = "id")int messageId) {
 		
 		List<Message> messageList = messageService.readMessagesByRecipientId(messageId);
@@ -83,7 +84,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message/sender/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Message>> readMessagesBySenderId(@PathVariable(name = "id")int messageId) {
 		
 		List<Message> messageList = messageService.readMessagesBySenderId(messageId);
@@ -93,7 +94,7 @@ public class MessageController {
 	
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.PATCH)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Message> updateMessage(@RequestBody Message message) {
 		
 		Message updatedMessage = null;
@@ -111,7 +112,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(path = "/message", method = RequestMethod.DELETE)
-	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteMessage(@RequestBody Message message){
 		
 		Boolean deleted = messageService.deleteMessage(message);

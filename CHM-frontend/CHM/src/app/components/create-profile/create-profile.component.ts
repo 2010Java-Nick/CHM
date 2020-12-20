@@ -13,6 +13,7 @@ export class CreateProfileComponent implements OnInit {
 
     profileForm = {} as FormGroup;
 
+
     minDate:Date = this.getMinDate();
 
     profile = {} as Profile;
@@ -106,4 +107,5 @@ export class CreateProfileComponent implements OnInit {
     get bio():any { return this.profileForm.get('bio'); }
 
     get icebreaker():any { return this.profileForm.get('icebreaker'); }
+
 }
