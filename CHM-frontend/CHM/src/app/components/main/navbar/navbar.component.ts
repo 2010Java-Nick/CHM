@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
@@ -10,12 +11,13 @@ import * as $ from 'jquery';
 export class NavbarComponent implements OnInit {
 
   showPayment = false;
-  
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-     //Toggle Click Function
-     $("#menu-toggle").click(function (e) {
+    //Toggle Click Function
+    $("#menu-toggle").click(function (e) {
+
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
@@ -25,5 +27,5 @@ export class NavbarComponent implements OnInit {
     this.showPayment = ! this.showPayment;
   }
 
-  
+
 }

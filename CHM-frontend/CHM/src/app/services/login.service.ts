@@ -11,7 +11,11 @@ export class LoginService {
 
   private readonly loginUrl = environment.loginUrl;
 
-  //private jWT = this.retrieveLocalStore();
+
+  private jWT = this.retrieveLocalStore();
+
+  private jWT = this.retrieveLocalStore();
+
 
   private expires!: number;
 
@@ -25,9 +29,9 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // private retrieveLocalStore(): string {
-  //   return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
-  // }
+  private retrieveLocalStore(): string {
+    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
+  }
 
   private checkLocalStore(): boolean {
     if (this.jWT !== '') {

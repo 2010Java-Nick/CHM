@@ -9,3 +9,15 @@
 #warning-list{
     text-align: left;
 }
+
+.nav-button-logout {
+    margin-top: auto;
+}
+
+#nav-button-logout {
+    row-gap: 20px;
+}
+
+#sidebar-wrapper {
+    text-align: center
+}
