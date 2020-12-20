@@ -10,9 +10,7 @@ import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http'
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PhotoComponent } from './components/photo/photo.component';
-
-
-
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +19,8 @@ import { PhotoComponent } from './components/photo/photo.component';
     PaymentComponent,
     // LogInComponent, 
     CreateProfileComponent,
-    PhotoComponent
+    PhotoComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,
