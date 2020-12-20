@@ -38,6 +38,7 @@ public class ProfileController {
 		
 		Integer newProfileId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		System.out.println(profile.toString());
 		try {
 			newProfileId = new Integer(profileService.createProfile(profile));
 			if (newProfileId != -1) {

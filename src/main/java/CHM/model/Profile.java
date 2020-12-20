@@ -47,9 +47,6 @@ public class Profile {
 	
 	@Column(name = "icebreaker")
 	private String icebreaker;
-	
-	@Column(name = "primary_interest")
-	private String primaryInterest;
 
 	/**
 	 * 
@@ -81,7 +78,6 @@ public class Profile {
 		this.age = age;
 		this.bio = bio;
 		this.icebreaker = icebreaker;
-		this.primaryInterest = primaryInterest;
 	}
 
 	/**
@@ -196,25 +192,10 @@ public class Profile {
 		this.icebreaker = icebreaker;
 	}
 
-	/**
-	 * @return the primaryInterest
-	 */
-	public String getPrimaryInterest() {
-		return primaryInterest;
-	}
-
-	/**
-	 * @param primaryInterest the primaryInterest to set
-	 */
-	public void setPrimaryInterest(String primaryInterest) {
-		this.primaryInterest = primaryInterest;
-	}
-
 	@Override
 	public String toString() {
 		return "Profile [profileId=" + profileId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", icebreaker=" + icebreaker
-				+ ", primaryInterest=" + primaryInterest + "]";
+				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", icebreaker=" + icebreaker + "]";
 	}
 
 	@Override
@@ -228,7 +209,6 @@ public class Profile {
 		result = prime * result + ((icebreaker == null) ? 0 : icebreaker.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((primaryInterest == null) ? 0 : primaryInterest.hashCode());
 		result = prime * result + profileId;
 		return result;
 	}
@@ -273,11 +253,6 @@ public class Profile {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
-			return false;
-		if (primaryInterest == null) {
-			if (other.primaryInterest != null)
-				return false;
-		} else if (!primaryInterest.equals(other.primaryInterest))
 			return false;
 		if (profileId != other.profileId)
 			return false;

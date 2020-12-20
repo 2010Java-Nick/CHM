@@ -16,7 +16,7 @@ import { CreateProfileComponent } from './components/create-profile/create-profi
     AppComponent,
     RegisterationComponent,
     // LogInComponent, 
-    CreateProfileComponent
+    CreateProfileComponent,
   ],
   imports: [
     BrowserModule,

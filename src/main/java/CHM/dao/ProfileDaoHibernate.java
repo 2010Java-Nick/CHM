@@ -43,6 +43,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(profile);
+		System.out.println(profile.toString());
 		tx.commit();
 		sess.close();
 		return profile.getProfileId();

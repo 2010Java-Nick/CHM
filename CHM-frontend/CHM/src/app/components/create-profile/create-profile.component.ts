@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, EmailValidator } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../classes/profile.model';
 
@@ -11,9 +11,9 @@ import { Profile } from '../../classes/profile.model';
 
 export class CreateProfileComponent implements OnInit {
 
-    profileForm: FormGroup;
+    profileForm = {} as FormGroup;
 
-    //birthday!:Date;
+    minDate:Date = this.getMinDate();
 
     profile = {} as Profile;
 
@@ -34,10 +34,19 @@ export class CreateProfileComponent implements OnInit {
                 '',
                 Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
             ),
-            phone:new FormControl(
+            phone: new FormControl(
                 '+1',
                 Validators.pattern('(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})')
-            )
+            ),
+            birthday: new FormControl(),
+            bio: new FormControl(
+                '',
+                Validators.maxLength(150)
+            ),
+            icebreaker: new FormControl(
+                '',
+                Validators.maxLength(75)
+            )            
         });
     }
 
@@ -49,20 +58,42 @@ export class CreateProfileComponent implements OnInit {
         this.profile.firstName = this.profileForm.controls.firstName.value;
         this.profile.lastName = this.profileForm.controls.lastName.value;
         this.profile.email = this.profileForm.controls.email.value;
+        this.profile.age = this.getAgeFromBirthday(this.profileForm.controls.birthday.value);
+        this.profile.phone = this.profileForm.controls.phone.value;
+        this.profile.bio = this.profileForm.controls.bio.value;
+        this.profile.icebreaker = this.profileForm.controls.icebreaker.value;        
         
+        if(this.profileForm.valid) {
+            this.profileService.createProfile(this.profile).subscribe((returnedId) => {
+                if(returnedId != -1){
+                    //this.router.navigate()
+                }
+            });
+        } else {
+            window.alert("Please fix invalid fields!");
+        }
+       
+    };
 
-        this.profileService.createProfile(this.profile).subscribe((returnedId) => {
-            if(returnedId != -1){
-                //this.router.navigate()
-            }
-        });
+    private getMinDate(): Date {
+
+        const today = new Date();
+        today.setFullYear(today.getFullYear() - 18);
+        return today;
     }
 
-    public calculateAge(birthday:Date): number {
+    private getAgeFromBirthday(date:Date): number {
 
-        return 1;
+        var birthday = new Date(date);
+        console.log(birthday)
+        var today = new Date();
+        var age = today.getFullYear() - birthday.getFullYear(); 
+        var m = today.getMonth() - birthday.getMonth();    
+        if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {  
+            age--;     
+        }     
+        return age; 
     }
-
 
     get firstName():any { return this.profileForm.get('firstName'); }
 
@@ -71,8 +102,6 @@ export class CreateProfileComponent implements OnInit {
     get email():any { return this.profileForm.get('email'); }
 
     get phone():any { return this.profileForm.get('phone'); }
-
-    get birthday():any { return this.profileForm.get('birthday'); }
 
     get bio():any { return this.profileForm.get('bio'); }
 
