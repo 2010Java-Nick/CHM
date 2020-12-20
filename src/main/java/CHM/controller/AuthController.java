@@ -35,6 +35,11 @@ public class AuthController {
 		
 		ResponseEntity<LoginDto> re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.FORBIDDEN);
 		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), false);
+		if(authService.validateToken(token)) {
+			System.out.println("the validator works!");
+		} else {
+			System.out.println("the validator does not work!");
+		}
 		if(token != null) {
 			response.setHeader("access-control-expose-headers", "Token");
 			response.setHeader("Token", token);
