@@ -29,7 +29,7 @@ export class PhotoService {
   /*
   *  Get method for reading photo by Id:
   */
-  public readProfile(photoId: number): Observable<Photo> {
+  public readPhoto(photoId: number): Observable<Photo> {
 
     const readUrl = `${this.PHOTO_URL}/${photoId}`;
 

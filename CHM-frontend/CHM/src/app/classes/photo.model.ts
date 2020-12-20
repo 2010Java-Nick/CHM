@@ -1,5 +1,5 @@
 export interface Photo {
     photoId : number,
-    file : File, 
+    photo : any[], 
     profileId: number
 }

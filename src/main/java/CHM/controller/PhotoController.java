@@ -45,6 +45,7 @@ public class PhotoController {
 		return re;
 	}
 	
+	@CrossOrigin
 	@GetMapping(path = "/photo/{photoId}")
 	public ResponseEntity<Photo> readPhotoById(@PathVariable("photoId")int photoId) {
 		
@@ -54,6 +55,7 @@ public class PhotoController {
 	}
 	
 	@GetMapping(path = "/photo/profile/{profileId}")
+	@CrossOrigin
 	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable("profileId")int profileId) {
 		
 		List<Photo> photoList = photoService.readPhotosByProfileId(profileId);

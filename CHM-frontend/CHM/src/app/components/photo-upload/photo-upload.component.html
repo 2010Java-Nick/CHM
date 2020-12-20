@@ -1,3 +1,7 @@
 <h1>File Upload</h1>
-<input type="file" (change)="onFileSelected($event)">
+<span style="color:red;" *ngIf="message">{{message}}</span>
+<input #file type="file" accept='image/*' (change)="preview(file.files)" />
+<img [src]="imgURL" height="200" *ngIf="imgURL">
+<img [src]="formatImage(imgURLUploaded)" height="200" *ngIf="imgURLUploaded">
 <button type="button" (click)="onUpload()">Upload</button>
+

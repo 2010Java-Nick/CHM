@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Photo } from '../../classes/photo.model';
 import { PhotoService } from '../../services/photo.service';
+import { DomSanitizer } from "@angular/platform-browser";
+import { ReadVarExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-photo-upload',
@@ -10,34 +12,67 @@ import { PhotoService } from '../../services/photo.service';
 })
 export class PhotoUploadComponent implements OnInit {
 
+  imgURL: any;
+  imgURLUploaded: any;
+  public message: string;
   pic = {} as Photo;
-  selectedFile : File;
-  fd = new FormData();
+ 
+  preview(files) {
+    this.imgURLUploaded = null;
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader1 = new FileReader();
+    reader1.readAsDataURL(files[0]); 
+    reader1.onload = (_event) => { 
+      this.imgURL = reader1.result; 
+    }
 
-  onFileSelected(event) {
-      this.selectedFile = <File> event.target.files[0];
-      this.pic.profileId = 1;
+    var reader = new FileReader();
+    var fileByteArray = [];
+    reader.readAsArrayBuffer(files[0]);
+    reader.onloadend = function (evt) {
+      if (evt.target.readyState == FileReader.DONE) {
+        var arrayBuffer = evt.target.result,
+        array = new Uint8Array(arrayBuffer);
+        for (var i = 0; i < array.length; i++) {
+          fileByteArray.push(array[i]);
+        }
+      }
+    }
+    this.pic.photo = fileByteArray;
+
   }
 
   onUpload() {
     this.photoService.createPhoto(this.pic).subscribe( (res) => {
       this.pic.photoId = res;
-      this.callBack();
+      console.log(res);
+      this.afterUpload();
     });
   };
 
-  callBack() {
-    this.fd.append('photo', this.selectedFile, "photo");
-    this.photoService.updatePhoto(this.pic.photoId, this.fd).subscribe( (res => {
-        this.refresh();
-    }));
+  afterUpload() {
+    this.imgURL = null;
+    this.photoService.readPhoto(this.pic.photoId).subscribe ( (res) =>
+    {
+      console.log("Changing image ");
+      console.log(this.imgURL);
+      this.imgURLUploaded = res.photo;
+    });
   }
 
-  refresh() {
-    window.location.reload();
+  formatImage(img: any): any {
+    return 'data:image/jpeg;base64,' + img;
   }
 
-  constructor(private http: HttpClient, private photoService : PhotoService) { }
+  constructor(private http: HttpClient, private photoService : PhotoService, private sanitizer : DomSanitizer) { }
 
   ngOnInit(): void {
   }
