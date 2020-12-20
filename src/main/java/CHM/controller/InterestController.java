@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.POST)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Integer> createInterest(@RequestBody Interest interest) {
 		
 		Integer interestId = interestService.createInterest(interest);
@@ -42,6 +44,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest/{id}", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Interest> readInterestById(@PathVariable(name = "id")int interestId) {
 		
 		Interest interest = interestService.readInterestById(interestId);
@@ -51,6 +54,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Interest>> readAllInterests() {
 		
 		List<Interest> interestList = interestService.readAllInterests();
@@ -60,6 +64,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest/profile/{id}", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Interest>> readInterestsByProfileId(@PathVariable(name = "id")int profileId) {
 		
 		List<Interest> interestList = interestService.readInterestsByProfileId(profileId);
@@ -70,6 +75,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.PATCH)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Interest> updateInterest(@RequestBody Interest interest) {
 		
 		Interest updatedInterest = interestService.updateInterest(interest);
@@ -82,6 +88,7 @@ public class InterestController {
 	
 	@RequestMapping(path = "/interest", method = RequestMethod.DELETE)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deleteInterest(@RequestBody Interest interest){
 		
 		Boolean deleted = interestService.deleteInterest(interest);
