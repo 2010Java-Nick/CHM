@@ -2,6 +2,7 @@ package CHM.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -90,6 +91,17 @@ public class InterestDaoHibernate implements InterestDao {
 		tx.commit();
 		sess.close();
 		return true;
+	}
+
+	@Override
+	public List<Interest> selectInterestsByProfileId(int profileId) throws HibernateException {
+		Session sess = sessionFactory.openSession();
+		String hql = "from Interest where profile_id = :profileId";
+		Query query = sess.createQuery(hql);
+		query.setParameter("profileId", profileId);
+		List<Interest> results = (List<Interest>)query.getResultList();
+		sess.close();
+		return results;
 	}
 
 

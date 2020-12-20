@@ -3,6 +3,7 @@ package CHM.service;
 import java.util.List;
 
 import CHM.dao.MatchDao;
+import CHM.dao.ProfileDao;
 import CHM.model.Match;
 
 public interface MatchService {
@@ -13,10 +14,14 @@ public interface MatchService {
 	
 	public List<Match> readAllMatches();
 	
+	public List<Match> readPotentialMatchesByProfileId(int profileId);
+	
 	public Match updateMatch(Match match);
 	
 	public boolean deleteMatch(Match match);
 	
 	public void setMatchDao(MatchDao matchDao);
+
+	void setProfileDao(ProfileDao profileDao);
 
 }

@@ -7,8 +7,13 @@ import { RegisterationComponent } from './components/registeration/registeration
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // import { LogInComponent } from './components/log-in/log-in.component';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
+
 import { LoginComponent } from './components/login/login.component';
-// import { CreateProfileComponent } from './components/create-profile/create-profile.component';
+
+import { CreateProfileComponent } from './components/create-profile/create-profile.component';
+import { PaymentComponent } from './components/payment/payment.component';
+
+
 
 
 
@@ -16,9 +21,10 @@ import { LoginComponent } from './components/login/login.component';
   declarations: [
     AppComponent,
     RegisterationComponent,
+
     LoginComponent,
-    // LogInComponent,
-    // CreateProfileComponent
+    PaymentComponent,
+    CreateProfileComponent
   ],
   imports: [
     BrowserModule,

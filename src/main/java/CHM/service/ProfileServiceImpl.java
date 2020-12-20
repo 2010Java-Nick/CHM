@@ -76,10 +76,10 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) {
+	public boolean deleteProfile(int profileId) {
 		
 		try {
-			return profileDao.deleteProfile(profile);
+			return profileDao.deleteProfile(profileId);
 		} catch (Exception e) {
 			return false;
 		}
