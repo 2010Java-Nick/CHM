@@ -12,13 +12,14 @@ import { PaymentComponent } from './components/payment/payment.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     RegisterationComponent,
     PaymentComponent,
     // LogInComponent, 
-    CreateProfileComponent,
+    CreateProfileComponent
   ],
   imports: [
     BrowserModule,

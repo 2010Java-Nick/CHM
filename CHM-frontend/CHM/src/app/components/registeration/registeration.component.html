@@ -1,14 +1,40 @@
-<p>registeration works!</p>
-<div>
-  
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <label>Username</label>
-    <input formControlName="username" class="form-control" type="text" id="username">
+<br><br>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>Sign Up</h3>
+    </div>
+    <div class="card-body">
 
-    <label>Password</label>
-    <input formControlName="password" type="password" class="form-control" id="password">
-    <br>
-    <button type = "submit"> Submit </button>
-  </form>
+      <div *ngIf = "let err of error">
+        <p> {{ err }}</p>
+      </div>
 
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-md-center">
+
+          <div class="form-group; col-sm-4" id="username-aling">
+            <label for="username">Username</label>
+            <input formControlName="username" type="username" class="form-control" id="username"
+              aria-describedby="Usernem" placeholder="Enter Username">
+          </div>
+
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4" id="username-aling">
+            <label for="password">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="password"
+              placeholder="Enter Password">
+          </div>
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn btn-outline-primary">Get Started</button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+  </div>
 </div>

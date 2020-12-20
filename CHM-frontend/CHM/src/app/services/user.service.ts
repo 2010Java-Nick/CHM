@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/classes/user';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 
@@ -16,7 +17,12 @@ export class UserService {
   constructor(private httpClient : HttpClient) { }
 
   public createUser(user : User) : Observable<User>  {
-    return this.httpClient.post<User>(this.USER_URL, user); 
+    return this.httpClient.post<User>(this.USER_URL, user)
+    /* to get error from backend
+    // .pipe(
+    //   catchError(this.handleError),
+    // ) ; 
+    */
   }
 
 }
