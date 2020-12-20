@@ -78,11 +78,11 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public List<Match> readMatchesByProfileId(int profileId) {
+	public List<Match> readPotentialMatchesByProfileId(int profileId) {
 		List<Profile> profileList = profileDao.selectAllProfiles();
 		profileList.remove(profileDao.selectProfile(profileId));
 		Profile profile = profileDao.selectProfile(profileId);
-		return matchDao.selectMatchesByProfile(profile, profileList);
+		return matchDao.selectPotentialMatchesByProfile(profile, profileList);
 	}
 
 }

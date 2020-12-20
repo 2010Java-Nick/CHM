@@ -16,7 +16,7 @@ public interface MatchDao {
 	
 	public List<Match> selectAllMatches() throws HibernateException;
 	
-	public List<Match> selectMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException;
+	public List<Match> selectPotentialMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException;
 	
 	public Match updateMatch(Match match) throws HibernateException;
 	

@@ -3,6 +3,7 @@ package CHM.dao;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 
 import CHM.model.Interest;
 
@@ -19,5 +20,7 @@ public interface InterestDao{
 	public Interest updateInterest(Interest interest) throws HibernateException;
 	
 	public boolean deleteInterest(Interest interest) throws Exception;
+
+	public void setSessionFactory(SessionFactory sessionFactory);
 
 }

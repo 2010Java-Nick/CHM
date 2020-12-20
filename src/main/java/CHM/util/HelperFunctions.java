@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import CHM.dao.InterestDao;
+import CHM.dao.InterestDaoHibernate;
 import CHM.dao.MatchDao;
 import CHM.dao.MatchDaoHibernate;
 import CHM.dao.ProfileDao;
@@ -180,9 +182,10 @@ public class HelperFunctions {
 		}
 	   
 	   public static double computeCompatability(Profile p1, Profile p2) {
-		   InterestService interestService = new InterestServiceImpl();
-		   List<Interest> p1Interests = interestService.readInterestsByProfileId(p1.getProfileId());
-		   List<Interest> p2Interests = interestService.readInterestsByProfileId(p2.getProfileId());
+		   InterestDao interestDao = new InterestDaoHibernate();
+		   interestDao.setSessionFactory(SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory());
+		   List<Interest> p1Interests = interestDao.selectInterestsByProfileId(p1.getProfileId());
+		   List<Interest> p2Interests = interestDao.selectInterestsByProfileId(p2.getProfileId());
 		   
 		   double ctr = 0;
 		   for (int i = 0; i < p1Interests.size(); i++) {
@@ -192,7 +195,7 @@ public class HelperFunctions {
 				   }
 			   }
 		   }
-		   return ctr / (double) (p1Interests.size() + p2Interests.size());
+		   return ctr / (double) (p1Interests.size() + p2Interests.size()) * 2;
 		   
 	   }
 	   

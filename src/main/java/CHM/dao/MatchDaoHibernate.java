@@ -48,9 +48,6 @@ public class MatchDaoHibernate implements MatchDao {
 		Session sess = sessionFactory.openSession();
 		match = sess.get(Match.class, matchId);
 		sess.close();
-		if (match == null) {
-			throw new HibernateException("Match with id " + matchId + " does not exist");
-		}
 		return match;
 	}
 
@@ -90,15 +87,15 @@ public class MatchDaoHibernate implements MatchDao {
 	}
 
 	@Override
-	public List<Match> selectMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException {
-		List<Match> matchesList = new ArrayList();
+	public List<Match> selectPotentialMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException {
+		List<Match> matchesList = new ArrayList<Match>();
 		
 		for (int i = 0; i < profileList.size(); i++) {
 			Match match = new Match(-1, profile, profileList.get(i), false, 0, false);
 			match.setCompatability(computeCompatability(profile, profileList.get(i)));
 			matchesList.add(match);
 		}
-		Collections.sort(matchesList);
+		Collections.sort(matchesList, Collections.reverseOrder());
 		return matchesList;
 		
 	}
