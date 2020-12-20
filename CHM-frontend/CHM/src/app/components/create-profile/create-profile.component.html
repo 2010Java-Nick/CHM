@@ -1,47 +1,85 @@
-<h2>Account creation</h2>
-<form #createProfileForm="ngForm" (ngSubmit)="createProfile()">
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>Create Profile</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="profileForm" (ngSubmit)="createProfile()">
+        
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="firstName">First Name:</label>
+              <input type="text" formControlName="firstName" class="form-control" placeholder="First Name">
+            </div>
+            <div id="warning" *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
+              <p class="text-danger"><small>Only letters and '-' allowed!</small></p>
+            </div> 
+          </div>
 
-  <div class="form-group">
-    <label for="firstName">First Name:</label>
-    <input type="text" name="firstName" class="form-control" placeholder="First Name" [(ngModel)]="profile.firstName">
+          <div class="col">
+            <div class="form-group">
+              <label for="lastName">Last Name:</label>
+              <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name">
+            </div>
+            <div id="warning" *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
+              <p class="text-danger"><small>Only letters and '-' allowed!</small></p>
+            </div> 
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" formControlName="email" class="form-control" placeholder="Email">
+            </div>
+            <div id="warning" *ngIf="email.invalid && (email.touched || email.dirty)">
+              <p class="text-danger"><small>Please enter a valid email.</small></p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="phone">Phone Number:</label>
+              <input type="text" formControlName="phone" class="form-control" placeholder="Phone Number">
+            </div>
+            <div id="warning" *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+              <p class="text-danger"><small>Please enter a valid phone number.</small></p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="birthday">Birthday</label>
+              <input type="date" formControlName="birthday" class="form-control" placeholder="Birthday">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="bio">Short Bio:</label>
+              <textarea type="textarea" formControlName="bio" class="form-control" placeholder="Write a short bio!"></textarea>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="icebreaker">Icebreaker:</label>
+              <textarea type="textarea" formControlName="icebreaker" class="form-control"
+                placeholder="Add an icebreaker to start the conversation!"></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
   </div>
-
-  <div class="form-group">
-    <label for="lastName">Last Name:</label>
-    <input type="text" name="lastName" class="form-control" placeholder="Last Name" [(ngModel)]="profile.lastName">
-  </div>
-
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="profile.email">
-  </div>
-
-  <div class="form-group">
-    <label for="phone">Phone Number:</label>
-    <input type="text" name="phone" class="form-control" placeholder="Phone Number" [(ngModel)]="profile.phone">
-  </div>
-
-  <div class="form-group">
-    <label for="birthday">Birthday</label>
-    <input type="date" name="birthday" class="form-control" placeholder="Birthday" [(ngModel)]="birthday">
-  </div>
-
-  <div class="form-group">
-    <label for="bio">Short Bio:</label>
-    <textarea type="textarea" name="bio" class="form-control" placeholder="Write a short bio!" [(ngModel)]="profile.bio"></textarea>
-  </div>
-
-  <div class="form-group">
-    <label for="icebreaker">Icebreaker:</label>
-    <textarea type="textarea" name="icebreaker" class="form-control" placeholder="Add an icebreaker to start the conversation!" [(ngModel)]="profile.icebreaker"></textarea>
-  </div>
-
-  <!-- <div class="form-group">
-    <app-file-upload formControlName="image" [progress]="progress"></app-file-upload>
-  </div> -->
-
-  <div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </div>
-
-</form>
+</div>

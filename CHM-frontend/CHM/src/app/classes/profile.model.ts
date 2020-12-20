@@ -8,6 +8,5 @@ export interface Profile {
     age: number;
     bio: string;
     icebreaker: string;
-    primaryInterest: string;
     
 }
