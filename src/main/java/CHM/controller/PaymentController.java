@@ -27,7 +27,7 @@ PaymentService paymentService;
 		this.paymentService = paymentService;
 	}
 	
-	//@SuppressWarnings("finally")
+	@SuppressWarnings("finally")
 	@RequestMapping(path = "/payment", method = RequestMethod.POST)
 	@ResponseBody
 	@CrossOrigin

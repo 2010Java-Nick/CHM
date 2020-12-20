@@ -62,7 +62,7 @@ export class RegisterationComponent implements OnInit {
   }
 
    /*
-    Pulling the errors of username
+    Pulling the errors of password
     */
     let passwordError = this.registrationForm.controls.password.errors;
     if(passwordError != null){
@@ -85,10 +85,7 @@ export class RegisterationComponent implements OnInit {
       this.error.push("Username should contain only alphanumeric characters");
     }
 
-    console.log(this.registrationForm);
-    console.log(this.error);
-
-   this.router.navigate(['/signup/profile'])
+   this.router.navigate(['/signup/profile']);
 
   }
 }
