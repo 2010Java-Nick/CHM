@@ -12,6 +12,7 @@ export class PhotoComponent implements OnInit {
 
   pic = {} as Photo;
   selectedFile : File;
+  fd = new FormData();
 
   onFileSelected(event) {
       this.selectedFile = <File> event.target.files[0];
@@ -19,12 +20,22 @@ export class PhotoComponent implements OnInit {
   }
 
   onUpload() {
-    const fd = new FormData();
-    fd.append('photo', this.selectedFile, "photo");
-    this.pic.profileId = 1;
-    this.photoService.createPhoto(this.pic).subscribe();
-    this.photoService.updatePhoto(7, fd).subscribe();
+    this.photoService.createPhoto(this.pic).subscribe( (res) => {
+      this.pic.photoId = res;
+      this.callBack();
+    });
   };
+
+  callBack() {
+    this.fd.append('photo', this.selectedFile, "photo");
+    this.photoService.updatePhoto(this.pic.photoId, this.fd).subscribe( (res => {
+        this.refresh();
+    }));
+  }
+
+  refresh() {
+    window.location.reload();
+  }
 
   constructor(private http: HttpClient, private photoService : PhotoService) { }
 
