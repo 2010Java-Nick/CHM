@@ -37,7 +37,7 @@ export class RegisterationComponent implements OnInit {
           [
           Validators.minLength(8),
           //regex for at least 1 uppercase, one lowercase, one number, one special character
-          Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}')
+          Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
           ]
       )
     });
