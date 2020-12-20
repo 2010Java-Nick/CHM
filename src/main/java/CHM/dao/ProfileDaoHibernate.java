@@ -55,9 +55,6 @@ public class ProfileDaoHibernate implements ProfileDao {
 		Session sess = sessionFactory.openSession();
 		profile = sess.get(Profile.class, profileId);
 		sess.close();
-		if (profile == null) {
-			throw new HibernateException("Profile with id " + profileId + "does not exist");
-		}
 		return profile;
 	}
 

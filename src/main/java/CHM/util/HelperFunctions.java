@@ -2,19 +2,25 @@ package CHM.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import CHM.dao.InterestDao;
+import CHM.dao.InterestDaoHibernate;
 import CHM.dao.MatchDao;
 import CHM.dao.MatchDaoHibernate;
 import CHM.dao.ProfileDao;
 import CHM.dao.ProfileDaoHibernate;
+import CHM.model.Interest;
 import CHM.model.Message;
 import CHM.model.Payment;
 import CHM.model.Profile;
+import CHM.service.InterestService;
+import CHM.service.InterestServiceImpl;
 
 public class HelperFunctions {
 	
@@ -174,6 +180,24 @@ public class HelperFunctions {
 				return false;
 			}
 		}
+	   
+	   public static double computeCompatability(Profile p1, Profile p2) {
+		   InterestDao interestDao = new InterestDaoHibernate();
+		   interestDao.setSessionFactory(SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory());
+		   List<Interest> p1Interests = interestDao.selectInterestsByProfileId(p1.getProfileId());
+		   List<Interest> p2Interests = interestDao.selectInterestsByProfileId(p2.getProfileId());
+		   
+		   double ctr = 0;
+		   for (int i = 0; i < p1Interests.size(); i++) {
+			   for (int j = 0; j < p2Interests.size(); j++) {
+				   if (p1Interests.get(i).sameInterest(p2Interests.get(j))) {
+					   ctr += 1;
+				   }
+			   }
+		   }
+		   return ctr / (double) (p1Interests.size() + p2Interests.size()) * 2;
+		   
+	   }
 	   
 	   
 }
