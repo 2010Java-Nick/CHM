@@ -34,9 +34,13 @@ export class LoginComponent implements OnInit {
         console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
 
 
-      //  this.loginService.setJWT(resp.headers.get(this.authHeader));
+        this.loginService.setJWT(resp.headers.get(this.authHeader));
 
-        //this.loginService.setJWT(resp.headers.get(this.authHeader));
+
+       this.loginService.setJWT(resp.headers.get(this.authHeader));
+
+        this.loginService.setJWT(resp.headers.get(this.authHeader));
+
 
 
         console.log(this.authHeader + ` : ` + resp.headers.get(this.authHeader));
