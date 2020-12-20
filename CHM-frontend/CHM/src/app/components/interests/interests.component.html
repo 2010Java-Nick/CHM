@@ -4,7 +4,10 @@
     <form>
 
     <div *ngFor='let interest of interests; let i = index'>
-        <input type="checkbox" name ="{{i}}" (change)="checkChanged(interest)" [checked]="interest" [disabled]="checked==limit"/>
+        <input type="checkbox" name ="{{i}}" [checked]='interest.value' 
+            (change)='onSelect($event, interest.value)' 
+            [disabled]="isSelected(interest.value)"/>
+            <label>{{interest.lable}}</label>
         <br>
     </div>
     <button type = "submit"> Submit </button>
