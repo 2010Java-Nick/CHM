@@ -126,9 +126,9 @@ public class PaymentDaoImplTest {
 	public void testUpdatePayment() {
 		
 		try {
-			int id = (int) sess.save(payment);
+			sess.save(payment);
 			payment.setCreditCardNumber("987654321");
-			paymentDaoImpl.updatePayment(id, payment);
+			paymentDaoImpl.updatePayment(payment);
 			verify(spy).update(payment);
 			verify(spy).close();
 		} catch (HibernateException e) {

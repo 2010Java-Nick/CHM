@@ -52,14 +52,14 @@ public class ProfileServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Profile(101, "first", "last", "email@gmail.com", "6032861234", 28, "hello world", "i like dogs");
 		MockitoAnnotations.initMocks(this);
 		
 		when(mockProfileDao.selectProfile(toTest.getProfileId())).thenReturn(toTest);
 		when(mockProfileDao.insertProfile(toTest)).thenReturn(toTest.getProfileId());
 		when(mockProfileDao.selectAllProfiles()).thenReturn(new ArrayList<Profile>());
 		when(mockProfileDao.updateProfile(toTest)).thenReturn(toTest);
-		when(mockProfileDao.deleteProfile(toTest)).thenReturn(true);
+		when(mockProfileDao.deleteProfile(toTest.getProfileId())).thenReturn(true);
 	}
 
 	@After
@@ -114,8 +114,8 @@ public class ProfileServiceImplTest {
 	public void testDeleteProfile() {
 		
 		try {
-			profileService.deleteProfile(toTest);
-			verify(mockProfileDao).deleteProfile(toTest);
+			profileService.deleteProfile(toTest.getProfileId());
+			verify(mockProfileDao).deleteProfile(toTest.getProfileId());
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}

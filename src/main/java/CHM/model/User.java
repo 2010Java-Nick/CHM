@@ -32,7 +32,7 @@ public class User {
 	@Column(name = "user_id")
 	private int userId;
 	
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
 	
 	@Column(name = "password")
@@ -68,6 +68,17 @@ public class User {
 		this.password = password;
 		this.profile = profile;
 		this.premium = premium;
+	}
+
+
+	/**
+	 * @param username
+	 * @param password
+	 */
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
 	}
 
 

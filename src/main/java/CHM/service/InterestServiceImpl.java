@@ -77,4 +77,16 @@ public class InterestServiceImpl implements InterestService {
 		
 	}
 
+	@Override
+	public List<Interest> readInterestsByProfileId(int profileId) {
+		try {
+			if (interestDao == null) {
+				System.out.println("null dao");
+			}
+			return interestDao.selectInterestsByProfileId(profileId);
+		} catch (HibernateException e) {
+			return null;
+		}
+	}
+
 }

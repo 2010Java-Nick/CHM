@@ -5,13 +5,10 @@ import static CHM.util.HelperFunctions.isValidLocalDateTimeString;
 import static CHM.util.HelperFunctions.validatePhoneNumber;
 import static CHM.util.HelperFunctions.validateProfile;
 import static CHM.util.HelperFunctions.isValidMessage;
+import static CHM.util.HelperFunctions.isValidCreditCardNum;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -68,10 +65,10 @@ public class HelperFunctionsTest {
 	
 	@Test
 	public void testValidateProfile() {
-		Profile test1 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo", "building");
-		Profile test2 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 15, "hi", "yo", "building");
-		Profile test3 = new Profile(1, "first", "last", "mroy@hotm.a@il.com", "1231231234", 19, "hi", "yo", "building");
-		Profile test4 = new Profile(1, "first", "last", "mroy@hotmail.com", ".231231234", 19, "hi", "yo", "building");
+		Profile test1 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo");
+		Profile test2 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 15, "hi", "yo");
+		Profile test3 = new Profile(1, "first", "last", "mroy@hotm.a@il.com", "1231231234", 19, "hi", "yo");
+		Profile test4 = new Profile(1, "first", "last", "mroy@hotmail.com", ".231231234", 19, "hi", "yo");
 		assertTrue(validateProfile(test1));
 		assertFalse(validateProfile(test2));
 		assertFalse(validateProfile(test3));
@@ -112,8 +109,8 @@ public class HelperFunctionsTest {
 		matchDao.setSessionFactory(sessionFactory);
 		profileDao.setSessionFactory(sessionFactory);
 		messageDao.setSessionFactory(sessionFactory);
-		Profile p1 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo", "building");
-		Profile p2 = new Profile(2, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo", "building");
+		Profile p1 = new Profile(1, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo");
+		Profile p2 = new Profile(2, "first", "last", "mroy@hotmail.com", "1231231234", 19, "hi", "yo");
 		Match m = new Match(1, p1, p2, false, 0, true);
 		Message msg = new Message(1, m, p1.getProfileId(), p2.getProfileId(), "testMessage", "2017-08-11 13:05:10");
 		profileDao.insertProfile(p1);
@@ -123,6 +120,20 @@ public class HelperFunctionsTest {
 		matchDao.deleteMatch(m);
 		msg = new Message(2, m, 100, 1, "", "2017-08-11 13:05:10");
 		assertFalse(isValidMessage(msg));
+	}
+	
+	@Test
+	public void testIsValidCreditCardNum() {
+		String s1 = "4111111111111111";
+		String s2 = "5500000000000004";
+		String s3 = "3400";
+		String s4 = null;
+		String s5 = "";
+		assertTrue(isValidCreditCardNum(s1));
+		assertTrue(isValidCreditCardNum(s2));
+		assertFalse(isValidCreditCardNum(s3));
+		assertFalse(isValidCreditCardNum(s4));
+		assertFalse(isValidCreditCardNum(s5));
 	}
 
 }

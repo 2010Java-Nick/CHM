@@ -8,6 +8,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // import { LogInComponent } from './components/log-in/log-in.component';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
+import { PaymentComponent } from './components/payment/payment.component';
+
 
 
 
@@ -15,6 +17,7 @@ import { CreateProfileComponent } from './components/create-profile/create-profi
   declarations: [
     AppComponent,
     RegisterationComponent,
+    PaymentComponent,
     // LogInComponent, 
     CreateProfileComponent
   ],

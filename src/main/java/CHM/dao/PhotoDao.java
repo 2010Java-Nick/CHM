@@ -2,15 +2,20 @@ package CHM.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
 import CHM.model.Photo;
 
 public interface PhotoDao {
 	
-	public boolean insertPhoto(Photo photo);
+	public int insertPhoto(Photo photo) throws HibernateException;
 	
-	public List<Photo> readPhotoByUserId(int userId);
+	public Photo selectPhoto(int photoId) throws HibernateException;
 	
-	public boolean updatePhoto(Photo photo);
+	public List<Photo> selectAllPhotos() throws HibernateException;
 	
-	public boolean deletePhotoById(int photoId);
+	public Photo updatePhoto(Photo photo) throws HibernateException;
+	
+	public boolean deletePhoto(Photo photo) throws Exception;
+	
 }

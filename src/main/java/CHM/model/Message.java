@@ -3,7 +3,6 @@
  */
 package CHM.model;
 
-import java.time.LocalDateTime;
 import static CHM.util.HelperFunctions.localDateTimeOfString;
 
 import javax.persistence.CascadeType;

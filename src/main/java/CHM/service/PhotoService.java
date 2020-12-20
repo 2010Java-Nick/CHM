@@ -2,15 +2,20 @@ package CHM.service;
 
 import java.util.List;
 
+import CHM.dao.PhotoDao;
 import CHM.model.Photo;
 
 public interface PhotoService {
 	
-	public boolean uploadPhoto(Photo p);
+	public void setPhotoDao(PhotoDao photoDao);
 	
-	public List<Photo> displayPhotoByUserId(int userId);
+	public int createPhoto(Photo photo);
 	
-	public boolean deletePhotoById(int photoId);
+	public Photo readPhotoById(int photoId);
 	
-	public boolean updatePhoto(Photo p);
+	public List<Photo> readPhotosByProfileId(int profileId);
+	
+	public Photo updatePhoto(Photo photo);
+	
+	public boolean deletePhoto(Photo photo);
 }
