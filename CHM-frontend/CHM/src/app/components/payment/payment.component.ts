@@ -34,7 +34,8 @@ export class PaymentComponent implements OnInit {
     this.newPayment.creditcardNameHolder = creditcardNameHolder;
     this.newPayment.paymentAmount = paymentAmount;
     this.newPayment.creditCardNumber = creditCardNumber;
-    this.newPayment.expirationDate = expirationDate;     
+    this.newPayment.expirationDate = expirationDate.toString;  
+    this.newPayment.profileId =  1;
 
     this.paymentService.createPayment(this.newPayment).subscribe(
       payment => console.log(payment)

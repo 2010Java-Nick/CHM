@@ -19,13 +19,12 @@ public class LoginDto {
 	/**
 	 * @param username
 	 * @param password
-	 * @param premium
 	 * @param rememberMe
 	 */
-	public LoginDto(String username, String password, boolean premium, boolean rememberMe) {
+	public LoginDto(String username, String password, Boolean rememberMe) {
 		super();
 		this.username = username;
-		this.password = password;;
+		this.password = password;
 		this.rememberMe = rememberMe;
 	}
 
@@ -60,23 +59,15 @@ public class LoginDto {
 	/**
 	 * @return the rememberMe
 	 */
-	public boolean isRememberMe() {
+	public Boolean getRememberMe() {
 		return rememberMe;
 	}
 
 	/**
 	 * @param rememberMe the rememberMe to set
 	 */
-	public void setRememberMe(boolean rememberMe) {
+	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
-	}
-
-	
-	
-	@Override
-	public String toString() {
-		return "LoginDto [username=" + username + ", password=" + password + ", premium=" + ", rememberMe="
-				+ rememberMe + "]";
 	}
 
 	@Override
@@ -84,7 +75,7 @@ public class LoginDto {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + (rememberMe ? 1231 : 1237);
+		result = prime * result + ((rememberMe == null) ? 0 : rememberMe.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -103,7 +94,10 @@ public class LoginDto {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (rememberMe != other.rememberMe)
+		if (rememberMe == null) {
+			if (other.rememberMe != null)
+				return false;
+		} else if (!rememberMe.equals(other.rememberMe))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -113,6 +107,10 @@ public class LoginDto {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "LoginDto [username=" + username + ", password=" + password + ", rememberMe=" + rememberMe + "]";
+	}
 	
-
+	
 }
