@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +28,12 @@ public class PhotoController {
 	 * @param photoService the photoService to set
 	 */
 	@Autowired
+	@CrossOrigin
 	public void setPhotoService(PhotoServiceImpl photoService) {
 		this.photoService = photoService;
 	}
 	
+	@CrossOrigin
 	@PostMapping(path = "/photo")
 	public ResponseEntity<Integer> createPhoto(@RequestBody Photo photo) {
 		
@@ -58,6 +61,7 @@ public class PhotoController {
 		return re;
 	}
 	
+	@CrossOrigin
 	@PostMapping(path = "/photo/{photoId}")
 	public ResponseEntity<Photo> updatePhoto(@PathVariable("photoId")int photoId, @RequestParam("photo") MultipartFile photo) {
 		
@@ -78,6 +82,7 @@ public class PhotoController {
 		return re;
 	}
 	
+	@CrossOrigin
 	@DeleteMapping(path = "/photo")
 	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo){
 		

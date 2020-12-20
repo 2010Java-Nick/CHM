@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PhotoComponent } from './components/photo/photo.component';
 
 
 
@@ -19,7 +20,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     RegisterationComponent,
     PaymentComponent,
     // LogInComponent, 
-    CreateProfileComponent
+    CreateProfileComponent,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,
