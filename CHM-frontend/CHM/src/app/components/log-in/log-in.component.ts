@@ -1,4 +1,4 @@
-// import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // @Component({
 //   selector: 'app-log-in',
@@ -6,11 +6,11 @@
 //   styleUrls: ['./log-in.component.css']
 // })
 
-// export class LogInComponent implements OnInit {
+export class LogInComponent implements OnInit {
 
-//   constructor() { }
+  constructor() { }
 
-//   ngOnInit(): void {
-//   }
+  ngOnInit(): void {
+  }
 
-// }
+}

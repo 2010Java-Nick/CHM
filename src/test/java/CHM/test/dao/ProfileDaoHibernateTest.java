@@ -87,7 +87,7 @@ public class ProfileDaoHibernateTest {
 	public void setUp() throws Exception {
 
 		
-		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs", "dogs");
+		toTest = new Profile(101, "first", "last", "email", "60332861234", 28, "hello world", "i like dogs");
 		profileDaoHibernate.insertProfile(toTest);
 		
 		MockitoAnnotations.initMocks(this);
@@ -113,7 +113,7 @@ public class ProfileDaoHibernateTest {
 		
 		profileDaoHibernate.setSessionFactory(sessionFactory);
 		try {
-			profileDaoHibernate.deleteProfile(toTest);
+			profileDaoHibernate.deleteProfile(toTest.getProfileId());
 		} catch (Exception e) {
 			
 		} finally {
@@ -193,11 +193,13 @@ public class ProfileDaoHibernateTest {
 	public void testDeleteProfile() {
 		
 		try {
-			profileDaoHibernate.deleteProfile(toTest);
+			Profile profile = new Profile();
+			profile.setProfileId(toTest.getProfileId());
+			profileDaoHibernate.deleteProfile(toTest.getProfileId());
 			verify(mockSessionFactory).openSession();
 			verify(mockSession).beginTransaction();
 			verify(mockTransaction).commit();
-			verify(mockSession).delete(toTest);
+			verify(mockSession).delete(profile);
 			verify(mockSession).close();
 		} catch (Exception e) {
 			fail("Exception " + e);

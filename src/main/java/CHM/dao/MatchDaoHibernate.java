@@ -1,5 +1,7 @@
 package CHM.dao;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import CHM.model.Match;
+import CHM.model.Profile;
+import static CHM.util.HelperFunctions.computeCompatability;
 
 @Repository
 public class MatchDaoHibernate implements MatchDao {
@@ -44,9 +48,6 @@ public class MatchDaoHibernate implements MatchDao {
 		Session sess = sessionFactory.openSession();
 		match = sess.get(Match.class, matchId);
 		sess.close();
-		if (match == null) {
-			throw new HibernateException("Match with id " + matchId + " does not exist");
-		}
 		return match;
 	}
 
@@ -83,6 +84,20 @@ public class MatchDaoHibernate implements MatchDao {
 		tx.commit();
 		sess.close();
 		return true;
+	}
+
+	@Override
+	public List<Match> selectPotentialMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException {
+		List<Match> matchesList = new ArrayList<Match>();
+		
+		for (int i = 0; i < profileList.size(); i++) {
+			Match match = new Match(-1, profile, profileList.get(i), false, 0, false);
+			match.setCompatability(computeCompatability(profile, profileList.get(i)));
+			matchesList.add(match);
+		}
+		Collections.sort(matchesList, Collections.reverseOrder());
+		return matchesList;
+		
 	}
 
 }

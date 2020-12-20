@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 import CHM.model.Match;
+import CHM.model.Profile;
 
 public interface MatchDao {
 	
@@ -14,6 +15,8 @@ public interface MatchDao {
 	public Match selectMatch(int matchId) throws HibernateException;
 	
 	public List<Match> selectAllMatches() throws HibernateException;
+	
+	public List<Match> selectPotentialMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException;
 	
 	public Match updateMatch(Match match) throws HibernateException;
 	

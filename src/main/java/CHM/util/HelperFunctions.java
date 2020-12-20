@@ -2,19 +2,25 @@ package CHM.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import CHM.dao.InterestDao;
+import CHM.dao.InterestDaoHibernate;
 import CHM.dao.MatchDao;
 import CHM.dao.MatchDaoHibernate;
 import CHM.dao.ProfileDao;
 import CHM.dao.ProfileDaoHibernate;
+import CHM.model.Interest;
 import CHM.model.Message;
 import CHM.model.Payment;
 import CHM.model.Profile;
+import CHM.service.InterestService;
+import CHM.service.InterestServiceImpl;
 
 public class HelperFunctions {
 	
@@ -39,14 +45,7 @@ public class HelperFunctions {
 	public static boolean validatePhoneNumber(String phoneNo) {
 		if (phoneNo == null) return false;
 		//validate phone numbers of format "1234567890"
-		if (phoneNo.matches("\\d{10}")) return true;
-		//validating phone number with -, . or spaces
-		else if(phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
-		//validating phone number with extension length from 3 to 5
-		else if(phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
-		//validating phone number where area code is in braces ()
-		else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
-		//return false if nothing matches the input
+		else if (phoneNo.matches("(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\\s*[)]?[-\\s\\.]?[(]?[0-9]{1,3}[)]?([-\\s\\.]?[0-9]{3})([-\\s\\.]?[0-9]{3,4})")) return true;
 		else return false;
 	}
 	
@@ -174,6 +173,24 @@ public class HelperFunctions {
 				return false;
 			}
 		}
+	   
+	   public static double computeCompatability(Profile p1, Profile p2) {
+		   InterestDao interestDao = new InterestDaoHibernate();
+		   interestDao.setSessionFactory(SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory());
+		   List<Interest> p1Interests = interestDao.selectInterestsByProfileId(p1.getProfileId());
+		   List<Interest> p2Interests = interestDao.selectInterestsByProfileId(p2.getProfileId());
+		   
+		   double ctr = 0;
+		   for (int i = 0; i < p1Interests.size(); i++) {
+			   for (int j = 0; j < p2Interests.size(); j++) {
+				   if (p1Interests.get(i).sameInterest(p2Interests.get(j))) {
+					   ctr += 1;
+				   }
+			   }
+		   }
+		   return ctr / (double) (p1Interests.size() + p2Interests.size()) * 2;
+		   
+	   }
 	   
 	   
 }

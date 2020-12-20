@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "Match")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "matchId")
-public class Match {
+public class Match implements Comparable<Match> {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -221,6 +221,12 @@ public class Match {
 		} else if (!profile2.equals(other.profile2))
 			return false;
 		return true;
+	}
+
+
+	@Override
+	public int compareTo(Match m) {
+		return Double.compare(this.compatability, m.getCompatability());
 	}
 
     
