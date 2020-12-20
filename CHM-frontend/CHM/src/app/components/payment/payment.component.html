@@ -1,0 +1,48 @@
+<!-- credit card number, cvc, payment amount, credit card name holder, exp date -->
+<br><br>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>Payment</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="creditCardNameHolder">Credit Card name holder</label>
+            <input formControlName="creditcardNameHolder" type="text" class="form-control" id="creditcardNameHolder"
+              aria-describedby="creditcardNameHolder" placeholder="Enter Credit Card Name Holder">
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="paymentAmount">Payment Amount</label>
+            <input formControlName="paymentAmount" type="text" class="form-control" id="paymentAmount"
+              placeholder="paymentAmount">
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="creditCardNumber">Credit Card Number</label>
+            <input formControlName="creditCardNumber" type="text" class="form-control" id="creditCardNumber"
+              placeholder="creditCardNumber">
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="expirationDate">Expiration Date</label>
+            <input formControlName="expirationDate" type="date" class="form-control" id="expirationDate"
+              placeholder="expirationDate">
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-primary">Make Payment</button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+  </div>
+</div>
