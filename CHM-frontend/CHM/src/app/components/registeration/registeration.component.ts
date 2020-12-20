@@ -64,7 +64,7 @@ export class RegisterationComponent implements OnInit {
     }
 
    /*
-    Pulling the errors of username
+    Pulling the errors of password
     */
     // let passwordError = this.registrationForm.controls.password.errors;
     // if(passwordError != null){
@@ -78,6 +78,19 @@ export class RegisterationComponent implements OnInit {
     /*
     Pulling the errors of username
     */
+
+    let usernameError = this.registrationForm.controls.username.errors;
+    if(usernameError != null){
+      if(usernameError.required == true){
+        this.error.push("Username is required");
+      }
+      if(usernameError.pattern != null)
+      this.error.push("Username should contain only alphanumeric characters");
+    }
+
+   this.router.navigate(['/signup/profile']);
+
+
     // let usernameError = this.registrationForm.controls.username.errors;
     // if(usernameError != null){
     //   if(usernameError.required == true){
@@ -86,6 +99,7 @@ export class RegisterationComponent implements OnInit {
     //   if(usernameError.pattern != null)
     //   this.error.push("Username should contain only alphanumeric characters");
     // }
+
   }
     
   get username():any { return this.registrationForm.get('username'); }

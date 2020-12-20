@@ -9,59 +9,63 @@ import { environment } from '../../environments/environment';
 })
 export class LoginService {
 
-  // private readonly loginUrl = environment.loginUrl;
+  private readonly loginUrl = environment.loginUrl;
 
-  // private jWT = this.retrieveLocalStore();
 
-  // private expires!: number;
+  private jWT = this.retrieveLocalStore();
 
-  // isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(this.checkLocalStore());
-  // jWTChange: Subject<string> = new BehaviorSubject<string>(this.jWT);
+  private jWT = this.retrieveLocalStore();
 
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //   'Content-Type': 'application/json'
-  // })};
 
-  // constructor(private httpClient: HttpClient) { }
+  private expires!: number;
 
-  // private retrieveLocalStore(): string {
-  //   return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
-  // }
+  isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(this.checkLocalStore());
+  jWTChange: Subject<string> = new BehaviorSubject<string>(this.jWT);
 
-  // private checkLocalStore(): boolean {
-  //   if (this.jWT !== '') {
-  //     return true;
-  //   } else { return false; }
-  // }
+  httpOptions = {
+    headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })};
 
-  // public login(username: string, password: string, rememberMe: boolean): Observable<HttpResponse<any>> {
+  constructor(private httpClient: HttpClient) { }
 
-  //   rememberMe = ((rememberMe != null) ? true : false);
+  private retrieveLocalStore(): string {
+    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
+  }
 
-  //   const login = new Login(username, password, rememberMe);
+  private checkLocalStore(): boolean {
+    if (this.jWT !== '') {
+      return true;
+    } else { return false; }
+  }
 
-  //   return this.httpClient.post<any>(this.loginUrl, login, { observe: 'response' });
+  public login(username: string, password: string, rememberMe: boolean): Observable<HttpResponse<any>> {
 
-  // }
+    rememberMe = ((rememberMe != null) ? true : false);
 
-  // public setJWT(jWT: string): void {
-  //   this.jWT = jWT;
-  //   console.log(`changed jWT in login service to ` + jWT);
-  //   this.jWTChange.next(jWT);
-  //   localStorage.setItem('auth', jWT);
-  //   console.log('localStorage.getItem(\'auth\'): ' + localStorage.getItem('auth'));
-  //   if (jWT !== '') {
-  //     console.log(`inside setJWT and logged in correctly`);
-  //     this.isLoggedIn.next(true);
-  //   } else { this.isLoggedIn.next(false); }
-  // }
+    const login = new Login(username, password, rememberMe);
 
-  // public getJWT(time: number): string {
-  //   if (time > this.expires) {
-  //     this.setJWT(``);
-  //     this.isLoggedIn.next(false);
-  //   }
-  //   return this.jWT;
-  // }
+    return this.httpClient.post<any>(this.loginUrl, login, { observe: 'response' });
+
+  }
+
+  public setJWT(jWT: string): void {
+    this.jWT = jWT;
+    console.log(`changed jWT in login service to ` + jWT);
+    this.jWTChange.next(jWT);
+    localStorage.setItem('auth', jWT);
+    console.log('localStorage.getItem(\'auth\'): ' + localStorage.getItem('auth'));
+    if (jWT !== '') {
+      console.log(`inside setJWT and logged in correctly`);
+      this.isLoggedIn.next(true);
+    } else { this.isLoggedIn.next(false); }
+  }
+
+  public getJWT(time: number): string {
+    if (time > this.expires) {
+      this.setJWT(``);
+      this.isLoggedIn.next(false);
+    }
+    return this.jWT;
+  }
 }
