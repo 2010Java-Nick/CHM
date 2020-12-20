@@ -23,20 +23,22 @@ export class RegisterationComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
+
     this.registrationForm = new FormGroup({
-      username: new FormControl('',
-          [Validators.required,
+      username: new FormControl(
+          '',
+          [
             //regex to let user use munbers and characters in username
             Validators.pattern('[a-zA-Z0-9]*')
           ]
       ),
-      password: new FormControl('',
-        [Validators.required,
-        Validators.minLength(8),
-        //regex for at least 1 uppercase, one lowercase, one number, one special character
-       // Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])')
-
-      ]
+      password: new FormControl(
+          '',
+          [
+          Validators.minLength(8),
+          //regex for at least 1 uppercase, one lowercase, one number, one special character
+          Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
+          ]
       )
     });
   }
@@ -52,30 +54,31 @@ export class RegisterationComponent implements OnInit {
     if all the inputs are valid then make call to backend
     */
     if(this.registrationForm.valid){
-      this.userServ.createUser(this.newUser).subscribe(
-        (user) => {console.log("New User :" +user)},
-  
-        (errorMessage) => {
-          console.log(errorMessage);
+      this.userServ.createUser(this.newUser).subscribe((userId) => {
+        if(userId != null) {
+          this.router.navigate(['/signup/profile'])
         }
-      ) ;
-  }
+      });
+    } else {
+      window.alert("Credentials still invalid!");
+    }
 
    /*
-    Pulling the errors of username
+    Pulling the errors of password
     */
-    let passwordError = this.registrationForm.controls.password.errors;
-    if(passwordError != null){
-      if(passwordError.required == true){
-        this.error.push("Password is required");
-      }
-      if(passwordError.minLength != null)
-      this.error.push("Password should contain at least 8 characters");
-    }
+    // let passwordError = this.registrationForm.controls.password.errors;
+    // if(passwordError != null){
+    //   if(passwordError.required == true){
+    //     this.error.push("Password is required");
+    //   }
+    //   if(passwordError.minLength != null)
+    //   this.error.push("Password should contain at least 8 characters");
+    // }
 
     /*
     Pulling the errors of username
     */
+
     let usernameError = this.registrationForm.controls.username.errors;
     if(usernameError != null){
       if(usernameError.required == true){
@@ -85,10 +88,22 @@ export class RegisterationComponent implements OnInit {
       this.error.push("Username should contain only alphanumeric characters");
     }
 
-    console.log(this.registrationForm);
-    console.log(this.error);
+   this.router.navigate(['/signup/profile']);
 
-   this.router.navigate(['/signup/profile'])
+
+    // let usernameError = this.registrationForm.controls.username.errors;
+    // if(usernameError != null){
+    //   if(usernameError.required == true){
+    //     this.error.push("Username is required");
+    //   }
+    //   if(usernameError.pattern != null)
+    //   this.error.push("Username should contain only alphanumeric characters");
+    // }
 
   }
+    
+  get username():any { return this.registrationForm.get('username'); }
+
+  get password():any { return this.registrationForm.get('password'); }
+  
 }

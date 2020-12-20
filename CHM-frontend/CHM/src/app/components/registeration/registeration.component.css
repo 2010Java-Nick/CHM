@@ -1,0 +1,23 @@
+#warning{
+    margin-bottom: -1rem;
+}
+
+.text-danger{
+    margin-bottom: 0rem;
+}
+
+#warning-list{
+    text-align: left;
+}
+
+.nav-button-logout {
+    margin-top: auto;
+}
+
+#nav-button-logout {
+    row-gap: 20px;
+}
+
+#sidebar-wrapper {
+    text-align: center
+}

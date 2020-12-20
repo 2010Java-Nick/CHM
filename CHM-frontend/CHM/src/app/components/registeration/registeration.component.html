@@ -6,17 +6,17 @@
     </div>
     <div class="card-body">
 
-      <div *ngIf = "let err of error">
-        <p> {{ err }}</p>
-      </div>
-
       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <div class="row justify-content-md-center">
 
           <div class="form-group; col-sm-4" id="username-aling">
             <label for="username">Username</label>
             <input formControlName="username" type="username" class="form-control" id="username"
-              aria-describedby="Usernem" placeholder="Enter Username">
+              aria-describedby="username" placeholder="Enter Username" 
+              [ngClass]="username.invalid ? 'is-invalid' : ''">
+            <div id="warning" *ngIf="username.invalid && (username.touched || username.dirty)">
+              <p class="text-danger"><small>Username can only contain letters and numbers</small></p>
+            </div>
           </div>
 
         </div>
@@ -25,7 +25,17 @@
           <div class="form-group; col-sm-4" id="username-aling">
             <label for="password">Password</label>
             <input formControlName="password" type="password" class="form-control" id="password"
-              placeholder="Enter Password">
+              placeholder="Enter Password" [ngClass]="password.invalid ? 'is-invalid' : ''">
+            <div id="warning" *ngIf="password.invalid && (password.touched || password.dirty)">
+              <p class="text-danger"><small>Password must be at least 8 characters and contain at least: 
+                <ul id="warning-list">
+                  <li>one uppercase letter</li>
+                  <li>one lowercase letter</li>
+                  <li>one number</li>
+                  <li>one special character</li>
+                </ul>
+              </small></p>
+            </div>
           </div>
         </div>
 

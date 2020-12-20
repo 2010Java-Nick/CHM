@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ PaymentService paymentService;
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/payment", method = RequestMethod.POST)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Integer> createPayment(@RequestBody Payment payment) {
 		
 		Integer newPaymentId;
@@ -47,6 +49,7 @@ PaymentService paymentService;
 	
 	@RequestMapping(path = "/payment/{id}", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Payment> readPaymentById(@PathVariable(name = "id")int paymentId) {
 		
 		Payment payment = paymentService.readPaymentById(paymentId);
@@ -56,6 +59,7 @@ PaymentService paymentService;
 	
 	@RequestMapping(path = "/payment", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<List<Payment>> readAllPayments() {
 		
 		List<Payment> paymentList = paymentService.readAllPayments();
@@ -65,6 +69,7 @@ PaymentService paymentService;
 	
 	@RequestMapping(path = "/payment/profile/{id}", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Payment> readPaymentByProfileId(@PathVariable(name = "id")int paymentId) {
 		
 		Payment payment = paymentService.readPaymentByProfileId(paymentId);
@@ -75,6 +80,7 @@ PaymentService paymentService;
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/payment", method = RequestMethod.PATCH)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) {
 		
 		Payment updatedPayment = null;
@@ -93,6 +99,7 @@ PaymentService paymentService;
 	
 	@RequestMapping(path = "/payment", method = RequestMethod.DELETE)
 	@ResponseBody
+	@CrossOrigin
 	public ResponseEntity<Boolean> deletePayment(@RequestBody Payment payment){
 		
 		Boolean deleted = paymentService.deletePayment(payment);
