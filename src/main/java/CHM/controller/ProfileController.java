@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Profile;
@@ -31,12 +33,13 @@ public class ProfileController {
 	}
 
 	@SuppressWarnings("finally")
-	@RequestMapping(path = "/profile", method = RequestMethod.POST)
+	@PostMapping(path = "/profile")
 	@CrossOrigin
 	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile) {
 		
 		Integer newProfileId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		System.out.println(profile.toString());
 		try {
 			newProfileId = new Integer(profileService.createProfile(profile));
 			if (newProfileId != -1) {
@@ -49,7 +52,7 @@ public class ProfileController {
 		}
 	}
 	
-	@RequestMapping(path = "/profile/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "/profile/{id}")
 	@CrossOrigin
 	public ResponseEntity<Profile> readProfileById(@PathVariable(name = "id")int profileId) {
 		
@@ -58,7 +61,7 @@ public class ProfileController {
 		return re;
 	}
 	
-	@RequestMapping(path = "/profile", method = RequestMethod.GET)
+	@GetMapping(path = "/profile")
 	@CrossOrigin
 	public ResponseEntity<List<Profile>> readAllProfiles() {
 		
@@ -68,7 +71,7 @@ public class ProfileController {
 	}
 	
 	@SuppressWarnings("finally")
-	@RequestMapping(path = "/profile", method = RequestMethod.PATCH)
+	@PatchMapping(path = "/profile")
 	@CrossOrigin
 	public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile) {
 		
@@ -87,11 +90,11 @@ public class ProfileController {
 		
 	}
 	
-	@RequestMapping(path = "/profile", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "/profile/{id}")
 	@CrossOrigin
-	public ResponseEntity<Boolean> deleteProfile(@RequestBody Profile profile){
+	public ResponseEntity<Boolean> deleteProfile(@PathVariable("id")int profileId){
 		
-		Boolean deleted = profileService.deleteProfile(profile);
+		Boolean deleted = profileService.deleteProfile(profileId);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;
 	}

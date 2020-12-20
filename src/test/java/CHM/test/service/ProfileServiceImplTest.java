@@ -59,7 +59,7 @@ public class ProfileServiceImplTest {
 		when(mockProfileDao.insertProfile(toTest)).thenReturn(toTest.getProfileId());
 		when(mockProfileDao.selectAllProfiles()).thenReturn(new ArrayList<Profile>());
 		when(mockProfileDao.updateProfile(toTest)).thenReturn(toTest);
-		when(mockProfileDao.deleteProfile(toTest)).thenReturn(true);
+		when(mockProfileDao.deleteProfile(toTest.getProfileId())).thenReturn(true);
 	}
 
 	@After
@@ -114,8 +114,8 @@ public class ProfileServiceImplTest {
 	public void testDeleteProfile() {
 		
 		try {
-			profileService.deleteProfile(toTest);
-			verify(mockProfileDao).deleteProfile(toTest);
+			profileService.deleteProfile(toTest.getProfileId());
+			verify(mockProfileDao).deleteProfile(toTest.getProfileId());
 		} catch (Exception e) {
 			fail("Failed with exception " + e);
 		}

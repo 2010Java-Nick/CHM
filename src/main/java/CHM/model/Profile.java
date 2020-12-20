@@ -195,8 +195,7 @@ public class Profile {
 	@Override
 	public String toString() {
 		return "Profile [profileId=" + profileId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", icebreaker=" + icebreaker
-				+ "]";
+				+ email + ", phone=" + phone + ", age=" + age + ", bio=" + bio + ", icebreaker=" + icebreaker + "]";
 	}
 
 	@Override

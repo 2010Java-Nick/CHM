@@ -16,7 +16,7 @@ public interface ProfileService {
 	
 	public Profile updateProfile(Profile profile) throws InvalidProfileException;
 	
-	public boolean deleteProfile(Profile profile);
+	public boolean deleteProfile(int profileId);
 	
 	public void setProfileDao(ProfileDao profileDao);
 }

@@ -43,6 +43,7 @@ public class ProfileDaoHibernate implements ProfileDao {
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(profile);
+		System.out.println(profile.toString());
 		tx.commit();
 		sess.close();
 		return profile.getProfileId();
@@ -86,8 +87,10 @@ public class ProfileDaoHibernate implements ProfileDao {
 	}
 
 	@Override
-	public boolean deleteProfile(Profile profile) throws Exception {
+	public boolean deleteProfile(int profileId) throws Exception {
 		
+		Profile profile = new Profile();
+		profile.setProfileId(profileId);
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.delete(profile);
