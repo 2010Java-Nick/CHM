@@ -70,17 +70,18 @@ public class HelperFunctions {
 		}
 	}
 	
-	public static boolean isValidExpString(String timestamp) {
-		
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
-			LocalDateTime.parse(timestamp, formatter);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
+//	public static boolean isValidExpString(String timestamp) {
+//		System.out.println("TIMESTAMP: " +timestamp);
+//		try {
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
+//			LocalDateTime.parse(timestamp, formatter);
+//			System.out.println(" LOcALTIMEEEE: " +LocalDateTime.parse(timestamp, formatter));
+//			return true;
+//		} catch (Exception e) {
+//			return false;
+//		}
+//	}
+//	
 	public static boolean isValidMessage(Message message) {
 		
 		try {
@@ -167,8 +168,9 @@ public class HelperFunctions {
 				SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory();
 				ProfileDao profileDao = new ProfileDaoHibernate();
 				profileDao.setSessionFactory(sessionFactory);
-				profileDao.selectProfile(payment.getProfile().getProfileId());
-				return isValidExpString(payment.getExpirationDate()) && isValidCVC(payment.getCvc()) && isValidCreditCardNum(payment.getCreditCardNumber()) && payment.getPaymentAmount() >= 0;
+				profileDao.selectProfile(payment.getProfile().getProfileId()); 
+				
+				return isValidCVC(payment.getCvc()) && isValidCreditCardNum(payment.getCreditCardNumber()) && payment.getPaymentAmount() >= 0;
 			} catch (Exception e) {
 				return false;
 			}
