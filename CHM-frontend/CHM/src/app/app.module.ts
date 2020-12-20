@@ -9,6 +9,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { NavbarComponent } from './components/main/navbar/navbar.component';
+import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
+import { ViewHomeComponent } from './components/main/view-home/view-home.component';
 
 
 
@@ -19,7 +22,10 @@ import { PaymentComponent } from './components/payment/payment.component';
     RegisterationComponent,
     PaymentComponent,
     // LogInComponent, 
-    CreateProfileComponent
+    CreateProfileComponent,
+    NavbarComponent,
+    MatchDetailComponent,
+    ViewHomeComponent
   ],
   imports: [
     BrowserModule,
