@@ -1,0 +1,11 @@
+#warning{
+    margin-bottom: -1rem;
+}
+
+.text-danger{
+    margin-bottom: 0rem;
+}
+
+#warning-list{
+    text-align: left;
+}
