@@ -2,6 +2,8 @@ package CHM.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +40,9 @@ public class MatchController {
 
 	@RequestMapping(path = "/match", method = RequestMethod.POST)
 	@CrossOrigin
-	public ResponseEntity<Integer> createMatch(@RequestBody Match match) {
+	public ResponseEntity<Integer> createMatch(@RequestBody Match match, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newMatchId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 			newMatchId = new Integer(matchService.createMatch(match));
@@ -51,8 +54,9 @@ public class MatchController {
 	
 	@RequestMapping(path = "/match/{id}", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<Match> readMatchById(@PathVariable(name = "id")int matchId) {
+	public ResponseEntity<Match> readMatchById(@PathVariable(name = "id")int matchId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Match match = matchService.readMatchById(matchId);
 		ResponseEntity<Match> re = new ResponseEntity<Match>(match, match == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -60,7 +64,7 @@ public class MatchController {
 	
 	@RequestMapping(path = "/match", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<List<Match>> readAllMatches() {
+	public ResponseEntity<List<Match>> readAllMatches(HttpServletRequest request) {
 		List<Match> MatchList = matchService.readAllMatches();
 		ResponseEntity<List<Match>> re = new ResponseEntity<List<Match>>(MatchList, MatchList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
@@ -69,7 +73,8 @@ public class MatchController {
 	@RequestMapping(path = "/match/potential/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	@CrossOrigin
-	public ResponseEntity<List<Match>> readPotentialMatchesByProfileId(@PathVariable(name = "id")int profileId) {
+	public ResponseEntity<List<Match>> readPotentialMatchesByProfileId(@PathVariable(name = "id")int profileId, HttpServletRequest request) {
+		int profile_Id = authService.profileIdFromToken(request.getHeader("auth").toString());
 		
 		List<Match> matchList = matchService.readPotentialMatchesByProfileId(profileId);
 		ResponseEntity<List<Match>> re = new ResponseEntity<List<Match>>(matchList, matchList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
@@ -78,8 +83,9 @@ public class MatchController {
 	
 	@RequestMapping(path = "/match", method = RequestMethod.PATCH)
 	@CrossOrigin
-	public ResponseEntity<Match> updateMatch(@RequestBody Match match) {
+	public ResponseEntity<Match> updateMatch(@RequestBody Match match, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Match updatedMatch = null;
 		ResponseEntity<Match> re = new ResponseEntity<Match>(updatedMatch, HttpStatus.BAD_REQUEST);
 		updatedMatch = matchService.updateMatch(match);
@@ -87,13 +93,13 @@ public class MatchController {
 			re = new ResponseEntity<Match>(updatedMatch, HttpStatus.OK);
 		}
 		return re;
-		
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.DELETE)
 	@CrossOrigin
-	public ResponseEntity<Boolean> deleteMatch(@RequestBody Match match){
+	public ResponseEntity<Boolean> deleteMatch(@RequestBody Match match, HttpServletRequest request){
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Boolean deleted = matchService.deleteMatch(match);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;

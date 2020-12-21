@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '../../../n
 import { LoginService } from '../services/login.service';
 import { Observable } from '../../../node_modules/rxjs';
 import { environment } from '../../environments/environment';
-
+/* 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
@@ -25,4 +25,4 @@ export class AuthInterceptorService implements HttpInterceptor {
     });
     return next.handle(authorizedReq);
   }
-}
+} */

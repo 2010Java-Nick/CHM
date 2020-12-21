@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>Pick {{limit - checked}} More Interest(s) (must select 3)</h3>
+    </div>
+
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+            <div *ngFor='let interest of interests; let i = index'>
+              <div class="form-check">
+                <input id="chkbox" type="checkbox" name="{{i}}" [checked]='interest.value' [(ngModel)]="interest.value"
+                  (change)='onSelect($event, interest.value)' [disabled]="checked==limit && !interest.value" />
+
+                <label id="lblchkbox" class="form-check-label" name="interest"> <b>{{interest.lable}}</b></label>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+            <button type="submit" class="btn btn-primary" [disabled]="checked!=limit"> Submit </button>
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
