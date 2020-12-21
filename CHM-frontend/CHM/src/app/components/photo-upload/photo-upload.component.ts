@@ -22,8 +22,7 @@ export class PhotoUploadComponent implements OnInit {
       this._currentProfileId=value;
       this.profile.profileId = value;
       this.pic.profile = this.profile;
-      console.log(this._currentProfileId);
-      console.log(this.pic);
+      console.log("currentProfileId change");
       
       this.onUpload();
     }
@@ -68,8 +67,8 @@ export class PhotoUploadComponent implements OnInit {
       }
     }
     this.pic.photo = fileByteArray;
-    console.log("this is the pic:");
-    console.log(this.pic);
+    // console.log("this is the pic:");
+    // console.log(this.pic);
   }
 
   onUpload() {

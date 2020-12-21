@@ -18,7 +18,15 @@ import { ViewHomeComponent } from './components/main/view-home/view-home.compone
 import { EditProfileComponent } from './components/main/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 import { EditPaymentComponent } from './components/edit-payment/edit-payment.component';
-
+import { MatchListComponent } from './components/match-list/match-list.component';
+import { PotenMatchListComponent } from './components/poten-match-list/poten-match-list.component';
+import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { PotenMatchListItemComponent } from './components/poten-match-list-item/poten-match-list-item.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,11 +39,16 @@ import { EditPaymentComponent } from './components/edit-payment/edit-payment.com
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent,
-    InterestsComponent
     EditProfileComponent,
     ViewProfileComponent,
-    EditPaymentComponent
-
+    EditPaymentComponent,
+    MatchListComponent,
+    PotenMatchListComponent,
+    PotenMatchListItemComponent,
+    MatchListItemComponent,
+    ProfileCardComponent,
+    PhotoUploadComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,

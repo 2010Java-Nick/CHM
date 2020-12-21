@@ -73,7 +73,7 @@ export class CreateProfileComponent implements OnInit {
                 if(returnedId != -1){
                     this.currentProfileId = returnedId;
                     this.profile.profileId = returnedId;
-                    this.router.navigate(['/home']);
+                    //this.router.navigate(['/home']);
                 }
             });
         } else {
