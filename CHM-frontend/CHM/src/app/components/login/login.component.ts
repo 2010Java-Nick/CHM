@@ -76,6 +76,8 @@ export class LoginComponent implements OnInit {
           this.loginAttempt.emit(`failed`);
         }
       );
+    } else {
+      window.alert("Please enter a username / password!");
     }
   
   }

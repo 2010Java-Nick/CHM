@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
 
   public logout(){
     //do token deletion
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
