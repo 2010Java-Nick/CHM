@@ -24,4 +24,8 @@ public interface MatchDao {
 	
 	public void setSessionFactory(SessionFactory sessionFactory);
 
+	public List<Match> selectMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException;
+
+	
+
 }

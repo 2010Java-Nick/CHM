@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -64,6 +65,18 @@ public class MatchDaoHibernate implements MatchDao {
 		sess.close();
 		
 		return matchList;
+	}
+	
+	@Override
+	public List<Match> selectMatchesByProfile(Profile profile, List<Profile> profileList) throws HibernateException {
+		List<Match> matchesList = new ArrayList();
+		for (int i = 0; i < profileList.size(); i++) {
+			Match match = new Match(-1, profile, profileList.get(i), false, 0, false);
+			match.setCompatability(computeCompatability(profile, profileList.get(i)));
+			matchesList.add(match);
+		}
+		Collections.sort(matchesList);
+		return matchesList;
 	}
 
 	@Override

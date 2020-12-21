@@ -24,4 +24,6 @@ public interface MatchService {
 
 	void setProfileDao(ProfileDao profileDao);
 
+	public List<Match> readMatchesByProfileId(int profileId);
+
 }

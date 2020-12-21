@@ -55,25 +55,26 @@ public class ProfileController {
 			int newProfileId = new Integer(profileService.createProfile(profile));
 			String token = request.getHeader("Auth");
 			
-			String newToken = authService.updateToken(token, newProfileId);
+			//String newToken = authService.updateToken(token, newProfileId);
 			
 			if (newProfileId != -1) {
 				response.setHeader("access-control-expose-headers", "Token");
-				response.setHeader("Token", newToken);
+				//response.setHeader("Token", newToken);
 				re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
 			}
 		} catch (InvalidProfileException e) {
 			e.printStackTrace();
-		} finally {
-			return re;
 		}
+		
+		return re;
+		
 	}
 	
 	@GetMapping(path = "/profile/{id}")
 	@CrossOrigin
 	public ResponseEntity<Profile> readProfileById(@PathVariable(name = "id")int profileId, HttpServletRequest request) {
 		
-		int profile_Id = authService.profileIdFromToken(request.getHeader("auth").toString());
+		//int profile_Id = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Profile profile = profileService.readProfileById(profileId);
 		ResponseEntity<Profile> re = new ResponseEntity<Profile>(profile, profile == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;

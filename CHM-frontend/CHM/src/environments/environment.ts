@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   loginUrl: 'http://localhost:9091/login',
-  authHeader: 'Token'
+  authHeader: 'auth'
 };
 
 /*

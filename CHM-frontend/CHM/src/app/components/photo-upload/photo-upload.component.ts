@@ -72,11 +72,11 @@ export class PhotoUploadComponent implements OnInit {
   }
 
   onUpload() {
-    console.log("Called onUpload");
-    this.photoService.createPhoto(this.pic).subscribe( (res) => {
-      this.pic.photoId = res;
-      console.log("in subscription");
-    });
+    // console.log("Called onUpload");
+    // this.photoService.createPhoto(this.pic).subscribe( (res) => {
+    //   this.pic.photoId = res;
+    //   console.log("in subscription");
+    // });
   };
 
   // afterUpload() {

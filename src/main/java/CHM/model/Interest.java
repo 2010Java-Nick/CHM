@@ -147,6 +147,11 @@ public class Interest {
 				+ "]";
 	}
 
+	public boolean sameInterest(Interest interest) {
+		// TODO Auto-generated method stub
+		return this.getInterestName().equals(interest.getInterestName());
+	}
+
 	
 	
 }

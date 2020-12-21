@@ -48,7 +48,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatchListItemComponent,
     ProfileCardComponent,
     PhotoUploadComponent,
-    InterestsComponent
+    InterestsComponent,
+    // MatButtonModule,
+    // MatCardModule,
+    // MatIconModule,
+    // FlexLayoutModule
   ],
   imports: [
     BrowserModule,

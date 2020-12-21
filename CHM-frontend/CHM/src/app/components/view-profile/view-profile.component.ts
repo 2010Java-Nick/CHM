@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ViewProfileComponent implements OnInit {
 
-  profileId : number = 1;
+  profileId : number = Number(localStorage.getItem("profileId"));
   profile = {} as Profile;
 
   constructor(private profileService: ProfileService, private router : Router) { }
@@ -19,6 +19,7 @@ export class ViewProfileComponent implements OnInit {
 
     this.profileService.readProfile(this.profileId).subscribe(
       returnedProfile => {
+        console.log(returnedProfile);
         this.profile = returnedProfile;
       }
     );

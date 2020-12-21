@@ -49,6 +49,15 @@ public class MatchServiceImpl implements MatchService {
 			return null;
 		}
 	}
+	
+	@Override
+	public List<Match> readMatchesByProfileId(int profileId) {
+		List<Profile> profileList = profileDao.selectAllProfiles();
+		profileList.remove(profileDao.selectProfile(profileId));
+		Profile profile = profileDao.selectProfile(profileId);
+		return matchDao.selectMatchesByProfile(profile, profileList);
+	
+	}
 
 	@Override
 	public List<Match> readAllMatches() {

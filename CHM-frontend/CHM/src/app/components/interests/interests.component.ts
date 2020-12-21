@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Interests } from 'src/app/classes/interests';
 import { InterestService } from 'src/app/services/interest.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-interests',
@@ -41,7 +42,7 @@ export class InterestsComponent implements OnInit {
   limit = 3;
   checked = 0;
 
-  constructor(private interestServ: InterestService) {
+  constructor(private interestServ: InterestService, private router:Router) {
 
   }
 
@@ -73,6 +74,8 @@ export class InterestsComponent implements OnInit {
         this.newInterests = new Interests(element.lable);
 
         this.interestServ.createInterests(element.lable!);
+
+        this.router.navigate(['/home']);
       }
     });
   }
