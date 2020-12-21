@@ -47,7 +47,6 @@ public class ProfileController {
 	@CrossOrigin
 	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile, HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newProfileId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 		System.out.println(profile.toString());

@@ -6,7 +6,7 @@
       <div class="sidebar-heading"> <b>Welcome</b> </div>
       <div class="list-group list-group-flush">
         <div>
-          <a routerLink="/profile" id="profilebtn" class="list-group-item list-group-item-action bg-light"><b>Profile</b></a>
+          <a (click)="toggleProfile()" id="profilebtn" class="list-group-item list-group-item-action bg-light"><b>Profile</b></a>
         </div>
         <br>
         <div>
@@ -18,7 +18,7 @@
         </div>
         <br>
         <div>
-          <a (click)="tooglePayment()" class="list-group-item list-group-item-action bg-light"><b>Subscription</b></a>
+          <a (click)="togglePayment()" class="list-group-item list-group-item-action bg-light"><b>Subscription</b></a>
         </div>
         <br>
         <div>

@@ -16,8 +16,8 @@ export class UserService {
   
   constructor(private httpClient : HttpClient) { }
 
-  public createUser(user : User) : Observable<User>  {
-    return this.httpClient.post<User>(this.USER_URL, user)
+  public createUser(user : User) : Observable<number>  {
+    return this.httpClient.post<number>(this.USER_URL, user)
     /* to get error from backend
     // .pipe(
     //   catchError(this.handleError),

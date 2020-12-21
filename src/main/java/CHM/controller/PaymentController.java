@@ -43,7 +43,6 @@ public class PaymentController {
 	@CrossOrigin
 	public ResponseEntity<Integer> createPayment(@RequestBody Payment payment, HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newPaymentId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 			try {

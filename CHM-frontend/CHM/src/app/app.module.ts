@@ -14,6 +14,7 @@ import { PhotoUploadComponent } from './components/photo-upload/photo-upload.com
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
+import { EditProfileComponent } from './components/main/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ViewHomeComponent } from './components/main/view-home/view-home.compone
     PhotoUploadComponent,
     NavbarComponent,
     MatchDetailComponent,
-    ViewHomeComponent
+    ViewHomeComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,8 @@ public interface UserService {
 	
 	public List<User> readAllUsers();
 	
+	public User readUserByProfileId(int profileId);
+	
 	public User updateUser(User user);
 	
 	public boolean deleteUser(User user);
