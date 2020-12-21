@@ -1,0 +1,19 @@
+.img {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.upload-photo{
+  display: inline;
+  margin-right: 3rem;
+}
+.image-holder{
+  display:inline;
+  margin-left: 3rem;
+}

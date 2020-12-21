@@ -1,0 +1,16 @@
+<!-- <h1>Upload Your Profile Photo</h1> -->
+<span style="color:red;" *ngIf="message">{{message}}</span>
+
+<div class = "card">
+    <div class = "card-body">
+        <div class = "upload-photo">
+            <input #file id = "attachBtn" type="file" accept='image/*' (change)="preview(file.files)"/>
+            <!-- <input class = "left" type="button" value="Choose photo" onclick="document.getElementById('attachBtn').click();" /> -->
+        </div>
+        <div class="image-holder">
+            <img class = "img" [src]="imgURL" height="200" *ngIf="imgURL">
+            <img class = "img" [src]="formatImage(imgURLUploaded)" height="200" *ngIf="imgURLUploaded">
+            <!-- <button type="button" (click)="onUpload()">Upload</button> -->
+        </div>
+</div>
+</div>

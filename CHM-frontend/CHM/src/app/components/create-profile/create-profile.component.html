@@ -4,8 +4,8 @@
       <h3>Create Profile</h3>
     </div>
     <div class="card-body">
+      <app-photo-upload [currentProfileId]="currentProfileId"></app-photo-upload>
       <form [formGroup]="profileForm" (ngSubmit)="createProfile()">
-        
         <div class="form-row">
           <div class="col">
             <div class="form-group">
