@@ -34,15 +34,21 @@ public class AuthController {
 		System.out.println("LoginDto: " + loginDto.toString());
 		
 		ResponseEntity<LoginDto> re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.FORBIDDEN);
-		String token = authService.authenticateUser(loginDto.getUsername(), loginDto.getPassword(), false);
+		String token = authService.authenticateUser(loginDto);
+		
 		if(token != null) {
+			
+			System.out.println("The grabbed profileId: " + loginDto.getProfileId());
+			
 			if(authService.validateToken(token)) {
 				System.out.println("the validator works!");
 			} else {
 				System.out.println("the validator does not work!");
 			}
-			response.setHeader("access-control-expose-headers", "Token");
+
+			response.setHeader("access-control-expose-headers", "Token, ProfileId");
 			response.setHeader("Token", token);
+			response.setHeader("ProfileId", String.valueOf(loginDto.getProfileId()));
 			re = new ResponseEntity<LoginDto>(loginDto, HttpStatus.OK);
 		}	
 
