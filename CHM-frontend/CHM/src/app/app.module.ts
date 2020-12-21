@@ -5,13 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterationComponent } from './components/registeration/registeration.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-// import { LogInComponent } from './components/log-in/log-in.component';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
-
-//import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
@@ -19,17 +18,14 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
 import { EditPaymentComponent } from './components/edit-payment/edit-payment.component';
 
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
     RegisterationComponent,
     PaymentComponent,
-    // LogInComponent, 
+    LoginComponent, 
     CreateProfileComponent,
+    PhotoUploadComponent,
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent,

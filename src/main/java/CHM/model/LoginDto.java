@@ -7,6 +7,8 @@ public class LoginDto {
 	private String password;
 	
 	private Boolean rememberMe;
+	
+	private int profileId;
 
 	/**
 	 * 
@@ -26,6 +28,37 @@ public class LoginDto {
 		this.username = username;
 		this.password = password;
 		this.rememberMe = rememberMe;
+		this.profileId = -1;
+	}
+	
+	
+	/**
+	 * @param username
+	 * @param password
+	 * @param rememberMe
+	 * @param profileId
+	 */
+	public LoginDto(String username, String password, Boolean rememberMe, int profileId) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.rememberMe = rememberMe;
+		this.profileId = profileId;
+	}
+	
+
+	/**
+	 * @return the profileId
+	 */
+	public int getProfileId() {
+		return profileId;
+	}
+
+	/**
+	 * @param profileId the profileId to set
+	 */
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
 	}
 
 	/**

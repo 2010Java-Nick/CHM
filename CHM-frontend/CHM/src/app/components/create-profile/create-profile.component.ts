@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../classes/profile.model';
+import { PhotoUploadComponent } from '../photo-upload/photo-upload.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,13 +15,15 @@ export class CreateProfileComponent implements OnInit {
 
     profileForm = {} as FormGroup;
 
-
     minDate:Date = this.getMinDate();
 
     profile = {} as Profile;
 
-    constructor(private profileService: ProfileService,
-                private router : Router) { }
+    currentProfileId:number = 0;
+
+    photoUpload:PhotoUploadComponent;
+
+    constructor(private profileService: ProfileService, private router: Router) { }
 
     ngOnInit(): void {
 
@@ -54,9 +57,6 @@ export class CreateProfileComponent implements OnInit {
     }
 
     public createProfile(){
-
-        this.profile.profileId = 1;
-        this.profile.age = 18;
         
         this.profile.firstName = this.profileForm.controls.firstName.value;
         this.profile.lastName = this.profileForm.controls.lastName.value;
@@ -67,8 +67,12 @@ export class CreateProfileComponent implements OnInit {
         this.profile.icebreaker = this.profileForm.controls.icebreaker.value;        
         
         if(this.profileForm.valid) {
+            console.log(this.profile);
+            this.profile.profileId = 1;
             this.profileService.createProfile(this.profile).subscribe((returnedId) => {
                 if(returnedId != -1){
+                    this.currentProfileId = returnedId;
+                    this.profile.profileId = returnedId;
                     this.router.navigate(['/home']);
                 }
             });

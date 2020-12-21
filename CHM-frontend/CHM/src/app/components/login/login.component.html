@@ -1,7 +1,41 @@
-<p>login component:</p>
-<input type="text" [(ngModel)]="username" placeholder="username"/>
-<input type="password" [(ngModel)]="password" placeholder="password"/>
-<input type="checkbox" [(ngModel)]="rememberMe" placeholder="remember me"/>
-<label for="rememberMe">Remember Me</label>
-<button (click)="submit()">Login</button>
-<p>{{errorMessage}}</p>
+<div class="container">
+  <div class="card text-center">
+
+    <div class="card-header">
+      <h3>Log In</h3>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="this.incorrect == true"class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit) = "submit()">
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4" id="username-aling">
+            <label for="exampleInputUsername">Username</label>
+            <input formControlName="username" type="username" class="form-control" id="username"
+              aria-describedby="username" placeholder="Enter Username">
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4" id="username-aling">
+            <label for="exampleInputPassword">Password</label>
+            <input formControlName="password" type="password" class="form-control"
+              id="exampleInputPassword" placeholder="password">
+          </div>
+        </div>
+        <br>
+        <div class="form-check">
+          <input type="checkbox" formControlName="rememberme" class="form-check-input" id="rememberme">
+          <label class="rememberme" for="rememberme">Remember me</label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-primary">Log In</button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      <a routerLink='/signup'><button type="submit" class="btn btn-outline-info">Create Account</button></a>
+    </div>
+  </div>
+</div>

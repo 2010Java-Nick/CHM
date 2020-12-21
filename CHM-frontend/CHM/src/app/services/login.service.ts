@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Login } from '../classes/login';
 import { Observable, Subject, BehaviorSubject } from '../../../node_modules/rxjs';
 import { environment } from '../../environments/environment';
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ import { environment } from '../../environments/environment';
 export class LoginService {
 
   private readonly loginUrl = environment.loginUrl;
-
 
   private jWT = this.retrieveLocalStore();
 
@@ -27,7 +27,12 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   private retrieveLocalStore(): string {
-    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
+    let token = '';
+    if (localStorage.getItem(`token`) != null) {
+      // tslint:disable-next-line: no-non-null-assertion
+      token = localStorage.getItem(`token`)!;
+    }
+    return token;
   }
 
   private checkLocalStore(): boolean {
@@ -64,5 +69,24 @@ export class LoginService {
       this.isLoggedIn.next(false);
     }
     return this.jWT;
+  }
+
+  public setProfileId(ProfileId: string | null): void {
+    console.log('In setProfileId with ProfileId of : ' + ProfileId);
+    let id = '';
+    if (ProfileId != null){
+      // tslint:disable-next-line: no-non-null-assertion
+      id = ProfileId!;
+    }
+    localStorage.setItem('profileId', id);
+  }
+
+  public getProfileId(): string {
+    let id = '';
+    if (localStorage.getItem('profileId') != null){
+      // tslint:disable-next-line: no-non-null-assertion
+      id = localStorage.getItem('profileId')!;
+    }
+    return id
   }
 }

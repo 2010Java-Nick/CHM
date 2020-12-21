@@ -2,6 +2,8 @@ package CHM.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Message;
+import CHM.service.AuthService;
 import CHM.service.MessageService;
 import CHM.util.InvalidMessageException;
 
@@ -23,6 +26,13 @@ public class MessageController {
 
 	MessageService messageService;
 	
+	AuthService authService;
+	
+	@Autowired
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
+	
 	@Autowired
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
@@ -31,8 +41,9 @@ public class MessageController {
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.POST)
 	@CrossOrigin
-	public ResponseEntity<Integer> createMessage(@RequestBody Message message) {
+	public ResponseEntity<Integer> createMessage(@RequestBody Message message, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newMessageId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 			try {
@@ -49,8 +60,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message/{id}", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<Message> readMessageById(@PathVariable(name = "id")int messageId) {
+	public ResponseEntity<Message> readMessageById(@PathVariable(name = "id")int messageId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Message message = messageService.readMessageById(messageId);
 		ResponseEntity<Message> re = new ResponseEntity<Message>(message, message == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -58,8 +70,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<List<Message>> readAllMessages() {
+	public ResponseEntity<List<Message>> readAllMessages(HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<Message> messageList = messageService.readAllMessages();
 		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
@@ -67,8 +80,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message/match/{id}", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<List<Message>> readMessagesByMatchId(@PathVariable(name = "id")int messageId) {
+	public ResponseEntity<List<Message>> readMessagesByMatchId(@PathVariable(name = "id")int messageId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<Message> messageList = messageService.readMessagesByMatchId(messageId);
 		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -76,8 +90,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message/recipient/{id}", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<List<Message>> readMessagesByRecipientId(@PathVariable(name = "id")int messageId) {
+	public ResponseEntity<List<Message>> readMessagesByRecipientId(@PathVariable(name = "id")int messageId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<Message> messageList = messageService.readMessagesByRecipientId(messageId);
 		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -85,8 +100,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message/sender/{id}", method = RequestMethod.GET)
 	@CrossOrigin
-	public ResponseEntity<List<Message>> readMessagesBySenderId(@PathVariable(name = "id")int messageId) {
+	public ResponseEntity<List<Message>> readMessagesBySenderId(@PathVariable(name = "id")int messageId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<Message> messageList = messageService.readMessagesBySenderId(messageId);
 		ResponseEntity<List<Message>> re = new ResponseEntity<List<Message>>(messageList, messageList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -95,8 +111,9 @@ public class MessageController {
 	@SuppressWarnings("finally")
 	@RequestMapping(path = "/message", method = RequestMethod.PATCH)
 	@CrossOrigin
-	public ResponseEntity<Message> updateMessage(@RequestBody Message message) {
+	public ResponseEntity<Message> updateMessage(@RequestBody Message message, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Message updatedMessage = null;
 		ResponseEntity<Message> re = new ResponseEntity<Message>(updatedMessage, HttpStatus.BAD_REQUEST);
 		try {
@@ -113,8 +130,9 @@ public class MessageController {
 	
 	@RequestMapping(path = "/message", method = RequestMethod.DELETE)
 	@CrossOrigin
-	public ResponseEntity<Boolean> deleteMessage(@RequestBody Message message){
+	public ResponseEntity<Boolean> deleteMessage(@RequestBody Message message, HttpServletRequest request){
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Boolean deleted = messageService.deleteMessage(message);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;

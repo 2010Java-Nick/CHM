@@ -2,6 +2,8 @@ package CHM.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Interest;
+import CHM.service.AuthService;
 import CHM.service.InterestServiceImpl;
 
 @RestController
 public class InterestController {
 	
 	InterestServiceImpl interestService;
+	
+	AuthService authService;
+	
+	@Autowired
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
 
 	/**
 	 * @param interestService the interestService to set
