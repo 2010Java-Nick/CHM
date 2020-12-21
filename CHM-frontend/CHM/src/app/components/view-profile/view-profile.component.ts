@@ -10,11 +10,10 @@ import { Router } from '@angular/router';
 })
 export class ViewProfileComponent implements OnInit {
 
-  profileId : number = Number(localStorage.getItem('profileId'));
+  profileId : number = 1;
   profile = {} as Profile;
 
-  constructor(private profileService: ProfileService,
-    private router : Router) { }
+  constructor(private profileService: ProfileService, private router : Router) { }
 
   ngOnInit(): void {
 

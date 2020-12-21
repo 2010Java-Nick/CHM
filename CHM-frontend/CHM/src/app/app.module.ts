@@ -30,7 +30,7 @@ import { EditPaymentComponent } from './components/edit-payment/edit-payment.com
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent,
-    EditProfileComponent
+    EditProfileComponent,
     ViewProfileComponent,
     EditPaymentComponent
   ],
