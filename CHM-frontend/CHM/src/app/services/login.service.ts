@@ -15,8 +15,6 @@ export class LoginService {
 
   private jWT = this.retrieveLocalStore();
 
-  private jWT = this.retrieveLocalStore();
-
 
   private expires!: number;
 

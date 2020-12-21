@@ -79,10 +79,31 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public List<Match> readPotentialMatchesByProfileId(int profileId) {
+		System.out.println("in this function");
 		List<Profile> profileList = profileDao.selectAllProfiles();
-		profileList.remove(profileDao.selectProfile(profileId));
+		List<Match> matchList = matchDao.selectMatchesByProfileId(profileId);
+		for (int i = 0; i < matchList.size(); i++) {
+			profileList.remove(matchList.get(i).getProfile1());
+			profileList.remove(matchList.get(i).getProfile2());
+		}
 		Profile profile = profileDao.selectProfile(profileId);
 		return matchDao.selectPotentialMatchesByProfile(profile, profileList);
 	}
 
+	@Override
+	public List<Match> readMatchesByProfileId(int profileId) {
+		List<Match> matchList = matchDao.selectMatchesByProfileId(profileId);
+		for (int i = 0; i < matchList.size(); i++) {
+			Match match = matchList.get(i);
+			if (match.getProfile2().getProfileId() == profileId) {
+				Profile p1 = match.getProfile1();
+				Profile p2 = match.getProfile2();
+				match.setProfile1(p2);
+				match.setProfile2(p1);
+				matchList.remove(i);
+				matchList.add(match);
+			}
+		}
+		return matchDao.selectMatchesByProfileId(profileId);
+	}
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Match } from '../classes/match.model';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { profile } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +43,19 @@ public readAllMatches(): Observable<Match[]> {
 }
 
 /*
-*  Get method for reading all matches:
+*  Get method for reading all potential matches for profile:
 */
 public readAllPotentialMatcheByProfileId(profileId:number): Observable<Match[]> {
 
   return this.httpClient.get<Match[]>(`${this.MATCH_URL}/potential/${profileId}`);
+}
+
+/*
+*  Get method for reading all matches of profile:
+*/
+public readMatchesByProfileId(profileId:number): Observable<Match[]> {
+
+  return this.httpClient.get<Match[]>(`${this.MATCH_URL}/profile/${profileId}`);
 }
 
 /*

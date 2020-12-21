@@ -16,6 +16,8 @@ public interface MatchService {
 	
 	public List<Match> readPotentialMatchesByProfileId(int profileId);
 	
+	public List<Match> readMatchesByProfileId(int profileId);
+	
 	public Match updateMatch(Match match);
 	
 	public boolean deleteMatch(Match match);

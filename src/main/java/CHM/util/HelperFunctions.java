@@ -179,6 +179,9 @@ public class HelperFunctions {
 	   public static double computeCompatability(Profile p1, Profile p2) {
 		   InterestDao interestDao = new InterestDaoHibernate();
 		   interestDao.setSessionFactory(SessionFactoryUtil.getSessionFactoryUtil().getSessionFactory());
+		   System.out.println("in compute c");
+		   System.out.println(p1.toString());
+		   System.out.println(p2.toString());
 		   List<Interest> p1Interests = interestDao.selectInterestsByProfileId(p1.getProfileId());
 		   List<Interest> p2Interests = interestDao.selectInterestsByProfileId(p2.getProfileId());
 		   
@@ -190,7 +193,7 @@ public class HelperFunctions {
 				   }
 			   }
 		   }
-		   return ctr / (double) (p1Interests.size() + p2Interests.size()) * 2;
+		   return ctr / (double) (p1Interests.size() + p2Interests.size()) * 2 * 100;
 		   
 	   }
 	   

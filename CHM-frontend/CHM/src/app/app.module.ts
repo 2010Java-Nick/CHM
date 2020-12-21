@@ -15,6 +15,10 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
+import { PotenMatchListComponent } from './components/poten-match-list/poten-match-list.component';
+import { PotenMatchListItemComponent } from './components/poten-match-list-item/poten-match-list-item.component';
+import { MatchListComponent } from './components/match-list/match-list.component';
+import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
 
 
 
@@ -30,7 +34,11 @@ import { ViewHomeComponent } from './components/main/view-home/view-home.compone
     CreateProfileComponent,
     NavbarComponent,
     MatchDetailComponent,
-    ViewHomeComponent
+    ViewHomeComponent,
+    PotenMatchListComponent,
+    PotenMatchListItemComponent,
+    MatchListComponent,
+    MatchListItemComponent
   ],
   imports: [
     BrowserModule,

@@ -68,6 +68,16 @@ public class MatchController {
 		return re;
 	}
 	
+	@RequestMapping(path = "/match/profile/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	@CrossOrigin
+	public ResponseEntity<List<Match>> readMatchesByProfileId(@PathVariable(name = "id")int profileId) {
+		
+		List<Match> matchList = matchService.readMatchesByProfileId(profileId);
+		ResponseEntity<List<Match>> re = new ResponseEntity<List<Match>>(matchList, matchList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
+		return re;
+	}
+	
 	@RequestMapping(path = "/match", method = RequestMethod.PATCH)
 	@CrossOrigin
 	public ResponseEntity<Match> updateMatch(@RequestBody Match match) {
