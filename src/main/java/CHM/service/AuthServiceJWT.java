@@ -118,6 +118,7 @@ public class AuthServiceJWT implements AuthService {
 	}
 	
 	public Claims decodeJWT(String jwt) {
+
 	    //This line will throw an exception if it is not a signed JWS (as expected)
 	    Claims claims = Jwts.parser()
 	            .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))

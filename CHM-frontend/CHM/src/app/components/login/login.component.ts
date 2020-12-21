@@ -57,6 +57,9 @@ export class LoginComponent implements OnInit {
         console.log('resp.headers.get(\'ProfileId\') :' + resp.headers.get('ProfileId'));
         this.loginService.setProfileId(resp.headers.get('ProfileId'));
 
+        console.log('resp.headers.get(\'ProfileId\') :' + resp.headers.get('ProfileId'));
+        this.loginService.setProfileId(resp.headers.get('ProfileId'));
+
         console.log('In response of submit method');
         this.errorMessage = `successful login`;
         console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
