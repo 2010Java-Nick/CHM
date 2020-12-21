@@ -3,6 +3,7 @@ package CHM.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,14 +46,20 @@ public class ProfileController {
 	@SuppressWarnings("finally")
 	@PostMapping(path = "/profile")
 	@CrossOrigin
-	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile, HttpServletRequest request) {
-		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
-		Integer newProfileId;
+	public ResponseEntity<Integer> createProfile(@RequestBody Profile profile, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 		System.out.println(profile.toString());
 		try {
-			newProfileId = new Integer(profileService.createProfile(profile));
+			int newProfileId = new Integer(profileService.createProfile(profile));
+			String token = request.getHeader("Auth");
+			
+			String newToken = authService.updateToken(token, newProfileId);
+			
+			response.setHeader("access-control-expose-headers", "Token");
+			response.setHeader("Token", newToken);
+			
 			if (newProfileId != -1) {
 				re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
 			}

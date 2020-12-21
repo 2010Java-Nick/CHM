@@ -14,4 +14,6 @@ public interface AuthService {
 	public Boolean validateToken(String token);
 	
 	public int profileIdFromToken(String token);
+
+	public String updateToken(String token, int profileId);
 }
