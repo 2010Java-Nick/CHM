@@ -12,5 +12,6 @@ public interface AuthService {
 	public String createToken(User user, Boolean remembered);
 	
 	public Boolean validateToken(String token);
-
+	
+	public int profileIdFromToken(String token);
 }

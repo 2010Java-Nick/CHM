@@ -14,11 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.Match;
+import CHM.service.AuthService;
 import CHM.service.MatchService;
 
 @RestController
 public class MatchController {
 	MatchService matchService;
+	
+	AuthService authService;
+	
+	@Autowired
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
 	
 	/**
 	 * @param MatchService the MatchService to set

@@ -1,7 +1,8 @@
 package CHM.controller;
 
-import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import CHM.model.Photo;
+import CHM.service.AuthService;
 import CHM.service.PhotoServiceImpl;
 
 @RestController
 public class PhotoController {
 	
 	PhotoServiceImpl photoService;
+	
+	AuthService authService;
+	
+	@Autowired
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
 
 	/**
 	 * @param photoService the photoService to set
@@ -35,7 +44,9 @@ public class PhotoController {
 	
 	@CrossOrigin
 	@PostMapping(path = "/photo")
-	public ResponseEntity<Integer> createPhoto(@RequestBody Photo photo) {
+	public ResponseEntity<Integer> createPhoto(@RequestBody Photo photo, HttpServletRequest request) {
+		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		System.out.println(photo.toString());
 		Integer photoId = photoService.createPhoto(photo);
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(photoId, HttpStatus.BAD_REQUEST);
@@ -47,7 +58,7 @@ public class PhotoController {
 	
 	@CrossOrigin
 	@GetMapping(path = "/photo/{photoId}")
-	public ResponseEntity<Photo> readPhotoById(@PathVariable("photoId")int photoId) {
+	public ResponseEntity<Photo> readPhotoById(@PathVariable("photoId")int photoId, HttpServletRequest request) {
 		
 		Photo photo = photoService.readPhotoById(photoId);
 		ResponseEntity<Photo> re = new ResponseEntity<Photo>(photo, photo == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
@@ -56,7 +67,7 @@ public class PhotoController {
 	
 	@GetMapping(path = "/photo/profile/{profileId}")
 	@CrossOrigin
-	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable("profileId")int profileId) {
+	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable("profileId")int profileId, HttpServletRequest request) {
 		
 		List<Photo> photoList = photoService.readPhotosByProfileId(profileId);
 		ResponseEntity<List<Photo>> re = new ResponseEntity<List<Photo>>(photoList, photoList.isEmpty() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
@@ -65,7 +76,7 @@ public class PhotoController {
 	
 	@CrossOrigin
 	@PostMapping(path = "/photo/{photoId}")
-	public ResponseEntity<Photo> updatePhoto(@PathVariable("photoId")int photoId, @RequestParam("photo") MultipartFile photo) {
+	public ResponseEntity<Photo> updatePhoto(@PathVariable("photoId")int photoId, @RequestParam("photo") MultipartFile photo, HttpServletRequest request) {
 		
 		Photo toUpdate = photoService.readPhotoById(photoId);
 		ResponseEntity<Photo> re = new ResponseEntity<Photo>(toUpdate, HttpStatus.BAD_REQUEST); 
@@ -86,7 +97,7 @@ public class PhotoController {
 	
 	@CrossOrigin
 	@DeleteMapping(path = "/photo")
-	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo){
+	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo, HttpServletRequest request){
 		
 		Boolean deleted = photoService.deletePhoto(photo);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);

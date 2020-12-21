@@ -101,5 +101,22 @@ public class AuthServiceJWT implements AuthService {
 		}
 
 	}
+	
+	@Override
+	public int profileIdFromToken(String token) {
+		
+		try {
+		    Algorithm algorithm = Algorithm.HMAC256("secret");
+		    JWTVerifier verifier = JWT.require(algorithm)
+		        .build(); //Reusable verifier instance
+		    DecodedJWT jwt = verifier.verify(token);
+		    
+		    return Integer.parseInt(jwt.getClaim("profileId").toString());
+		} catch (JWTVerificationException exception){
+		    //Invalid signature/claims
+			return 0;
+		}
+
+	}
 
 }
