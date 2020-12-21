@@ -57,10 +57,9 @@ public class ProfileController {
 			
 			String newToken = authService.updateToken(token, newProfileId);
 			
-			response.setHeader("access-control-expose-headers", "Token");
-			response.setHeader("Token", newToken);
-			
 			if (newProfileId != -1) {
+				response.setHeader("access-control-expose-headers", "Token");
+				response.setHeader("Token", newToken);
 				re = new ResponseEntity<Integer>(newProfileId, HttpStatus.CREATED);
 			}
 		} catch (InvalidProfileException e) {

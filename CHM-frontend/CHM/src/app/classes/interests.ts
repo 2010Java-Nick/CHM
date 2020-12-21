@@ -1,8 +1,7 @@
-export class Interest {
+export class Interests {
 
     constructor(
 
-        public profileId: number,
         public interest : string
 
     ){}

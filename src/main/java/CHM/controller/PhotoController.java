@@ -60,6 +60,7 @@ public class PhotoController {
 	@GetMapping(path = "/photo/{photoId}")
 	public ResponseEntity<Photo> readPhotoById(@PathVariable("photoId")int photoId, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Photo photo = photoService.readPhotoById(photoId);
 		ResponseEntity<Photo> re = new ResponseEntity<Photo>(photo, photo == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -69,6 +70,7 @@ public class PhotoController {
 	@CrossOrigin
 	public ResponseEntity<List<Photo>> readPhotosByProfile(@PathVariable("profileId")int profileId, HttpServletRequest request) {
 		
+		int profile_Id = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<Photo> photoList = photoService.readPhotosByProfileId(profileId);
 		ResponseEntity<List<Photo>> re = new ResponseEntity<List<Photo>>(photoList, photoList.isEmpty() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
@@ -78,6 +80,7 @@ public class PhotoController {
 	@PostMapping(path = "/photo/{photoId}")
 	public ResponseEntity<Photo> updatePhoto(@PathVariable("photoId")int photoId, @RequestParam("photo") MultipartFile photo, HttpServletRequest request) {
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Photo toUpdate = photoService.readPhotoById(photoId);
 		ResponseEntity<Photo> re = new ResponseEntity<Photo>(toUpdate, HttpStatus.BAD_REQUEST); 
 		
@@ -99,6 +102,7 @@ public class PhotoController {
 	@DeleteMapping(path = "/photo")
 	public ResponseEntity<Boolean> deletePhoto(@RequestBody Photo photo, HttpServletRequest request){
 		
+		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Boolean deleted = photoService.deletePhoto(photo);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;

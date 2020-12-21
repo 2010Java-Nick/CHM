@@ -35,9 +35,9 @@ public class Interest {
 	@Column(name = "interest_id")
 	private int interestId;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "profile_id")
-	private Profile profile;
+	//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Column(name = "profile_id")
+	private int profileId;
 		
 	@Column(name = "interest_name")
 	private String interestName;
@@ -52,13 +52,19 @@ public class Interest {
 
 	/**
 	 * @param interestId
-	 * @param profile
+	 * @param profileId
 	 * @param interestName
 	 */
-	public Interest(int interestId, Profile profile, String interestName) {
+	public Interest(int interestId, int profileId, String interestName) {
 		super();
 		this.interestId = interestId;
-		this.profile = profile;
+		this.profileId = profileId;
+		this.interestName = interestName;
+	}
+	
+	public Interest(String interestName, int profileId) {
+		super();
+		this.profileId = profileId;
 		this.interestName = interestName;
 	}
 
@@ -77,17 +83,17 @@ public class Interest {
 	}
 
 	/**
-	 * @return the profile
+	 * @return the profileId
 	 */
-	public Profile getProfile() {
-		return profile;
+	public int getProfileId() {
+		return profileId;
 	}
 
 	/**
-	 * @param profile the profile to set
+	 * @param profileId the profileId to set
 	 */
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
 	}
 
 	/**
@@ -105,17 +111,12 @@ public class Interest {
 	}
 
 	@Override
-	public String toString() {
-		return "Interest [interestId=" + interestId + ", profile=" + profile + ", interestName=" + interestName + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + interestId;
 		result = prime * result + ((interestName == null) ? 0 : interestName.hashCode());
-		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		result = prime * result + profileId;
 		return result;
 	}
 
@@ -135,16 +136,17 @@ public class Interest {
 				return false;
 		} else if (!interestName.equals(other.interestName))
 			return false;
-		if (profile == null) {
-			if (other.profile != null)
-				return false;
-		} else if (!profile.equals(other.profile))
+		if (profileId != other.profileId)
 			return false;
 		return true;
 	}
-	
-	public boolean sameInterest(Interest i) {
-		return this.getInterestName().equals(i.getInterestName());
+
+	@Override
+	public String toString() {
+		return "Interest [interestId=" + interestId + ", profileId=" + profileId + ", interestName=" + interestName
+				+ "]";
 	}
+
+	
 	
 }

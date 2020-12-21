@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Interest } from 'src/app/classes/interests';
+import { Interests } from 'src/app/classes/interests';
 import { InterestService } from 'src/app/services/interest.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { InterestService } from 'src/app/services/interest.service';
   styleUrls: ['./interests.component.css']
 })
 export class InterestsComponent implements OnInit {
-  
-  newInterests: Interest
+
+  newInterests: Interests
 
   interests = [
     {value:false, lable: 'Dogs'},
@@ -62,39 +62,19 @@ export class InterestsComponent implements OnInit {
     console.log('Checked is ' + this.checked);
   }
 
-  onSubmit() {
-    
-    
-    let temp1: string;
-    let temp2: string;
-    let temp3: string;
+  onSubmit(){
 
-    let counter: number = 1;
     this.interests.forEach(element => {
 
+      console.log(element);
+
       if(element.value == true){
-        if(counter == 1){
-           temp1 = element.lable;
-        }
-        if(counter == 2){
-          temp2 = element.lable;
-        }
-        if(counter == 3){
-          temp3 = element.lable;
-        }
 
-        counter++;
+        this.newInterests = new Interests(element.lable);
+
+        this.interestServ.createInterests(element.lable!);
       }
-
-      this.newInterests = new Interests(temp1, temp2, temp3);
-
     });
-    
-    
-    console.log(this.newInterests.interest1);
-
-    this.interestServ.createInterests(this.newInterests);
-
-    
   }
+
 }
