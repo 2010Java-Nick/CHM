@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../classes/profile.model';
 import { PhotoUploadComponent } from '../photo-upload/photo-upload.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-profile',
@@ -22,7 +23,7 @@ export class CreateProfileComponent implements OnInit {
 
     photoUpload:PhotoUploadComponent;
 
-    constructor(private profileService: ProfileService) { }
+    constructor(private profileService: ProfileService, private router: Router) { }
 
     ngOnInit(): void {
 
@@ -66,15 +67,13 @@ export class CreateProfileComponent implements OnInit {
         this.profile.icebreaker = this.profileForm.controls.icebreaker.value;        
         
         if(this.profileForm.valid) {
-            console.log("IN CREATE PROFILE");
             console.log(this.profile);
             this.profile.profileId = 1;
             this.profileService.createProfile(this.profile).subscribe((returnedId) => {
                 if(returnedId != -1){
                     this.currentProfileId = returnedId;
                     this.profile.profileId = returnedId;
-                    //call onUpload()
-                    //this.router.navigate()
+                    this.router.navigate(['/home']);
                 }
             });
         } else {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  showPayment = false;
+  @Output() showPayment = false;
 
   constructor(private router: Router) { }
 
@@ -24,6 +24,12 @@ export class NavbarComponent implements OnInit {
 
   tooglePayment(){
     this.showPayment = ! this.showPayment;
+  }
+
+  public logout(){
+    //do token deletion
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 

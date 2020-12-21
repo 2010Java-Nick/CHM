@@ -38,17 +38,21 @@ public class UserController {
 	
 	@RequestMapping(path = "/user", method = RequestMethod.POST)
 	@CrossOrigin
+<<<<<<< HEAD
 	public ResponseEntity<User> createUser(@RequestBody User user, HttpServletRequest request) {
+=======
+	public ResponseEntity<Integer> createUser(@RequestBody User user) {
+>>>>>>> 11d528084189684e3cf973804f689b7d5f97d98f
 		
 		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newuserId;
-		ResponseEntity<User> re = new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
-			newuserId = new Integer(userService.createUser(user));
-			
-			if (newuserId != -1) {
-				user.setUserId(newuserId);
-				re = new ResponseEntity<User>(user, HttpStatus.CREATED);
-			}
+		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		newuserId = new Integer(userService.createUser(user));
+		
+		if (newuserId != -1) {
+			user.setUserId(newuserId);
+			re = new ResponseEntity<Integer>(newuserId, HttpStatus.CREATED);
+		}
 			
 		return re;
 	}
