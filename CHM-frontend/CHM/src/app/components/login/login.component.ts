@@ -33,15 +33,12 @@ export class LoginComponent implements OnInit {
         this.errorMessage = `successful login`;
         console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
 
+        var myToken = ''
+        if(resp.headers.get(this.authHeader) !== null){
+          myToken = resp.headers.get(this.authHeader)!;
+        }
 
-        this.loginService.setJWT(resp.headers.get(this.authHeader));
-
-
-       this.loginService.setJWT(resp.headers.get(this.authHeader));
-
-        this.loginService.setJWT(resp.headers.get(this.authHeader));
-
-
+        this.loginService.setJWT(myToken);
 
         console.log(this.authHeader + ` : ` + resp.headers.get(this.authHeader));
 

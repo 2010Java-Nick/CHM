@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Login } from '../classes/login';
 import { Observable, Subject, BehaviorSubject } from '../../../node_modules/rxjs';
 import { environment } from '../../environments/environment';
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,11 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   private retrieveLocalStore(): string {
-    return (localStorage.getItem(`token`) != null) ? localStorage.getItem(`token`) : '';
+    var token = '';
+    if(localStorage.getItem(`token`) != null) {
+      token = localStorage.getItem(`token`)!;
+    }
+    return token;
   }
 
   private checkLocalStore(): boolean {
