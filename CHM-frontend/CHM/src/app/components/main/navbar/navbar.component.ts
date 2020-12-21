@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
 
   toggleProfile(){
     this.showProfile = !this.showProfile;
+    this.router.navigate(['/profile']);
   }
 
   public logout(){
