@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Interests } from 'src/app/classes/interests';
+import { Interest } from 'src/app/classes/interests';
 import { InterestService } from 'src/app/services/interest.service';
 
 @Component({
@@ -9,9 +9,8 @@ import { InterestService } from 'src/app/services/interest.service';
   styleUrls: ['./interests.component.css']
 })
 export class InterestsComponent implements OnInit {
-
-  @Input()
-  newInterests: Interests
+  
+  newInterests: Interest
 
   interests = [
     {value:false, lable: 'Dogs'},
@@ -83,8 +82,6 @@ export class InterestsComponent implements OnInit {
         if(counter == 3){
           temp3 = element.lable;
         }
-        console.log(element.lable);
-        console.log(counter);
 
         counter++;
       }

@@ -1,10 +1,9 @@
-export class Interests {
+export class Interest {
 
     constructor(
 
-        public interest1 : string,
-        public interest2 : string,
-        public interest3 : string
+        public profileId: number,
+        public interest : string
 
     ){}
 
