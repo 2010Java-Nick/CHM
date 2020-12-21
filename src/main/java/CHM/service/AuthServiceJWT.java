@@ -19,6 +19,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import CHM.dao.UserDao;
 import CHM.dao.UserDaoHibernate;
 import CHM.model.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -105,18 +106,12 @@ public class AuthServiceJWT implements AuthService {
 	@Override
 	public int profileIdFromToken(String token) {
 		
-		try {
-		    Algorithm algorithm = Algorithm.HMAC256("secret");
-		    JWTVerifier verifier = JWT.require(algorithm)
-		        .build(); //Reusable verifier instance
-		    DecodedJWT jwt = verifier.verify(token);
-		    
-		    return Integer.parseInt(jwt.getClaim("profileId").toString());
-		} catch (JWTVerificationException exception){
-		    //Invalid signature/claims
-			return 0;
-		}
-
+        //This line will throw an exception if it is not a signed JWS (as expected)
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+                .parseClaimsJws(token).getBody();
+        
+        return (int)claims.get("profileId");
 	}
 
 }
