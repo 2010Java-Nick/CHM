@@ -26,5 +26,11 @@ export class NavbarComponent implements OnInit {
     this.showPayment = ! this.showPayment;
   }
 
+  public logout(){
+    //do token deletion
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
 
 }

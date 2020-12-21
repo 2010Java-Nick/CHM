@@ -53,6 +53,7 @@ export class RegisterationComponent implements OnInit {
     /*
     if all the inputs are valid then make call to backend
     */
+   console.log(this.newUser);
     if(this.registrationForm.valid){
       this.userServ.createUser(this.newUser).subscribe((userId) => {
         if(userId != null) {
@@ -87,8 +88,6 @@ export class RegisterationComponent implements OnInit {
       if(usernameError.pattern != null)
       this.error.push("Username should contain only alphanumeric characters");
     }
-
-   this.router.navigate(['/signup/profile']);
 
 
     // let usernameError = this.registrationForm.controls.username.errors;
