@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { HttpErrorResponse } from '../../../../node_modules/@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent implements OnInit {
   rememberMe!: boolean;
   errorMessage!: string;
 
+  loginForm = {} as FormGroup;
+
   @Output() loginAttempt = new EventEmitter<string>();
 
   private authHeader = environment.authHeader;
@@ -22,9 +25,22 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
+
+    this.loginForm = new FormGroup({
+      username: new FormControl(
+        '',[Validators.required]
+      ),
+      password: new FormControl(
+        '',[Validators.required]
+      ),
+      rememberme: new FormControl()
+    })
   }
 
   public submit(): void {
+    this.username = this.loginForm.controls.username.value;
+    this.password = this.loginForm.controls.password.value;
+    this.rememberMe = this.loginForm.controls.rememberme.value;
 
     this.loginService.login(this.username, this.password, this.rememberMe).subscribe(
       (resp) => {
@@ -65,5 +81,7 @@ export class LoginComponent implements OnInit {
       this.errorMessage = `problem with service, sorry try again`;
     }
   }
+
+
 
 }
