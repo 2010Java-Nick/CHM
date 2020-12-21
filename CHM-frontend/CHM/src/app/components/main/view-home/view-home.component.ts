@@ -8,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class ViewHomeComponent implements OnInit {
 
   showPayment:boolean;
-  
+  showProfile:boolean;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  
 }

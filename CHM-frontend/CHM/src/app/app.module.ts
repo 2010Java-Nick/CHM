@@ -14,6 +14,7 @@ import { PhotoUploadComponent } from './components/photo-upload/photo-upload.com
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
+import { EditProfileComponent } from './components/main/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 import { EditPaymentComponent } from './components/edit-payment/edit-payment.component';
 
@@ -29,6 +30,7 @@ import { EditPaymentComponent } from './components/edit-payment/edit-payment.com
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent,
+    EditProfileComponent
     ViewProfileComponent,
     EditPaymentComponent
   ],

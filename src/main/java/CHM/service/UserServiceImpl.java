@@ -12,7 +12,7 @@ import CHM.model.User;
 @Service
 public class UserServiceImpl implements UserService {
 
-private UserDao userDao;
+	private UserDao userDao;
 	
 	@Autowired
 	@Override
@@ -46,6 +46,12 @@ private UserDao userDao;
 		} catch (HibernateException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public User readUserByProfileId(int profileId) {
+		// call 
+		return null;
 	}
 
 	@Override
