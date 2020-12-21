@@ -15,9 +15,6 @@ export class LoginService {
 
   private jWT = this.retrieveLocalStore();
 
-  private jWT = this.retrieveLocalStore();
-
-
   private expires!: number;
 
   isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(this.checkLocalStore());
