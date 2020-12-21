@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { HttpErrorResponse } from '../../../../node_modules/@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   password!: string;
   rememberMe!: boolean;
   errorMessage!: string;
+  incorrect:boolean;
 
   loginForm = {} as FormGroup;
 
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   private authHeader = environment.authHeader;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -42,33 +44,40 @@ export class LoginComponent implements OnInit {
     this.password = this.loginForm.controls.password.value;
     this.rememberMe = this.loginForm.controls.rememberme.value;
 
-    this.loginService.login(this.username, this.password, this.rememberMe).subscribe(
-      (resp) => {
+    if(this.loginForm.valid) {
+      this.loginService.login(this.username, this.password, this.rememberMe).subscribe(
+        (resp) => {
 
-        console.log('In response of submit method');
-        this.errorMessage = `successful login`;
-        console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
+          this.incorrect = false;
+          console.log('In response of submit method');
+          this.errorMessage = `successful login`;
+          console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
 
-        var myToken = ''
-        if(resp.headers.get(this.authHeader) !== null){
-          myToken = resp.headers.get(this.authHeader)!;
+          var myToken = ''
+          if(resp.headers.get(this.authHeader) !== null){
+            myToken = resp.headers.get(this.authHeader)!;
+          }
+
+          this.loginService.setJWT(myToken);
+
+          console.log(this.authHeader + ` : ` + resp.headers.get(this.authHeader));
+
+          console.log('resp.headers' + resp.headers);
+          console.log('JWT set to ' + this.loginService.getJWT(new Date().getTime()));
+
+          this.loginAttempt.emit(`success`);
+
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+          console.log('In error of submit method');
+          this.handleError(error);
+          this.incorrect = true;
+          this.loginAttempt.emit(`failed`);
         }
-
-        this.loginService.setJWT(myToken);
-
-        console.log(this.authHeader + ` : ` + resp.headers.get(this.authHeader));
-
-        console.log('resp.headers' + resp.headers);
-        console.log('JWT set to ' + this.loginService.getJWT(new Date().getTime()));
-
-        this.loginAttempt.emit(`success`);
-      },
-      (error) => {
-        console.log('In error of submit method');
-        this.handleError(error);
-        this.loginAttempt.emit(`failed`);
-      }
-    );
+      );
+    }
+  
   }
 
   private handleError(error: HttpErrorResponse): void {

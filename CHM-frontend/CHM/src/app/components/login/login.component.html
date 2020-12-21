@@ -6,6 +6,9 @@
     </div>
 
     <div class="card-body">
+      <div *ngIf="this.incorrect == true"class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
       <form [formGroup]="loginForm" (ngSubmit) = "submit()">
         <div class="row justify-content-md-center">
           <div class="form-group; col-sm-4" id="username-aling">
@@ -36,5 +39,3 @@
     </div>
   </div>
 </div>
-
-<p>{{errorMessage}}</p>
