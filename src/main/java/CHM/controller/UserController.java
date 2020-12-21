@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import CHM.model.User;
@@ -38,11 +37,7 @@ public class UserController {
 	
 	@RequestMapping(path = "/user", method = RequestMethod.POST)
 	@CrossOrigin
-<<<<<<< HEAD
-	public ResponseEntity<User> createUser(@RequestBody User user, HttpServletRequest request) {
-=======
-	public ResponseEntity<Integer> createUser(@RequestBody User user) {
->>>>>>> 11d528084189684e3cf973804f689b7d5f97d98f
+	public ResponseEntity<Integer> createUser(@RequestBody User user, HttpServletRequest request) {
 		
 		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newuserId;
