@@ -42,7 +42,7 @@ public class UserDaoHibernate implements UserDao {
 		
 		Session sess = sessionFactory.openSession();
 		Transaction tx = sess.beginTransaction();
-		user.setUserId((Integer)sess.save(user));
+		sess.save(user);
 		tx.commit();
 		sess.close();
 		return user.getUserId();

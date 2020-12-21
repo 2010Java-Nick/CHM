@@ -28,16 +28,16 @@ UserService userService;
 	
 	@RequestMapping(path = "/user", method = RequestMethod.POST)
 	@CrossOrigin
-	public ResponseEntity<User> createUser(@RequestBody User user) {
+	public ResponseEntity<Integer> createUser(@RequestBody User user) {
 		
 		Integer newuserId;
-		ResponseEntity<User> re = new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
-			newuserId = new Integer(userService.createUser(user));
-			
-			if (newuserId != -1) {
-				user.setUserId(newuserId);
-				re = new ResponseEntity<User>(user, HttpStatus.CREATED);
-			}
+		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
+		newuserId = new Integer(userService.createUser(user));
+		
+		if (newuserId != -1) {
+			user.setUserId(newuserId);
+			re = new ResponseEntity<Integer>(newuserId, HttpStatus.CREATED);
+		}
 			
 		return re;
 	}
