@@ -19,9 +19,12 @@ import { PotenMatchListComponent } from './components/poten-match-list/poten-mat
 import { PotenMatchListItemComponent } from './components/poten-match-list-item/poten-match-list-item.component';
 import { MatchListComponent } from './components/match-list/match-list.component';
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
-
-
-
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout'
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 
 
 
@@ -38,14 +41,20 @@ import { MatchListItemComponent } from './components/match-list-item/match-list-
     PotenMatchListComponent,
     PotenMatchListItemComponent,
     MatchListComponent,
-    MatchListItemComponent
+    MatchListItemComponent,
+    ProfileCardComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatCardModule, 
+    MatIconModule
   ],
 
   providers: [HttpClient],

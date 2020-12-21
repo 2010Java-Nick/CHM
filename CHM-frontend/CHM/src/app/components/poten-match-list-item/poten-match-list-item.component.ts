@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Match } from 'src/app/classes/match.model';
-import { Profile } from 'src/app/classes/profile.model';
 import { MatchService } from 'src/app/services/match.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
@@ -14,15 +13,15 @@ export class PotenMatchListItemComponent implements OnInit {
   @Input()
   match!: Match;
   getProfile1() {
-    if (this.match.profile1.profileId === undefined) {
-      this.profileService.readProfile(this.match.profile1).subscribe( (res) =>
-      {
-        this.match.profile1 = res;
-        this.createMatch();
-      })
-    } else {
-      this.createMatch();
-    }
+    // if (this.match.profile1.profileId === undefined) {
+    //   this.profileService.readProfile(this.match.profile1).subscribe( (res) =>
+    //   {
+    //     this.match.profile1 = res;
+    //     this.createMatch();
+    //   })
+    // } else {
+    //   this.createMatch();
+    // }
     
   }
   createMatch() {
