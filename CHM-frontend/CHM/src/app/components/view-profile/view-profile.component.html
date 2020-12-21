@@ -1,3 +1,18 @@
-<p>view-profile works!</p>
-<h2> {{}}</h2>
-<img src = "" alt = "Profile Picture">
+<div class="container">
+    <div class="card text-center">
+      <div class="card-header">
+        <h3>{{ profile.firstName }}  {{ profile.lastName }}</h3>
+      </div>
+      <div class="card-body">
+        <h4> {{ profile.email }} </h4>
+        <h4> {{ profile.phone }} </h4>
+        <h4> {{ profile.age }} </h4>
+        <h4> {{ profile.bio }} </h4>
+        <h4> {{ profile.icebreaker }} </h4>
+      </div>
+     <div>
+        <button class="btn btn-primary"> <a routerLink = "/editProfile"> Edit Profile</a> </button>
+     </div>
+    </div>
+  </div>
+

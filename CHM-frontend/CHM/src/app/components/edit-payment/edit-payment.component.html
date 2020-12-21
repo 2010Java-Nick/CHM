@@ -1,0 +1,87 @@
+<br><br>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>Edit Payment Information</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+
+        <div class="row justify-content-md-center">
+
+          <div class="form-group; col-sm-4">
+            <label for="creditCardNameHolder">Credit Card name holder</label>
+            <input formControlName="creditcardNameHolder" type="text" class="form-control" id="creditcardNameHolder"
+              aria-describedby="creditcardNameHolder" placeholder="Enter Credit Card Name Holder"
+              [ngClass]="creditcardNameHolder.invalid ? 'is-invalid' : ''">
+
+              <div id="warning" *ngIf="creditcardNameHolder.invalid && (creditcardNameHolder.touched || creditcardNameHolder.dirty)">
+                <p class="text-danger"><small>Username can have alphabets only</small></p>
+              </div>
+
+          </div>
+
+        </div>
+
+        <br>
+
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="paymentAmount">Payment Amount</label>
+            <input formControlName="paymentAmount" type="text" class="form-control" id="paymentAmount"
+              placeholder="paymentAmount"  [ngClass]="paymentAmount.invalid ? 'is-invalid' : ''">
+          </div>
+
+          <div id="warning" *ngIf="paymentAmount.invalid && (paymentAmount.touched || paymentAmount.dirty)">
+            <p class="text-danger"><small>Payment amount should be number</small></p>
+          </div>
+          
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="creditCardNumber">Credit Card Number</label>
+            <input formControlName="creditCardNumber" type="text" class="form-control" id="creditCardNumber"
+              placeholder="creditCardNumber"  [ngClass]="creditCardNumber.invalid ? 'is-invalid' : ''">
+          </div>
+
+          <div id="warning" *ngIf="creditCardNumber.invalid && (creditCardNumber.touched || creditCardNumber.dirty)">
+            <p class="text-danger"><small>Credit Card number is required</small></p>
+          </div>
+
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="CVC">Payment Amount</label>
+            <input formControlName="cvc" type="text" class="form-control" id="cvc"
+              placeholder="CVC"  [ngClass]="cvc.invalid ? 'is-invalid' : ''">
+          </div>
+
+          <div id="warning" *ngIf="cvc.invalid && (cvc.touched || cvc.dirty)">
+            <p class="text-danger"><small>CVC should be 3 digits number</small></p>
+          </div>
+
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="form-group; col-sm-4">
+            <label for="expirationDate">Expiration Date</label>
+            <input formControlName="expirationDate" type="text" class="form-control" id="expirationDate"
+              placeholder="MM-YYYY"  [ngClass]="expirationDate.invalid ? 'is-invalid' : ''">
+          </div>
+
+          <div id="warning" *ngIf="expirationDate.invalid && (expirationDate.touched || expirationDate.dirty)">
+            <p class="text-danger"><small>Expiration date should be in mm-yyyy or mm/yyyy format</small></p>
+          </div>
+
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-primary">Make Payment</button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+  </div>
+</div>
+

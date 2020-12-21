@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileService } from '../../services/profile.service';
+import { Profile } from '../../classes/profile.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-profile',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProfileComponent implements OnInit {
 
-  constructor() { }
+  profileId : number = Number(localStorage.getItem('profileId'));
+  profile = {} as Profile;
+
+  constructor(private profileService: ProfileService,
+    private router : Router) { }
 
   ngOnInit(): void {
+
+    this.profileService.readProfile(this.profileId).subscribe(
+      returnedProfile => {
+        this.profile = returnedProfile;
+      }
+    );
+
   }
 
 }

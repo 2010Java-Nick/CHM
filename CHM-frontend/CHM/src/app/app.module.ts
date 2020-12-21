@@ -16,6 +16,7 @@ import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
+import { EditPaymentComponent } from './components/edit-payment/edit-payment.component';
 
 
 
@@ -32,7 +33,8 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    EditPaymentComponent
   ],
   imports: [
     BrowserModule,
