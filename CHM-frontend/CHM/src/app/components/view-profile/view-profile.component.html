@@ -1,3 +1,62 @@
-<p>view-profile works!</p>
-<h2> {{}}</h2>
-<img src = "" alt = "Profile Picture">
+<div class="container">
+    <div class="card text-center">
+      <div class="card-header">
+        <h3>View Profile</h3>
+      </div>
+      <div class="card-body">
+       
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                    <p> {{ profile.firstName  }}  {{ profile.firstName}}</p>
+              </div> 
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <p> {{ profile.email }}</p>
+              </div> 
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                    <p> {{ profile.phone }}</p>
+              </div> 
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <p> {{ profile.age }}</p>
+              </div> 
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                    <p> {{ profile.bio }}</p>
+              </div> 
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <p> {{ profile.icebreaker }}</p>
+              </div> 
+            </div>
+          </div>
+          <br>
+
+          <!-- <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                    <p> {{ interest }}</p>
+              </div> 
+            </div>>
+          </div>
+          <br> -->
+      </div>
+      <div class="card-footer text-muted">
+        <button type="submit" (click)="editProfilePage()" class="btn btn-outline-info">Edit Profile</button>
+      </div>
+    </div>
