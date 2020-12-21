@@ -1,0 +1,15 @@
+<p>interests works!</p>
+
+<div>
+    <form>
+
+    <div *ngFor='let interest of interests; let i = index'>
+        <input type="checkbox" name ="{{i}}" (change)="checkChanged(interest)" [checked]="interest" [disabled]="checked==limit"/>
+        <br>
+    </div>
+    <button type = "submit"> Submit </button>
+    </form>
+
+</div>
+
+      

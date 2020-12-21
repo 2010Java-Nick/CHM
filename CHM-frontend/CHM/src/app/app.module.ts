@@ -7,6 +7,7 @@ import { RegisterationComponent } from './components/registeration/registeration
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
+import { InterestsComponent } from './components/interests/interests.component';
 
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
@@ -26,7 +27,8 @@ import { ViewHomeComponent } from './components/main/view-home/view-home.compone
     PhotoUploadComponent,
     NavbarComponent,
     MatchDetailComponent,
-    ViewHomeComponent
+    ViewHomeComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,
