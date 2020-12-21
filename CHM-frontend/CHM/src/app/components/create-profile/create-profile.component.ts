@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../classes/profile.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-profile',
@@ -18,7 +19,8 @@ export class CreateProfileComponent implements OnInit {
 
     profile = {} as Profile;
 
-    constructor(private profileService: ProfileService) { }
+    constructor(private profileService: ProfileService,
+                private router : Router) { }
 
     ngOnInit(): void {
 
@@ -67,7 +69,7 @@ export class CreateProfileComponent implements OnInit {
         if(this.profileForm.valid) {
             this.profileService.createProfile(this.profile).subscribe((returnedId) => {
                 if(returnedId != -1){
-                    //this.router.navigate()
+                    this.router.navigate(['/home']);
                 }
             });
         } else {
