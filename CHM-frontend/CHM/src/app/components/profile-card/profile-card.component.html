@@ -1,0 +1,54 @@
+
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" *ngFor="let num of [1, 2, 3, 4, 7, 8, 9]">
+
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>{{match.profile2.firstName}} {{match.profile2.lastName}}</mat-card-title>
+                    <mat-card-subtitle>{{match.profile2.bio}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image [src] = "formatImage(imgURLUploaded)" *ngIf="imgURLUploaded">
+                <mat-card-content>
+                    <p>{{match.profile2.icebreaker}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button ><mat-icon>person_remove</mat-icon></button>
+                    <div class="flex-spacer"></div>
+                    <button mat-icon-button (click)="getProfile1()"><mat-icon>person_add</mat-icon></button>
+                    <div class="flex-spacer"></div>
+                    <button mat-icon-button><mat-icon>block</mat-icon></button>
+                </mat-card-actions>
+            </mat-card>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<br><br><br>
+<!-- <br><br>
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>Bob Esponja</mat-card-title>
+        <mat-card-subtitle>Who lives in a pineapple under the sea</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src='../istock_000006330745small_pigeon-rock.jpg'>
+    <mat-card-content>
+        <p>Bikini Bottom</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button color="primary">MATCH</button>
+        <button mat-button color="primary">REJECT</button>
+        <button mat-icon-button><mat-icon>person_remove</mat-icon></button>
+        <div class="flex-spacer"></div>
+        <button mat-icon-button><mat-icon>person_add</mat-icon></button>
+        <button mat-icon-button><mat-icon>block</mat-icon></button>
+    </mat-card-actions>
+</mat-card> -->

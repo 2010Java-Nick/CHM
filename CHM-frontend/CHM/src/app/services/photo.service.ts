@@ -44,6 +44,10 @@ export class PhotoService {
     return this.httpClient.get<Photo[]>(this.PHOTO_URL);
   }
 
+  public readAllPhotosByProfile(profileId: number): Observable<Photo[]> {
+    return this.httpClient.get<Photo[]>(`${this.PHOTO_URL}/profile/${profileId}`)
+  }
+
   /*
   *  Patch method for updating a photo:
   */
