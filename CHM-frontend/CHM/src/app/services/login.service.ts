@@ -12,7 +12,6 @@ export class LoginService {
 
   private readonly loginUrl = environment.loginUrl;
 
-
   private jWT = this.retrieveLocalStore();
 
   private expires!: number;
@@ -28,8 +27,9 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   private retrieveLocalStore(): string {
-    var token = '';
-    if(localStorage.getItem(`token`) != null) {
+    let token = '';
+    if (localStorage.getItem(`token`) != null) {
+      // tslint:disable-next-line: no-non-null-assertion
       token = localStorage.getItem(`token`)!;
     }
     return token;
@@ -69,5 +69,24 @@ export class LoginService {
       this.isLoggedIn.next(false);
     }
     return this.jWT;
+  }
+
+  public setProfileId(ProfileId: string | null): void {
+    console.log('In setProfileId with ProfileId of : ' + ProfileId);
+    let id = '';
+    if (ProfileId != null){
+      // tslint:disable-next-line: no-non-null-assertion
+      id = ProfileId!;
+    }
+    localStorage.setItem('profileId', id);
+  }
+
+  public getProfileId(): string {
+    let id = '';
+    if (localStorage.getItem('profileId') != null){
+      // tslint:disable-next-line: no-non-null-assertion
+      id = localStorage.getItem('profileId')!;
+    }
+    return id
   }
 }

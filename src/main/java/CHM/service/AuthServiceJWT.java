@@ -18,10 +18,12 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 import CHM.dao.UserDao;
 import CHM.dao.UserDaoHibernate;
+import CHM.model.LoginDto;
 import CHM.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
@@ -36,15 +38,16 @@ public class AuthServiceJWT implements AuthService {
 	}
 
 	@Override
-	public String authenticateUser(String username, String password, Boolean remembered) {
+	public String authenticateUser(LoginDto loginDto) {
 		// if good, get user from db
-		User user = userDao.selectUser(username);
+		User user = userDao.selectUser(loginDto.getUsername());
 		
 		//if not null, check password
 		if(user != null) {
 			System.out.println("the user is not null");
-			if(user.getPassword().equals(password)) {
-				String token = createToken(user, remembered);
+			if(user.getPassword().equals(loginDto.getPassword())) {
+				String token = createToken(user, loginDto.getRememberMe());
+				loginDto.setProfileId(user.getProfile().getProfileId());
 				System.out.println(token);
 				return token;
 			}
@@ -91,12 +94,12 @@ public class AuthServiceJWT implements AuthService {
 	public Boolean validateToken(String token) {
 		
 		try {
-		    Algorithm algorithm = Algorithm.HMAC256("secret");
-		    JWTVerifier verifier = JWT.require(algorithm)
-		        .build(); //Reusable verifier instance
-		    DecodedJWT jwt = verifier.verify(token);
+			
+			Claims claims = Jwts.parser()
+		            .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+		            .parseClaimsJws(token).getBody();
 		    return true;
-		} catch (JWTVerificationException exception){
+		} catch (MalformedJwtException exception){
 		    //Invalid signature/claims
 			return false;
 		}
@@ -112,6 +115,15 @@ public class AuthServiceJWT implements AuthService {
                 .parseClaimsJws(token).getBody();
         
         return (int)claims.get("profileId");
+	}
+	
+	public Claims decodeJWT(String jwt) {
+
+	    //This line will throw an exception if it is not a signed JWS (as expected)
+	    Claims claims = Jwts.parser()
+	            .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+	            .parseClaimsJws(jwt).getBody();
+	    return claims;
 	}
 
 }
