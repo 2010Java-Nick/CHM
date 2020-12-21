@@ -48,10 +48,22 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.username, this.password, this.rememberMe).subscribe(
         (resp) => {
 
+<<<<<<< HEAD
           this.incorrect = false;
           console.log('In response of submit method');
           this.errorMessage = `successful login`;
           console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
+=======
+        console.log('resp.headers.get(\'ProfileId\') :' + resp.headers.get('ProfileId'));
+        this.loginService.setProfileId(resp.headers.get('ProfileId'));
+
+        console.log('resp.headers.get(\'ProfileId\') :' + resp.headers.get('ProfileId'));
+        this.loginService.setProfileId(resp.headers.get('ProfileId'));
+
+        console.log('In response of submit method');
+        this.errorMessage = `successful login`;
+        console.log('resp.headers.get(this.authHeader): ' + resp.headers.get(this.authHeader));
+>>>>>>> 610c501 (further worked with tokens to allow validations and pulling out claims)
 
           var myToken = ''
           if(resp.headers.get(this.authHeader) !== null){

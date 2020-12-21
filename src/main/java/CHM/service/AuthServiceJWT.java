@@ -12,15 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
 import CHM.dao.UserDao;
 import CHM.dao.UserDaoHibernate;
+import CHM.model.LoginDto;
 import CHM.model.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
@@ -35,15 +37,16 @@ public class AuthServiceJWT implements AuthService {
 	}
 
 	@Override
-	public String authenticateUser(String username, String password, Boolean remembered) {
+	public String authenticateUser(LoginDto loginDto) {
 		// if good, get user from db
-		User user = userDao.selectUser(username);
+		User user = userDao.selectUser(loginDto.getUsername());
 		
 		//if not null, check password
 		if(user != null) {
 			System.out.println("the user is not null");
-			if(user.getPassword().equals(password)) {
-				String token = createToken(user, remembered);
+			if(user.getPassword().equals(loginDto.getPassword())) {
+				String token = createToken(user, loginDto.getRememberMe());
+				loginDto.setProfileId(user.getProfile().getProfileId());
 				System.out.println(token);
 				return token;
 			}
@@ -90,12 +93,13 @@ public class AuthServiceJWT implements AuthService {
 	public Boolean validateToken(String token) {
 		
 		try {
-		    Algorithm algorithm = Algorithm.HMAC256("secret");
-		    JWTVerifier verifier = JWT.require(algorithm)
-		        .build(); //Reusable verifier instance
-		    DecodedJWT jwt = verifier.verify(token);
+			
+			Claims claims = Jwts.parser()
+		            .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+		            .parseClaimsJws(token).getBody();
+
 		    return true;
-		} catch (JWTVerificationException exception){
+		} catch (MalformedJwtException exception){
 		    //Invalid signature/claims
 			return false;
 		}
@@ -105,18 +109,52 @@ public class AuthServiceJWT implements AuthService {
 	@Override
 	public int profileIdFromToken(String token) {
 		
-		try {
-		    Algorithm algorithm = Algorithm.HMAC256("secret");
-		    JWTVerifier verifier = JWT.require(algorithm)
-		        .build(); //Reusable verifier instance
-		    DecodedJWT jwt = verifier.verify(token);
-		    
-		    return Integer.parseInt(jwt.getClaim("profileId").toString());
-		} catch (JWTVerificationException exception){
-		    //Invalid signature/claims
-			return 0;
-		}
+        //This line will throw an exception if it is not a signed JWS (as expected)
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+                .parseClaimsJws(token).getBody();
+        
+        return (int)claims.get("profileId");
+	}
+	
+	public Claims decodeJWT(String jwt) {
 
+	    //This line will throw an exception if it is not a signed JWS (as expected)
+	    Claims claims = Jwts.parser()
+	            .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+	            .parseClaimsJws(jwt).getBody();
+	    return claims;
+	}
+
+	@Override
+	public String updateToken(String token, int profileId) {
+		//The JWT signature algorithm we will be using to sign the token
+	    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+	    Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary("secret"))
+                .parseClaimsJws(token).getBody();
+	    
+	    
+	    Date now = claims.getIssuedAt();
+	    String username = claims.getSubject();
+	    Boolean premium = (Boolean)claims.get("premium");
+	    Integer id = Integer.parseInt(claims.getId());
+	    
+	    //We will sign our JWT with our ApiKey secret
+	    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("secret");
+	    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+	    //Let's set the JWT Claims
+	    JwtBuilder builder = Jwts.builder()
+	    		.setId(id.toString())
+	    		.setSubject(username)
+	            .setIssuedAt(now)
+	            .claim("profileId", profileId)
+	            .claim("premium", premium)
+	            .signWith(signatureAlgorithm, signingKey); 
+	  
+	    //Builds the JWT and serializes it to a compact, URL-safe string
+	    return builder.compact();
 	}
 
 }
