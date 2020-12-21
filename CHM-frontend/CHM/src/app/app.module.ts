@@ -12,13 +12,10 @@ import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http'
 
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { MatchDetailComponent } from './components/main/match-detail/match-detail.component';
 import { ViewHomeComponent } from './components/main/view-home/view-home.component';
-
-
-
-
 
 
 @NgModule({
@@ -28,6 +25,7 @@ import { ViewHomeComponent } from './components/main/view-home/view-home.compone
     PaymentComponent,
     // LogInComponent, 
     CreateProfileComponent,
+    PhotoUploadComponent,
     NavbarComponent,
     MatchDetailComponent,
     ViewHomeComponent

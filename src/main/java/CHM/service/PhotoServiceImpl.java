@@ -14,15 +14,23 @@ public class PhotoServiceImpl implements PhotoService{
 	
 	PhotoDao photoDao;
 	
+	ProfileService profileService;
+	
 	@Autowired
 	public void setPhotoDao(PhotoDao photoDao) {
 		this.photoDao = photoDao;
+	}
+
+	@Autowired
+	public void setProfileService(ProfileService profileService) {
+		this.profileService = profileService;
 	}
 
 	@Override
 	public int createPhoto(Photo photo) {
 		
 		try {
+			photo.setProfile(profileService.readProfileById(photo.getProfile().getProfileId()));
 			return photoDao.insertPhoto(photo);
 		} catch (HibernateException e) {
 			return -1;
