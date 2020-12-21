@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  @Output() showPayment = false;
+  @Output() showPayment = false; 
+  @Output() showProfile = false;
 
   constructor(private router: Router) { }
 
@@ -22,8 +23,13 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  tooglePayment(){
+  togglePayment(){
     this.showPayment = ! this.showPayment;
+  }
+
+  toggleProfile(){
+    this.showProfile = !this.showProfile;
+    this.router.navigate(['/profile']);
   }
 
   public logout(){

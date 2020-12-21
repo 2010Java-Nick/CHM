@@ -29,6 +29,7 @@ public class ProfileServiceImpl implements ProfileService {
     
 		if (validateProfile(profile)) {
 			try {
+				//get user object
 				return profileDao.insertProfile(profile);
 				
 			} catch (HibernateException e) {

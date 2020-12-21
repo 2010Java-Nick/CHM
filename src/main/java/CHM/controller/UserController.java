@@ -39,7 +39,6 @@ public class UserController {
 	@CrossOrigin
 	public ResponseEntity<Integer> createUser(@RequestBody User user, HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Integer newuserId;
 		ResponseEntity<Integer> re = new ResponseEntity<Integer>(new Integer(-1), HttpStatus.BAD_REQUEST);
 		newuserId = new Integer(userService.createUser(user));
@@ -56,7 +55,6 @@ public class UserController {
 	@CrossOrigin
 	public ResponseEntity<User> readUserById(@PathVariable(name = "id")int userId, HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		User user = userService.readUserById(userId);
 		ResponseEntity<User> re = new ResponseEntity<User>(user, user == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK); 
 		return re;
@@ -66,7 +64,6 @@ public class UserController {
 	@CrossOrigin
 	public ResponseEntity<List<User>> readAllUsers(HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		List<User> userList = userService.readAllUsers();
 		ResponseEntity<List<User>> re = new ResponseEntity<List<User>>(userList, userList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 		return re;
@@ -76,7 +73,6 @@ public class UserController {
 	@CrossOrigin
 	public ResponseEntity<User> updateuser(@RequestBody User user, HttpServletRequest request) {
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		User updatedUser = null;
 		ResponseEntity<User> re = new ResponseEntity<User>(updatedUser, HttpStatus.BAD_REQUEST);
 		updatedUser = userService.updateUser(user);
@@ -90,7 +86,6 @@ public class UserController {
 	@CrossOrigin
 	public ResponseEntity<Boolean> deleteuser(@RequestBody User user, HttpServletRequest request){
 		
-		int profileId = authService.profileIdFromToken(request.getHeader("auth").toString());
 		Boolean deleted = userService.deleteUser(user);
 		ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(deleted, deleted ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
 		return re;
