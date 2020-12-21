@@ -51,7 +51,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping(path = "/match", method = RequestMethod.GET)
-  @CrossOrigin
+	@CrossOrigin
 	public ResponseEntity<List<Match>> readAllMatches() {
 		List<Match> MatchList = matchService.readAllMatches();
 		ResponseEntity<List<Match>> re = new ResponseEntity<List<Match>>(MatchList, MatchList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
