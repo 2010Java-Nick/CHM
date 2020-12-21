@@ -10,17 +10,41 @@ import { InterestService } from 'src/app/services/interest.service';
 })
 export class InterestsComponent implements OnInit {
 
-  // interests = ['Dogs', 'Cats', 'Snakes', 'Pigs', 'Horses', 'Whales'];
+  @Input()
+  newInterests: Interests
+
   interests = [
     {value:false, lable: 'Dogs'},
     {value:false, lable: 'Cats'},
     {value:false, lable: 'Snakes'},
     {value:false, lable: 'Pigs'},
     {value:false, lable: 'Horses'},
-    {value:false, lable: 'Whales'}
+    {value:false, lable: 'Hiking'},
+    {value:false, lable: 'Swimming'},
+    {value:false, lable: 'Running'},
+    {value:false, lable: 'Gym'},
+    {value:false, lable: 'Climbing'},
+    {value:false, lable: 'Cooking'},
+    {value:false, lable: 'Baking'},
+    {value:false, lable: 'Drawing'},
+    {value:false, lable: 'Painting'},
+    {value:false, lable: 'Travel'},
+    {value:false, lable: 'Dancing'},
+    {value:false, lable: 'Movies'},
+    {value:false, lable: 'Books'},
+    {value:false, lable: 'Camping'},
+    {value:false, lable: 'Career'},
+    {value:false, lable: 'Gardening'},
+    {value:false, lable: 'Games'},
+    {value:false, lable: 'Photography'}
+
   ];
   limit = 3;
   checked = 0;
+
+  constructor(private interestServ: InterestService) {
+
+  }
 
   ngOnInit(): void {
 
@@ -39,4 +63,41 @@ export class InterestsComponent implements OnInit {
     console.log('Checked is ' + this.checked);
   }
 
+  onSubmit() {
+    
+    
+    let temp1: string;
+    let temp2: string;
+    let temp3: string;
+
+    let counter: number = 1;
+    this.interests.forEach(element => {
+
+      if(element.value == true){
+        if(counter == 1){
+           temp1 = element.lable;
+        }
+        if(counter == 2){
+          temp2 = element.lable;
+        }
+        if(counter == 3){
+          temp3 = element.lable;
+        }
+        console.log(element.lable);
+        console.log(counter);
+
+        counter++;
+      }
+
+      this.newInterests = new Interests(temp1, temp2, temp3);
+
+    });
+    
+    
+    console.log(this.newInterests.interest1);
+
+    this.interestServ.createInterests(this.newInterests);
+
+    
+  }
 }

@@ -1,7 +1,7 @@
 <p>interests works!</p>
 
 <div>
-    <form>
+    <form (ngSubmit)="onSubmit()">
 
     <div *ngFor='let interest of interests; let i = index'>
         <input type="checkbox" name ="{{i}}" [checked]='interest.value' 
