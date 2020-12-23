@@ -45,4 +45,4 @@ To-do list:
 
 ## Usage
 
-- Navigate to http://localhost:'port'/ to be redirected to the login page. Use the provided dummy data to explore all features.
+- Navigate to http://localhost:'port'/ to be redirected to the login page.
